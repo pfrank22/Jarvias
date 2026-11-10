@@ -1,0 +1,61 @@
+name: Agent Loop
+
+# Orchestrates Claude (implements/fixes) ⇄ Codex (reviews) on PRs labelled
+# `agent-loop`. Runs after CI or Codex Review completes, decides the next step,
+# and either waits, dispatches a Claude fix round, marks the PR ready for a
+# human, or escalates when the retry limit is reached. It never merges.
+#
+# workflow_run always uses the workflow definition on the default branch, so
+# PR branches cannot alter this orchestrator.
+
+on:
+  workflow_run:
+    workflows: [CI, Codex Review]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: PR number to evaluate
+        required: true
+      dry_run:
+        description: Log the decision without acting
+        type: boolean
+        default: false
+
+concurrency:
+  group: agent-loop-${{ github.event.workflow_run.head_sha || inputs.pr_number }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  checks: read
+  actions: write # to dispatch claude-fix.yml
+
+jobs:
+  orchestrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: >-
+      vars.AGENT_LOOP_ENABLED == 'true' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (github.event.workflow_run.event == 'pull_request' &&
+        github.event.workflow_run.head_repository.full_name == github.repository))
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Decide and act
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ inputs.pr_number }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          MAX_ITERATIONS: ${{ vars.AGENT_LOOP_MAX_ITERATIONS || '3' }}
+          REQUIRED_CHECKS: ci
+          TRUSTED_BOTS: github-actions[bot]
+          DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
+        run: node scripts/agent-loop/run.ts

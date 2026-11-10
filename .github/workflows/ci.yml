@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    # This job name is the required status check ("ci") used by the agent loop
+    # and the main-branch ruleset. Rename both places together.
+    name: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: jarvis
+          POSTGRES_PASSWORD: jarvis_ci_only
+          POSTGRES_DB: jarvis_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U jarvis" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      # Throwaway CI database — not a secret.
+      DATABASE_URL: postgresql://jarvis:jarvis_ci_only@localhost:5432/jarvis_test
+      TEST_DATABASE_URL: postgresql://jarvis:jarvis_ci_only@localhost:5432/jarvis_test
+      JARVIS_AUTH_MODE: dev
+      JARVIS_ALLOW_DEV_AUTH: "true"
+      JARVIS_DEV_USER_EMAIL: alex.rivera@example.com
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Apply migrations
+        run: npx prisma migrate deploy
+      - name: Check migrations match schema (migrated DB vs schema)
+        run: npx prisma migrate diff --from-config-datasource --to-schema prisma/schema.prisma --exit-code
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run typecheck
+      - name: Unit tests
+        run: npm test
+      - name: Integration tests (Postgres)
+        run: npm run test:integration
+      - name: Production build
+        run: npm run build
+      - name: Dependency audit (runtime deps, high+)
+        run: npm audit --omit=dev --audit-level=high
