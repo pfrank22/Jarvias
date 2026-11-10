@@ -2,7 +2,7 @@ import { BottomNav } from "@/components/BottomNav";
 import { CompanySwitcher } from "@/components/CompanySwitcher";
 import { Badge } from "@/components/ui";
 import { humanize } from "@/lib/format";
-import { countPendingApprovals } from "@/server/approvals";
+import { getDecisionQueue } from "@/server/jobs";
 import { getTenantContext, listMyCompanies } from "@/server/session";
 
 export const dynamic = "force-dynamic";
@@ -11,7 +11,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const ctx = await getTenantContext();
   const [companies, pendingCount] = await Promise.all([
     listMyCompanies(),
-    countPendingApprovals(ctx),
+    getDecisionQueue(ctx).then((q) => q.length),
   ]);
 
   return (

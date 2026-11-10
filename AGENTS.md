@@ -91,6 +91,20 @@ Agents **must stop and ask the owner** before any of the following. Agents have 
 5. **Real customer data** — importing, connecting to, or querying any non-fictional data.
 6. Changing these rules, `.github/workflows/*`, `CODEOWNERS`, or branch protection.
 
+**Never send real messages during development.** No email, text, Trello card,
+Buildertrend entry or homeowner update may reach a real person or system from
+development, CI or previews. Jarvis records actions as Draft / Pending your
+approval / Sent / Completed; "Sent" in development only means the owner confirmed
+they sent it themselves. A drafted action is never shown as completed.
+
+In the finished app, once an integration is configured and the owner turns
+automation on, routine messages (one sub follow-up text after 2 h without a reply,
+the alert to the owner 2 h after that, homeowner progress updates from confirmed job
+information) may send automatically. Messages that communicate a **price change**,
+make a **schedule commitment**, or tell a homeowner about a **delay or problem**
+always wait for the owner's review (`ReviewReason` on `JobAction`; enforced in
+`src/server/action-policy.ts`).
+
 ## 7. Agent workflow (summary — full design in `docs/AGENT_WORKFLOW.md`)
 
 1. Claude implements on a feature branch `feat/<topic>` / `fix/<topic>` (or a branch the owner assigns) and opens a PR to `main` with the `agent-loop` label.

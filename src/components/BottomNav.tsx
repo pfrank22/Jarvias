@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 
 const items = [
   { href: "/dashboard", label: "Home", icon: "M3 12l9-9 9 9M5 10v10h5v-6h4v6h5V10" },
-  { href: "/projects", label: "Projects", icon: "M3 7h18M3 12h18M3 17h18" },
-  { href: "/approvals", label: "Approvals", icon: "M9 12l2 2 4-4M12 3a9 9 0 100 18 9 9 0 000-18z" },
+  { href: "/jobs", label: "Jobs", icon: "M3 7h18M3 12h18M3 17h18" },
+  { href: "/decisions", label: "Needs you", icon: "M9 12l2 2 4-4M12 3a9 9 0 100 18 9 9 0 000-18z" },
 ];
 
 export function BottomNav({ pendingCount }: { pendingCount: number }) {
@@ -41,7 +41,7 @@ export function BottomNav({ pendingCount }: { pendingCount: number }) {
                   <path d={item.icon} />
                 </svg>
                 {item.label}
-                {item.href === "/approvals" && pendingCount > 0 ? (
+                {item.href === "/decisions" && pendingCount > 0 ? (
                   <span className="absolute right-3 top-1 rounded-full bg-red-500 px-1.5 text-[10px] font-bold leading-4 text-white md:static">
                     {pendingCount}
                   </span>

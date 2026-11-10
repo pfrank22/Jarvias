@@ -5,7 +5,7 @@
  */
 import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "../src/generated/prisma/client";
+import { PrismaClient, type Prisma } from "../src/generated/prisma/client";
 import type {
   ApprovalType,
   Priority,
@@ -340,9 +340,251 @@ const companies: SeedCompany[] = [
   },
 ];
 
+const hoursAgo = (h: number) => new Date(Date.now() - h * 3_600_000);
+
+/** Fictional restoration jobs, contacts, documents, actions and decisions. */
+async function seedRestoration(companyId: string, managerId: string) {
+  const contact = (data: Omit<Prisma.ContactUncheckedCreateInput, "companyId">) =>
+    prisma.contact.create({ data: { companyId, ...data } });
+
+  const plumberA = await contact({
+    name: "Northside Plumbing (fictional)",
+    kind: "SUBCONTRACTOR",
+    trades: ["PLUMBING"],
+    phone: "555-0110",
+  });
+  const plumberB = await contact({
+    name: "Pipeline Pros (fictional)",
+    kind: "SUBCONTRACTOR",
+    trades: ["PLUMBING"],
+    phone: "555-0111",
+  });
+  await contact({
+    name: "Ben Torres Drywall (fictional)",
+    kind: "SUBCONTRACTOR",
+    trades: ["DRYWALL"],
+    phone: "555-0120",
+  });
+  await contact({
+    name: "Luis Ortega Drywall (fictional)",
+    kind: "SUBCONTRACTOR",
+    trades: ["DRYWALL", "PAINTING"],
+    phone: "555-0121",
+  });
+  const mitigation = await contact({
+    name: "Riverbend Mitigation (fictional)",
+    kind: "MITIGATION_PARTNER",
+    trades: [],
+    email: "handoffs@example.com",
+  });
+
+  const base = { companyId, managerId, mitigationContactId: mitigation.id };
+  const job = (data: Omit<Prisma.JobUncheckedCreateInput, "companyId">) =>
+    prisma.job.create({ data: { ...base, ...data } });
+
+  // 1. Fresh insurance lead: intake just started, no plumber named in the lead.
+  const j1 = await job({
+    homeownerName: "Dana Whitfield (fictional)",
+    homeownerPhone: "555-0201",
+    address: "418 Example Ave",
+    track: "INSURANCE",
+    stage: "INTAKE",
+    claimNumber: "FIC-20931",
+    carrier: "Example Mutual",
+    scopeSummary:
+      "Kitchen and hall: water from dishwasher supply line. Drywall to 2 ft, base cabinets.",
+    lastProgressAt: hoursAgo(20),
+  });
+  // 2. Insurance job submitted, waiting on the adjuster for 6 days.
+  const j2 = await job({
+    number: "26-9001",
+    homeownerName: "Marcus Lee (fictional)",
+    homeownerEmail: "marcus@example.com",
+    address: "77 Sample Rd",
+    track: "INSURANCE",
+    stage: "INS_SUBMITTED",
+    claimNumber: "FIC-20877",
+    carrier: "Example Mutual",
+    adjusterName: "Pat Example",
+    adjusterEmail: "adjuster@example.com",
+    referringPlumberId: plumberA.id,
+    homeownerCalledAt: hoursAgo(400),
+    jobWalkCompletedAt: hoursAgo(380),
+    workAuthSentAt: hoursAgo(379),
+    workAuthSignedAt: hoursAgo(300),
+    scopeSummary: "Basement finish: drywall, insulation, carpet, trim.",
+    lastProgressAt: hoursAgo(6 * 24),
+  });
+  // 3. Retail job collecting bids.
+  const j3 = await job({
+    homeownerName: "Erin Castillo (fictional)",
+    homeownerPhone: "555-0203",
+    address: "9 Placeholder Ct",
+    track: "RETAIL",
+    stage: "RETAIL_BIDDING",
+    referringPlumberId: plumberB.id,
+    homeownerCalledAt: hoursAgo(90),
+    jobWalkCompletedAt: hoursAgo(70),
+    workAuthSentAt: hoursAgo(69),
+    workAuthSignedAt: hoursAgo(50),
+    scopeSummary: "Bathroom rebuild after leak: tile surround, vanity, paint.",
+    lastProgressAt: hoursAgo(30),
+  });
+  // 4. Insurance job agreed: gate open, ready for the budgeter.
+  const j4 = await job({
+    number: "26-9002",
+    homeownerName: "Sam Patel (fictional)",
+    homeownerPhone: "555-0204",
+    address: "12 Mock St",
+    track: "INSURANCE",
+    stage: "INS_AGREED",
+    claimNumber: "FIC-20512",
+    carrier: "Sample Insurance Co",
+    adjusterName: "Jordan Sample",
+    adjusterPhone: "555-0300",
+    referringPlumberId: plumberA.id,
+    homeownerCalledAt: hoursAgo(900),
+    jobWalkCompletedAt: hoursAgo(880),
+    workAuthSentAt: hoursAgo(879),
+    workAuthSignedAt: hoursAgo(860),
+    scopeApprovedAt: hoursAgo(50),
+    amountAgreedAt: hoursAgo(26),
+    contractCents: 4_865_000,
+    scopeSummary: "Living room and stairs: drywall, paint, carpet.",
+    lastProgressAt: hoursAgo(26),
+  });
+  // 5. Job in progress with a drywall delay.
+  const j5 = await job({
+    number: "26-9003",
+    homeownerName: "Riley Moore (fictional)",
+    homeownerPhone: "555-0205",
+    address: "300 Demo Blvd",
+    track: "RETAIL",
+    stage: "IN_PROGRESS",
+    referringPlumberId: plumberB.id,
+    homeownerCalledAt: hoursAgo(1500),
+    jobWalkCompletedAt: hoursAgo(1450),
+    workAuthSignedAt: hoursAgo(1400),
+    estimateSentAt: hoursAgo(1200),
+    customerAcceptedAt: hoursAgo(1100),
+    contractCents: 2_240_000,
+    scopeSummary: "Laundry room: drywall, paint, LVP flooring, reconnect washer.",
+    lastProgressAt: hoursAgo(3 * 24),
+  });
+  // 6. Job walk scheduled for tomorrow.
+  await job({
+    homeownerName: "Alex Morgan (fictional)",
+    homeownerPhone: "555-0206",
+    address: "55 Sample Ln",
+    stage: "INTAKE",
+    referringPlumberId: plumberA.id,
+    homeownerCalledAt: hoursAgo(10),
+    jobWalkScheduledFor: new Date(Date.now() + 26 * 3_600_000),
+    lastProgressAt: hoursAgo(10),
+  });
+
+  const doc = (
+    jobId: string,
+    kind: Prisma.JobDocumentUncheckedCreateInput["kind"],
+    status: "MISSING" | "REQUESTED" | "RECEIVED" | "SIGNED",
+    title: string,
+  ) => prisma.jobDocument.create({ data: { companyId, jobId, kind, status, title } });
+  await doc(j1.id, "DOCUSKETCH", "RECEIVED", "DocuSketch from mitigation");
+  await doc(j1.id, "PHOTOS", "RECEIVED", "Mitigation photos");
+  await doc(j1.id, "WORK_AUTHORIZATION", "MISSING", "Work authorization");
+  await doc(j2.id, "ESTIMATE", "RECEIVED", "Reconstruction estimate");
+  await doc(j2.id, "SIGNED_CONTRACT", "SIGNED", "Homeowner contract");
+  await doc(j2.id, "SUB_BID", "RECEIVED", "Drywall bid");
+  await doc(j3.id, "SUB_BID", "REQUESTED", "Tile bid");
+  await doc(j3.id, "SUB_BID", "RECEIVED", "Plumbing bid");
+  await doc(j4.id, "APPROVED_SCOPE", "RECEIVED", "Approved scope PDF");
+  await doc(j4.id, "BUDGET", "MISSING", "Excel budget from the budgeter");
+
+  const action = (
+    jobId: string,
+    data: Omit<Prisma.JobActionUncheckedCreateInput, "companyId" | "jobId">,
+  ) => prisma.jobAction.create({ data: { companyId, jobId, ...data } });
+  await action(j1.id, {
+    channel: "CALL",
+    title: "Call the homeowner to introduce Northwind Builders and set the job walk",
+    status: "DRAFT",
+    dueAt: hoursAgo(-4),
+  });
+  await action(j1.id, {
+    channel: "TRELLO",
+    title: "Intake card for the Whitfield lead",
+    status: "DRAFT",
+    body: "Drafted card. Not created in Trello (no integration connected).",
+  });
+  await action(j2.id, {
+    channel: "EMAIL",
+    title: "Follow up with the adjuster on the submission",
+    status: "DRAFT",
+    recipientName: "Pat Example",
+    dueAt: hoursAgo(-20),
+  });
+  await action(j3.id, {
+    channel: "TEXT",
+    title: "Tile bid request",
+    status: "SENT",
+    recipientName: "Ben Torres Drywall (fictional)",
+    sentAt: hoursAgo(3),
+    awaitingReplySince: hoursAgo(3),
+  });
+  await action(j3.id, {
+    channel: "TEXT",
+    title: "Plumbing bid request",
+    status: "COMPLETED",
+    recipientName: "Pipeline Pros (fictional)",
+    sentAt: hoursAgo(40),
+    completedAt: hoursAgo(38),
+  });
+  await action(j5.id, {
+    channel: "HOMEOWNER_UPDATE",
+    title: "Drywall start moved to next week",
+    status: "PENDING_APPROVAL",
+    reviewReason: "DELAY_OR_PROBLEM",
+    recipientName: "Riley Moore (fictional)",
+    body: "Hi Riley, the drywall crew had to move your start to next Tuesday. We'll confirm the exact time Monday.",
+  });
+  await action(j5.id, {
+    channel: "TEXT",
+    title: "Confirm LVP delivery date",
+    status: "SENT",
+    recipientName: "Supplier (fictional)",
+    sentAt: hoursAgo(1),
+    awaitingReplySince: hoursAgo(1),
+  });
+
+  await prisma.decision.create({
+    data: {
+      companyId,
+      jobId: j5.id,
+      kind: "DELAY_OR_PROBLEM",
+      priority: "HIGH",
+      title: "Drywall crew pushed the start by one week",
+      detail: "Approve the homeowner message and decide whether to try the other drywall sub.",
+    },
+  });
+  await prisma.decision.create({
+    data: {
+      companyId,
+      jobId: j4.id,
+      kind: "BUDGET_SIGNOFF",
+      title: "Run the approved scope through the budgeter",
+      detail: "Scope approved and amount agreed; the budget gate is open.",
+    },
+  });
+}
+
 async function main() {
   console.log("Seeding fictional data…");
   // Order matters because of foreign keys.
+  await prisma.jobAction.deleteMany();
+  await prisma.jobDocument.deleteMany();
+  await prisma.decision.deleteMany();
+  await prisma.job.deleteMany();
+  await prisma.contact.deleteMany();
   await prisma.activityLog.deleteMany();
   await prisma.approval.deleteMany();
   await prisma.task.deleteMany();
@@ -422,6 +664,10 @@ async function main() {
       }
     }
   }
+  const northwind = await prisma.company.findUniqueOrThrow({
+    where: { slug: "northwind-builders" },
+  });
+  await seedRestoration(northwind.id, userIds.alex);
   console.log(`Seeded ${users.length} users and ${companies.length} companies.`);
 }
 

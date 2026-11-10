@@ -4,7 +4,7 @@ import type { TenantContext } from "@/server/tenant";
 
 export async function resetDatabase() {
   await db.$executeRawUnsafe(
-    `TRUNCATE "ActivityLog", "Approval", "Task", "Project", "Membership", "Company", "User" CASCADE`,
+    `TRUNCATE "JobAction", "JobDocument", "Decision", "Job", "Contact", "ActivityLog", "Approval", "Task", "Project", "Membership", "Company", "User" CASCADE`,
   );
 }
 
@@ -63,5 +63,33 @@ export async function makeApproval(
       title: "Test purchase",
       amountCents,
     },
+  });
+}
+
+export async function makeJob(companyId: string, overrides: Record<string, unknown> = {}) {
+  return db.job.create({
+    data: {
+      companyId,
+      homeownerName: "Fictional Homeowner",
+      homeownerPhone: "555-0100",
+      address: "1 Example St",
+      track: "INSURANCE",
+      stage: "INS_SUBMITTED",
+      claimNumber: "C-1",
+      carrier: "Example Mutual",
+      adjusterName: "Example Adjuster",
+      adjusterEmail: "adjuster@example.com",
+      ...overrides,
+    },
+  });
+}
+
+export async function makeAction(
+  companyId: string,
+  jobId: string,
+  overrides: Record<string, unknown> = {},
+) {
+  return db.jobAction.create({
+    data: { companyId, jobId, channel: "TEXT", title: "Fictional text", ...overrides },
   });
 }
