@@ -1,0 +1,12 @@
+# Open product & platform decisions
+
+Items that need the owner's call. Agents must not decide these unilaterally.
+
+| #   | Decision                                                                                  | Why it matters                                                        | Current placeholder                                                                                                          |
+| --- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Authentication provider** (e.g. Auth.js with email/OAuth, Clerk, WorkOS, Supabase Auth) | Required before any real user or customer data; some options are paid | `JARVIS_AUTH_MODE=dev` signs in as a fictional seeded user; refused in production builds unless explicitly overridden for CI |
+| 2   | **Hosting + managed Postgres** (e.g. Vercel + Neon, Render, Fly, AWS)                     | Paid; determines the deploy workflow                                  | `deploy-production.yml` is a gated no-op                                                                                     |
+| 3   | **Repository visibility** (public vs private + GitHub Pro for rulesets)                   | Commercial code exposure vs. free branch protection                   | Public                                                                                                                       |
+| 4   | **Approval limits per company**                                                           | Sprint 1 hard-codes manager limit $10,000                             | Constant in `approval-policy.ts`; could become a per-company setting                                                         |
+| 5   | **Codex integration mode** (GitHub integration vs. API-key action)                        | Cost model and level of automation                                    | Both supported; see EXTERNAL_SETUP.md §4                                                                                     |
+| 6   | **Row-level security in Postgres** as defence-in-depth for tenancy                        | Extra safety vs. complexity                                           | App-level scoping + compound FKs                                                                                             |

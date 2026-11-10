@@ -1,0 +1,118 @@
+name: Codex Review
+
+# Automated code review by OpenAI Codex on PRs that opt in with the
+# `agent-loop` or `codex-review` label.
+#
+# Requires (see docs/EXTERNAL_SETUP.md):
+#   - repository secret  OPENAI_API_KEY        (paid OpenAI API usage)
+#   - repository variable CODEX_REVIEW_ENABLED = "true"
+# Without both, this workflow skips cleanly.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, labeled]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: PR number to review
+        required: true
+
+concurrency:
+  group: codex-review-${{ github.event.pull_request.number || inputs.pr_number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    name: codex-review
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Same-repo PRs only (fork PRs never get secrets), opted in, and enabled.
+    if: >-
+      vars.CODEX_REVIEW_ENABLED == 'true' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (github.event.pull_request.head.repo.full_name == github.repository &&
+        !github.event.pull_request.draft &&
+        (github.event.action != 'labeled' ||
+         github.event.label.name == 'agent-loop' || github.event.label.name == 'codex-review') &&
+        (contains(github.event.pull_request.labels.*.name, 'agent-loop') ||
+         contains(github.event.pull_request.labels.*.name, 'codex-review'))))
+    steps:
+      - name: Resolve PR
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number || inputs.pr_number }}
+        run: |
+          gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR}" --jq '"number=\(.number)\nhead_sha=\(.head.sha)\nbase_ref=\(.base.ref)\nhead_repo=\(.head.repo.full_name)"' >> "$GITHUB_OUTPUT"
+
+      - name: Refuse fork PRs
+        if: steps.pr.outputs.head_repo != github.repository
+        run: |
+          echo "Codex review only runs on branches in this repository."; exit 1
+
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ steps.pr.outputs.head_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Build review prompt
+        env:
+          BASE_REF: ${{ steps.pr.outputs.base_ref }}
+          HEAD_SHA: ${{ steps.pr.outputs.head_sha }}
+        run: |
+          git fetch --no-tags origin "${BASE_REF}"
+          {
+            cat .github/codex/review-prompt.md
+            echo
+            echo "## Change under review"
+            echo "Base: origin/${BASE_REF}  Head: ${HEAD_SHA}"
+            echo "Run \`git diff origin/${BASE_REF}...${HEAD_SHA}\` to see the change."
+            echo
+            echo "Changed files:"
+            git diff --stat "origin/${BASE_REF}...${HEAD_SHA}" | tail -n 60
+          } > "${RUNNER_TEMP}/codex-prompt.md"
+
+      - name: Run Codex
+        id: codex
+        uses: openai/codex-action@v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          prompt-file: ${{ runner.temp }}/codex-prompt.md
+          output-file: ${{ runner.temp }}/codex-output.md
+          # Read-only: Codex reviews, it never edits or pushes.
+          sandbox: read-only
+          safety-strategy: drop-sudo
+
+      - name: Post review
+        uses: actions/github-script@v8
+        env:
+          HEAD_SHA: ${{ steps.pr.outputs.head_sha }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+          OUTPUT_FILE: ${{ runner.temp }}/codex-output.md
+        with:
+          script: |
+            const fs = require("fs");
+            const raw = fs.existsSync(process.env.OUTPUT_FILE) ? fs.readFileSync(process.env.OUTPUT_FILE, "utf8") : "";
+            // Codex is asked to end with a line: VERDICT: APPROVE | REQUEST_CHANGES.
+            // Anything else (or no output) is treated as REQUEST_CHANGES — fail closed.
+            const m = raw.match(/^\s*VERDICT:\s*(APPROVE|REQUEST_CHANGES)\s*$/im);
+            const verdict = m && m[1].toUpperCase() === "APPROVE" ? "approve" : "request_changes";
+            const sha = process.env.HEAD_SHA;
+            // Strip any marker-looking text from model output so it cannot forge state.
+            const findings = raw.replace(/<!--[\s\S]*?-->/g, "").trim().slice(0, 60000) || "_Codex produced no output._";
+            const body = [
+              `<!-- codex-review sha=${sha} verdict=${verdict} -->`,
+              `### 🤖 Codex review — ${verdict === "approve" ? "✅ approve" : "🔧 changes requested"} (\`${sha.slice(0, 7)}\`)`,
+              "",
+              findings,
+            ].join("\n");
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: Number(process.env.PR_NUMBER), body,
+            });
+            core.notice(`Codex verdict: ${verdict}`);

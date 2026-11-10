@@ -1,0 +1,23 @@
+name: Deploy (production)
+
+# Placeholder. No hosting provider has been chosen yet (product decision —
+# see docs/OPEN_DECISIONS.md). Every production deployment MUST:
+#   - run only by manual dispatch from main, and
+#   - use the `production` GitHub Environment, configured with the repository
+#     owner as a *required reviewer*, so nothing deploys without their approval.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - run: |
+          echo "No deployment target is configured yet. Nothing was deployed."
+          exit 1
