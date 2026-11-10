@@ -49,6 +49,7 @@ otherwise.
 - Money is **integer cents** (`amountCents`, `budgetCents`). Never floats.
 - Dates are stored UTC; format with helpers in `src/lib/format.ts`.
 - Validate all external input with zod at the boundary (server actions, route handlers, scripts).
+- Files with `"use server"` may export **only async functions** (types are fine). Exporting a constant compiles but crashes at runtime; build and lint do not catch it.
 - Throw `DomainError` (`src/server/errors.ts`) for expected failures; map to user-safe messages. Never return stack traces or SQL errors to the client.
 - Tailwind CSS v4 utilities; mobile-first (design at 375px wide, then `sm:`/`md:`). Touch targets ≥ 44px. Accessible labels on every control.
 - Prettier (`npm run format`) and ESLint (`npm run lint`) must be clean.

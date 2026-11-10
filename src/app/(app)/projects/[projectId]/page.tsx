@@ -11,13 +11,14 @@ import {
 } from "@/components/ui";
 import { budgetUsedPercent, formatCents, formatDate, humanize } from "@/lib/format";
 import { DomainError } from "@/server/errors";
+import { canRequest } from "@/server/approvals";
 import { getProject } from "@/server/projects";
 import { getTenantContext } from "@/server/session";
 
 async function loadProject(projectId: string) {
   const ctx = await getTenantContext();
   try {
-    return await getProject(ctx, projectId);
+    return { ctx, project: await getProject(ctx, projectId) };
   } catch (err) {
     if (err instanceof DomainError && err.code === "NOT_FOUND") notFound();
     throw err;
@@ -26,7 +27,7 @@ async function loadProject(projectId: string) {
 
 export async function generateMetadata({ params }: { params: Promise<{ projectId: string }> }) {
   const { projectId } = await params;
-  const project = await loadProject(projectId);
+  const { project } = await loadProject(projectId);
   return { title: project.name };
 }
 
@@ -36,7 +37,7 @@ export default async function ProjectDetailPage({
   params: Promise<{ projectId: string }>;
 }) {
   const { projectId } = await params;
-  const project = await loadProject(projectId);
+  const { ctx, project } = await loadProject(projectId);
   const used = budgetUsedPercent(project.spentCents, project.budgetCents);
   const openTasks = project.tasks.filter((t) => t.status !== "DONE").length;
 
@@ -108,7 +109,22 @@ export default async function ProjectDetailPage({
         </Card>
       )}
 
-      <SectionTitle>Approvals</SectionTitle>
+      <SectionTitle
+        action={
+          canRequest(ctx.role) &&
+          project.status !== "COMPLETED" &&
+          project.status !== "CANCELLED" ? (
+            <Link
+              href={`/approvals/new?projectId=${project.id}`}
+              className="text-sm font-medium text-brand-600"
+            >
+              Request approval
+            </Link>
+          ) : null
+        }
+      >
+        Approvals
+      </SectionTitle>
       {project.approvals.length === 0 ? (
         <EmptyState>No approval requests.</EmptyState>
       ) : (
