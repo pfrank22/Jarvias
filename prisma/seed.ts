@@ -556,6 +556,51 @@ async function seedRestoration(companyId: string, managerId: string) {
     awaitingReplySince: hoursAgo(1),
   });
 
+  const line = (description: string, vendor: string, cost: number) =>
+    prisma.estimateLine.create({
+      data: { companyId, jobId: j3.id, description, vendor, costCents: cost * 100 },
+    });
+  await line("Plumbing: reset vanity and reconnect fixtures", "Pipeline Pros (fictional)", 850);
+  await line("Tile tub surround", "Pending bid", 2400);
+  await line("Paint bathroom", "Luis Ortega Drywall (fictional)", 600);
+  await prisma.job.update({
+    where: { id: j3.id },
+    data: {
+      customerScopeText:
+        "Remove and replace the damaged tub surround with new tile, reset the vanity, reconnect plumbing fixtures, and repaint the bathroom.",
+    },
+  });
+
+  const claim = (
+    jobId: string,
+    kind:
+      | "SUBMITTED"
+      | "RESPONSE"
+      | "REVISION_REQUESTED"
+      | "RESUBMITTED"
+      | "SCOPE_APPROVED"
+      | "AMOUNT_AGREED",
+    h: number,
+    note = "",
+    amountCents?: number,
+  ) =>
+    prisma.adjusterEvent.create({
+      data: {
+        companyId,
+        jobId,
+        kind,
+        note,
+        amountCents: amountCents ?? null,
+        occurredAt: hoursAgo(h),
+      },
+    });
+  await claim(j2.id, "SUBMITTED", 6 * 24, "Estimate, signed contract and drywall bid sent");
+  await claim(j4.id, "SUBMITTED", 20 * 24);
+  await claim(j4.id, "REVISION_REQUESTED", 12 * 24, "Adjuster asked for a second carpet quote");
+  await claim(j4.id, "RESUBMITTED", 8 * 24);
+  await claim(j4.id, "SCOPE_APPROVED", 50);
+  await claim(j4.id, "AMOUNT_AGREED", 26, "", 4_865_000);
+
   await prisma.decision.create({
     data: {
       companyId,
@@ -580,6 +625,8 @@ async function seedRestoration(companyId: string, managerId: string) {
 async function main() {
   console.log("Seeding fictional data…");
   // Order matters because of foreign keys.
+  await prisma.estimateLine.deleteMany();
+  await prisma.adjusterEvent.deleteMany();
   await prisma.jobAction.deleteMany();
   await prisma.jobDocument.deleteMany();
   await prisma.decision.deleteMany();

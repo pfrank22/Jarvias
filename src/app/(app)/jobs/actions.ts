@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { DomainError } from "@/server/errors";
+import { runJobCommand } from "@/server/job-commands";
 import { resolveDecision, transitionAction } from "@/server/jobs";
 import { getTenantContext } from "@/server/session";
 
@@ -55,4 +56,17 @@ export async function resolveDecisionAction(
       }),
     "Done.",
   );
+}
+
+/** Every job-path button posts here; `cmd` selects the command, validated by the service. */
+export async function jobCommandAction(
+  _prev: FormState | null,
+  formData: FormData,
+): Promise<FormState> {
+  const ctx = await getTenantContext();
+  const input: Record<string, string> = {};
+  for (const [key, value] of formData.entries()) {
+    if (typeof value === "string" && !key.startsWith("$")) input[key] = value;
+  }
+  return run(() => runJobCommand(ctx, input), "Saved.");
 }

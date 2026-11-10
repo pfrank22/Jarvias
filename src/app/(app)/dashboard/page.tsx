@@ -2,19 +2,12 @@ import Link from "next/link";
 import { ActionStatusBadge, QueueItemCard, TrackBadge, waitingFor } from "@/components/job-ui";
 import { Card, EmptyState, PageHeader, SectionTitle } from "@/components/ui";
 import { formatDate } from "@/lib/format";
+import { dateTimeFmt } from "@/lib/time";
 import { STAGE_LABEL } from "@/server/job-policy";
 import { getJobDashboard } from "@/server/jobs";
 import { getTenantContext } from "@/server/session";
 
 export const metadata = { title: "Dashboard" };
-
-const dayFmt = new Intl.DateTimeFormat("en-US", {
-  weekday: "short",
-  month: "short",
-  day: "numeric",
-  hour: "numeric",
-  minute: "2-digit",
-});
 
 export default async function DashboardPage() {
   const ctx = await getTenantContext();
@@ -151,7 +144,7 @@ export default async function DashboardPage() {
                 <span className="truncate">
                   <span className="font-medium">{c.title}</span> · {c.jobName}
                 </span>
-                <span className="shrink-0 text-xs text-slate-500">{dayFmt.format(c.at)}</span>
+                <span className="shrink-0 text-xs text-slate-500">{dateTimeFmt.format(c.at)}</span>
               </Link>
             </li>
           ))}

@@ -73,16 +73,18 @@ model Company {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  memberships Membership[]
-  projects    Project[]
-  tasks       Task[]
-  approvals   Approval[]
-  activities  ActivityLog[]
-  jobs        Job[]
-  contacts    Contact[]
-  documents   JobDocument[]
-  actions     JobAction[]
-  decisions   Decision[]
+  memberships    Membership[]
+  projects       Project[]
+  tasks          Task[]
+  approvals      Approval[]
+  activities     ActivityLog[]
+  jobs           Job[]
+  contacts       Contact[]
+  documents      JobDocument[]
+  actions        JobAction[]
+  decisions      Decision[]
+  estimateLines  EstimateLine[]
+  adjusterEvents AdjusterEvent[]
 }
 
 model User {
@@ -381,6 +383,11 @@ model Job {
   /// Retail: accepted contract price. Insurance: amount agreed with the adjuster.
   contractCents      Int?
 
+  /// Retail target gross margin in basis points (5000 = 50%), adjustable per estimate.
+  marginBps         Int    @default(5000)
+  /// Draft customer-facing scope description (retail).
+  customerScopeText String @default("")
+
   /// Last time the job moved forward; drives "stalled" sorting on the dashboard.
   lastProgressAt DateTime @default(now())
 
@@ -390,13 +397,15 @@ model Job {
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
-  company           Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  manager           User?         @relation("JobManager", fields: [managerId], references: [id], onDelete: SetNull)
-  referringPlumber  Contact?      @relation("ReferringPlumber", fields: [referringPlumberId], references: [id], onDelete: SetNull)
-  mitigationContact Contact?      @relation("MitigationContact", fields: [mitigationContactId], references: [id], onDelete: SetNull)
+  company           Company         @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  manager           User?           @relation("JobManager", fields: [managerId], references: [id], onDelete: SetNull)
+  referringPlumber  Contact?        @relation("ReferringPlumber", fields: [referringPlumberId], references: [id], onDelete: SetNull)
+  mitigationContact Contact?        @relation("MitigationContact", fields: [mitigationContactId], references: [id], onDelete: SetNull)
   documents         JobDocument[]
   actions           JobAction[]
   decisions         Decision[]
+  estimateLines     EstimateLine[]
+  adjusterEvents    AdjusterEvent[]
 
   @@unique([id, companyId])
   @@unique([companyId, number])
@@ -465,4 +474,47 @@ model Decision {
   job     Job?    @relation(fields: [jobId], references: [id], onDelete: Cascade)
 
   @@index([companyId, status])
+}
+
+enum AdjusterEventKind {
+  SUBMITTED
+  RESPONSE
+  REVISION_REQUESTED
+  RESUBMITTED
+  SCOPE_APPROVED
+  AMOUNT_AGREED
+}
+
+/// Retail estimate line: the underlying cost (usually a sub bid). The customer
+/// price is derived from the job's target margin; it is never stored separately.
+model EstimateLine {
+  id          String   @id @default(cuid())
+  companyId   String
+  jobId       String
+  description String
+  vendor      String?
+  costCents   Int
+  createdAt   DateTime @default(now())
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job     Job     @relation(fields: [jobId, companyId], references: [id, companyId], onDelete: Cascade)
+
+  @@index([companyId, jobId])
+}
+
+/// Insurance claim history: submissions, adjuster responses, revisions, agreement.
+model AdjusterEvent {
+  id          String            @id @default(cuid())
+  companyId   String
+  jobId       String
+  kind        AdjusterEventKind
+  note        String            @default("")
+  amountCents Int?
+  actorId     String?
+  occurredAt  DateTime          @default(now())
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job     Job     @relation(fields: [jobId, companyId], references: [id, companyId], onDelete: Cascade)
+
+  @@index([companyId, jobId])
 }
