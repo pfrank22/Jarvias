@@ -1,0 +1,204 @@
+// Jarvis data model — Sprint 1
+//
+// Multi-company (multi-tenant) rules:
+//   * Every tenant-owned row carries `companyId`.
+//   * Application code must reach tenant data only through `src/server/*`
+//     services, which require a TenantContext (see AGENTS.md).
+//   * Child rows that reference a project use a compound FK (projectId, companyId)
+//     so the database itself rejects cross-company links.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  MANAGER
+  MEMBER
+  VIEWER
+}
+
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}
+
+enum ProjectHealth {
+  ON_TRACK
+  AT_RISK
+  OFF_TRACK
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  BLOCKED
+  DONE
+}
+
+enum ApprovalType {
+  CHANGE_ORDER
+  PURCHASE
+  TIMESHEET
+  INVOICE
+  DOCUMENT
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum Priority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+model Company {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  memberships Membership[]
+  projects    Project[]
+  tasks       Task[]
+  approvals   Approval[]
+  activities  ActivityLog[]
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  memberships        Membership[]
+  managedProjects    Project[]     @relation("ProjectManager")
+  assignedTasks      Task[]        @relation("TaskAssignee")
+  requestedApprovals Approval[]    @relation("ApprovalRequester")
+  decidedApprovals   Approval[]    @relation("ApprovalDecider")
+  activities         ActivityLog[]
+}
+
+model Membership {
+  id        String   @id @default(cuid())
+  userId    String
+  companyId String
+  role      Role     @default(MEMBER)
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, companyId])
+  @@index([companyId])
+}
+
+model Project {
+  id          String        @id @default(cuid())
+  companyId   String
+  code        String
+  name        String
+  clientName  String
+  description String        @default("")
+  status      ProjectStatus @default(PLANNING)
+  health      ProjectHealth @default(ON_TRACK)
+  progress    Int           @default(0) // 0-100
+  budgetCents Int           @default(0)
+  spentCents  Int           @default(0)
+  startDate   DateTime?
+  dueDate     DateTime?
+  managerId   String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  company   Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  manager   User?         @relation("ProjectManager", fields: [managerId], references: [id], onDelete: SetNull)
+  tasks     Task[]
+  approvals Approval[]
+  activity  ActivityLog[]
+
+  @@unique([id, companyId])
+  @@unique([companyId, code])
+  @@index([companyId, status])
+}
+
+model Task {
+  id         String     @id @default(cuid())
+  companyId  String
+  projectId  String
+  title      String
+  status     TaskStatus @default(TODO)
+  dueDate    DateTime?
+  assigneeId String?
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  company  Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  // Compound FK: a task can only belong to a project in the same company.
+  project  Project @relation(fields: [projectId, companyId], references: [id, companyId], onDelete: Cascade)
+  assignee User?   @relation("TaskAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
+
+  @@index([companyId, projectId])
+}
+
+model Approval {
+  id            String         @id @default(cuid())
+  companyId     String
+  projectId     String?
+  type          ApprovalType
+  title         String
+  description   String         @default("")
+  amountCents   Int?
+  status        ApprovalStatus @default(PENDING)
+  priority      Priority       @default(NORMAL)
+  dueDate       DateTime?
+  requestedById String
+  decidedById   String?
+  decidedAt     DateTime?
+  decisionNote  String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  project     Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  requestedBy User     @relation("ApprovalRequester", fields: [requestedById], references: [id])
+  decidedBy   User?    @relation("ApprovalDecider", fields: [decidedById], references: [id])
+
+  @@index([companyId, status])
+  @@index([projectId])
+}
+
+model ActivityLog {
+  id         String   @id @default(cuid())
+  companyId  String
+  projectId  String?
+  actorId    String?
+  action     String
+  entityType String
+  entityId   String
+  metadata   Json     @default("{}")
+  createdAt  DateTime @default(now())
+
+  company Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  project Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  actor   User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([companyId, createdAt])
+  @@index([projectId, createdAt])
+}
