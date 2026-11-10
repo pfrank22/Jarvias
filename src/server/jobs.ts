@@ -34,6 +34,8 @@ export async function getJob(ctx: TenantContext, jobId: string) {
         where: { status: "OPEN" },
         orderBy: [{ priority: "desc" }, { createdAt: "asc" }],
       },
+      estimateLines: { orderBy: { createdAt: "asc" } },
+      adjusterEvents: { orderBy: { occurredAt: "desc" } },
     },
   });
   if (!job) throw notFound("Job");

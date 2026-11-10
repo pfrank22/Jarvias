@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import type { ActionChannel, ActionStatus } from "@/generated/prisma/enums";
 import {
+  jobCommandAction,
   resolveDecisionAction,
   transitionActionAction,
   type FormState,
@@ -119,6 +120,56 @@ export function ResolveDecisionForm({ decisionId }: { decisionId: string }) {
       </div>
       {state && !state.ok ? (
         <p data-testid="form-error" role="alert" className="text-sm text-red-600">
+          {state.message}
+        </p>
+      ) : null}
+    </form>
+  );
+}
+
+/** A small form that runs one job command. Extra inputs go in `children`. */
+export function CommandForm({
+  jobId,
+  cmd,
+  label,
+  primary = false,
+  hidden = {},
+  children,
+  className = "",
+}: {
+  jobId: string;
+  cmd: string;
+  label: string;
+  primary?: boolean;
+  hidden?: Record<string, string>;
+  children?: React.ReactNode;
+  className?: string;
+}) {
+  const [state, formAction, pending] = useActionState<FormState | null, FormData>(
+    jobCommandAction,
+    null,
+  );
+  return (
+    <form action={formAction} className={className}>
+      <input type="hidden" name="jobId" value={jobId} />
+      <input type="hidden" name="cmd" value={cmd} />
+      {Object.entries(hidden).map(([k, v]) => (
+        <input key={k} type="hidden" name={k} value={v} />
+      ))}
+      {children}
+      <button
+        type="submit"
+        disabled={pending}
+        className={`min-h-11 shrink-0 rounded-xl px-3 text-sm font-semibold disabled:opacity-50 ${
+          primary
+            ? "bg-brand-600 text-white active:bg-brand-700"
+            : "border border-slate-300 bg-white text-slate-700 active:bg-slate-50"
+        }`}
+      >
+        {pending ? "Saving…" : label}
+      </button>
+      {state && !state.ok ? (
+        <p data-testid="form-error" role="alert" className="mt-1 text-sm text-red-600">
           {state.message}
         </p>
       ) : null}

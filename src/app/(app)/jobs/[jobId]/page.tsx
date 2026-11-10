@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { JobPathPanel } from "@/components/job-path";
 import { ActionButtons, ResolveDecisionForm } from "@/components/jobs";
 import { ActionStatusBadge, TrackBadge, waitingFor } from "@/components/job-ui";
 import { Badge, Card, EmptyState, PriorityBadge, SectionTitle } from "@/components/ui";
@@ -100,7 +101,9 @@ export default async function JobPage({ params }: { params: Promise<{ jobId: str
         </Card>
       ) : null}
 
-      <SectionTitle>Intake</SectionTitle>
+      <JobPathPanel job={job} />
+
+      <SectionTitle>Intake checklist</SectionTitle>
       <Card className="divide-y divide-slate-100 p-0">
         {intakeSteps(job).map((s) => (
           <div key={s.key} className="flex items-center justify-between gap-3 px-4 py-3">
