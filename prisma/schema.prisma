@@ -78,6 +78,11 @@ model Company {
   tasks       Task[]
   approvals   Approval[]
   activities  ActivityLog[]
+  jobs        Job[]
+  contacts    Contact[]
+  documents   JobDocument[]
+  actions     JobAction[]
+  decisions   Decision[]
 }
 
 model User {
@@ -93,6 +98,7 @@ model User {
   requestedApprovals Approval[]    @relation("ApprovalRequester")
   decidedApprovals   Approval[]    @relation("ApprovalDecider")
   activities         ActivityLog[]
+  managedJobs        Job[]         @relation("JobManager")
 }
 
 model Membership {
@@ -201,4 +207,262 @@ model ActivityLog {
 
   @@index([companyId, createdAt])
   @@index([projectId, createdAt])
+}
+
+// ---------------------------------------------------------------------------
+// Restoration jobs (Jarvis v1). Business specifics (real contacts, trade rules)
+// are company data entered at runtime — never hard-coded here.
+// ---------------------------------------------------------------------------
+
+enum JobTrack {
+  UNDECIDED
+  RETAIL
+  INSURANCE
+}
+
+enum JobStage {
+  INTAKE
+  // Retail path
+  RETAIL_BIDDING
+  RETAIL_ESTIMATE_SENT
+  RETAIL_ACCEPTED
+  // Insurance path
+  INS_PREPARING_SUBMISSION
+  INS_SUBMITTED
+  INS_IN_REVISION
+  INS_AGREED
+  // Shared after the budget gate
+  BUDGETING
+  SCHEDULING
+  IN_PROGRESS
+  COMPLETE
+  LOST
+}
+
+enum Trade {
+  PLUMBING
+  DRYWALL
+  PAINTING
+  ELECTRICAL
+  HVAC
+  FLOORING
+  TILE
+  CARPENTRY
+  CABINETS
+  ROOFING
+  INSULATION
+  OTHER
+}
+
+enum ContactKind {
+  SUBCONTRACTOR
+  SUPPLIER
+  ADJUSTER
+  MITIGATION_PARTNER
+  OTHER
+}
+
+enum DocumentKind {
+  WORK_AUTHORIZATION
+  SIGNED_CONTRACT
+  ESTIMATE
+  SUB_BID
+  APPROVED_SCOPE
+  DOCUSKETCH
+  PHOTOS
+  BUDGET
+  OTHER
+}
+
+enum DocumentStatus {
+  MISSING
+  REQUESTED
+  RECEIVED
+  SIGNED
+}
+
+enum ActionChannel {
+  EMAIL
+  TEXT
+  CALL
+  TRELLO
+  BUILDERTREND
+  HOMEOWNER_UPDATE
+  TASK
+}
+
+/// DRAFT -> PENDING_APPROVAL -> SENT -> COMPLETED. A draft is never "done".
+enum ActionStatus {
+  DRAFT
+  PENDING_APPROVAL
+  SENT
+  COMPLETED
+  CANCELLED
+  FAILED
+}
+
+/// Why a message must wait for the owner's review before it goes out.
+enum ReviewReason {
+  PRICE_CHANGE
+  SCHEDULE_COMMITMENT
+  DELAY_OR_PROBLEM
+}
+
+enum DecisionKind {
+  SELECT_BID
+  REVIEW_SUBMISSION
+  FOLLOW_UP_ESCALATION
+  DELAY_OR_PROBLEM
+  BUDGET_SIGNOFF
+  OTHER
+}
+
+enum DecisionStatus {
+  OPEN
+  RESOLVED
+  DISMISSED
+}
+
+model Contact {
+  id        String      @id @default(cuid())
+  companyId String
+  name      String
+  kind      ContactKind
+  /// Only these trades may be assigned to this contact. Never inferred.
+  trades    Trade[]
+  phone     String?
+  email     String?
+  notes     String      @default("")
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  company        Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  referredJobs   Job[]   @relation("ReferringPlumber")
+  mitigationJobs Job[]   @relation("MitigationContact")
+
+  @@unique([id, companyId])
+  @@index([companyId, kind])
+}
+
+model Job {
+  id        String   @id @default(cuid())
+  companyId String
+  /// Buildertrend job number (YY-NNNN) once the Buildertrend job exists.
+  number    String?
+  track     JobTrack @default(UNDECIDED)
+  stage     JobStage @default(INTAKE)
+
+  homeownerName  String
+  homeownerPhone String?
+  homeownerEmail String?
+  address        String
+  scopeSummary   String  @default("")
+
+  // Insurance claim
+  claimNumber   String?
+  carrier       String?
+  adjusterName  String?
+  adjusterEmail String?
+  adjusterPhone String?
+
+  // Intake milestones. A signed work authorization only allows talking to the
+  // adjuster; it is NOT scope or budget approval.
+  homeownerCalledAt   DateTime?
+  jobWalkScheduledFor DateTime?
+  jobWalkCompletedAt  DateTime?
+  workAuthSentAt      DateTime?
+  workAuthSignedAt    DateTime?
+
+  // Approval gates (budgeting may start only when the track's gate is met)
+  estimateSentAt     DateTime?
+  customerAcceptedAt DateTime?
+  scopeApprovedAt    DateTime?
+  amountAgreedAt     DateTime?
+  /// Retail: accepted contract price. Insurance: amount agreed with the adjuster.
+  contractCents      Int?
+
+  /// Last time the job moved forward; drives "stalled" sorting on the dashboard.
+  lastProgressAt DateTime @default(now())
+
+  managerId           String?
+  referringPlumberId  String?
+  mitigationContactId String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  company           Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  manager           User?         @relation("JobManager", fields: [managerId], references: [id], onDelete: SetNull)
+  referringPlumber  Contact?      @relation("ReferringPlumber", fields: [referringPlumberId], references: [id], onDelete: SetNull)
+  mitigationContact Contact?      @relation("MitigationContact", fields: [mitigationContactId], references: [id], onDelete: SetNull)
+  documents         JobDocument[]
+  actions           JobAction[]
+  decisions         Decision[]
+
+  @@unique([id, companyId])
+  @@unique([companyId, number])
+  @@index([companyId, stage])
+}
+
+model JobDocument {
+  id        String         @id @default(cuid())
+  companyId String
+  jobId     String
+  kind      DocumentKind
+  status    DocumentStatus @default(MISSING)
+  title     String
+  url       String?
+  note      String         @default("")
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job     Job     @relation(fields: [jobId, companyId], references: [id, companyId], onDelete: Cascade)
+
+  @@index([companyId, jobId])
+}
+
+model JobAction {
+  id                 String        @id @default(cuid())
+  companyId          String
+  jobId              String
+  channel            ActionChannel
+  status             ActionStatus  @default(DRAFT)
+  title              String
+  body               String        @default("")
+  recipientName      String?
+  reviewReason       ReviewReason?
+  dueAt              DateTime?
+  sentAt             DateTime?
+  /// Set while a sent message waits for a reply; cleared when one arrives.
+  awaitingReplySince DateTime?
+  completedAt        DateTime?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job     Job     @relation(fields: [jobId, companyId], references: [id, companyId], onDelete: Cascade)
+
+  @@index([companyId, status])
+  @@index([companyId, jobId])
+}
+
+model Decision {
+  id         String         @id @default(cuid())
+  companyId  String
+  jobId      String?
+  kind       DecisionKind
+  status     DecisionStatus @default(OPEN)
+  title      String
+  detail     String         @default("")
+  priority   Priority       @default(NORMAL)
+  dueAt      DateTime?
+  resolvedAt DateTime?
+  resolution String?
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  job     Job?    @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, status])
 }
