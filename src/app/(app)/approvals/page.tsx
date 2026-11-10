@@ -3,7 +3,7 @@ import { Card, EmptyState, PageHeader, PriorityBadge, StatusBadge } from "@/comp
 import type { ApprovalStatus } from "@/generated/prisma/enums";
 import { formatCents, formatDate, humanize } from "@/lib/format";
 import { canDecide } from "@/server/approval-policy";
-import { listApprovals } from "@/server/approvals";
+import { canRequest, listApprovals } from "@/server/approvals";
 import { getTenantContext } from "@/server/session";
 import { DecisionForm } from "./DecisionForm";
 
@@ -18,16 +18,34 @@ const tabs: { status: ApprovalStatus; label: string }[] = [
 export default async function ApprovalsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string; decided?: string }>;
+  searchParams: Promise<{ status?: string; decided?: string; submitted?: string }>;
 }) {
-  const { status: requested, decided } = await searchParams;
+  const { status: requested, decided, submitted } = await searchParams;
   const status = tabs.find((t) => t.status === requested)?.status ?? "PENDING";
   const ctx = await getTenantContext();
   const approvals = await listApprovals(ctx, { status });
 
   return (
     <>
-      <PageHeader title="Approval queue" subtitle={ctx.companyName} />
+      <div className="flex items-start justify-between gap-3">
+        <PageHeader title="Approval queue" subtitle={ctx.companyName} />
+        {canRequest(ctx.role) ? (
+          <Link
+            href="/approvals/new"
+            className="shrink-0 rounded-xl bg-brand-600 px-3 py-2 text-sm font-semibold text-white active:bg-brand-700"
+          >
+            New request
+          </Link>
+        ) : null}
+      </div>
+      {submitted === "1" ? (
+        <p
+          role="status"
+          className="mb-4 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800"
+        >
+          Request submitted for approval.
+        </p>
+      ) : null}
       {decided === "approved" || decided === "rejected" ? (
         <p
           role="status"

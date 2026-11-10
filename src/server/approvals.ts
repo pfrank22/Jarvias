@@ -1,9 +1,10 @@
 import { z } from "zod";
 import { db } from "@/lib/db";
+import { parseDollarsToCents } from "@/lib/money";
 import type { ApprovalStatus } from "@/generated/prisma/enums";
 import { canDecide, validateDecisionNote } from "./approval-policy";
 import { conflict, forbidden, invalid, notFound } from "./errors";
-import type { TenantContext } from "./tenant";
+import { hasRoleAtLeast, type TenantContext } from "./tenant";
 
 export async function listApprovals(ctx: TenantContext, opts: { status?: ApprovalStatus } = {}) {
   const status = opts.status ?? "PENDING";
@@ -76,4 +77,85 @@ export async function decideApproval(ctx: TenantContext, rawInput: unknown) {
 
 export async function countPendingApprovals(ctx: TenantContext): Promise<number> {
   return db.approval.count({ where: { companyId: ctx.companyId, status: "PENDING" } });
+}
+
+/** Members and above can submit requests; viewers are read-only. */
+export function canRequest(role: TenantContext["role"]): boolean {
+  return hasRoleAtLeast(role, "MEMBER");
+}
+
+const dateOnly = /^\d{4}-\d{2}-\d{2}$/;
+
+/** True for a real YYYY-MM-DD calendar date. Rejects rollovers like 2026-02-30. */
+function isCalendarDate(value: string): boolean {
+  if (!dateOnly.test(value)) return false;
+  const ms = Date.parse(`${value}T00:00:00Z`);
+  return !Number.isNaN(ms) && new Date(ms).toISOString().slice(0, 10) === value;
+}
+
+export const requestInput = z.object({
+  projectId: z.string().max(64).optional(),
+  type: z.enum(["CHANGE_ORDER", "PURCHASE", "TIMESHEET", "INVOICE", "DOCUMENT"]),
+  title: z.string().trim().min(3, "Title must be at least 3 characters.").max(120),
+  description: z.string().trim().max(2000).optional(),
+  amount: z.string().max(32).optional(),
+  priority: z.enum(["LOW", "NORMAL", "HIGH", "URGENT"]).default("NORMAL"),
+  dueDate: z
+    .string()
+    .optional()
+    .refine((v) => !v || isCalendarDate(v), { message: "Due date must be a valid date." }),
+});
+
+export async function createApprovalRequest(ctx: TenantContext, rawInput: unknown) {
+  if (!canRequest(ctx.role)) throw forbidden("Viewers cannot submit approval requests.");
+
+  const parsed = requestInput.safeParse(rawInput);
+  if (!parsed.success) throw invalid(parsed.error.issues[0]?.message ?? "Invalid request.");
+  const input = parsed.data;
+
+  const amountCents = parseDollarsToCents(input.amount);
+  if (Number.isNaN(amountCents)) {
+    throw invalid("Amount must be a positive dollar value with at most two decimals.");
+  }
+
+  return db.$transaction(async (tx) => {
+    let projectId: string | null = null;
+    if (input.projectId) {
+      // Scope by company: another company's project id behaves as missing.
+      const project = await tx.project.findFirst({
+        where: { id: input.projectId, companyId: ctx.companyId },
+        select: { id: true },
+      });
+      if (!project) throw notFound("Project");
+      projectId = project.id;
+    }
+
+    const approval = await tx.approval.create({
+      data: {
+        companyId: ctx.companyId,
+        projectId,
+        type: input.type,
+        title: input.title,
+        description: input.description ?? "",
+        amountCents,
+        priority: input.priority,
+        dueDate: input.dueDate ? new Date(`${input.dueDate}T00:00:00Z`) : null,
+        requestedById: ctx.userId,
+      },
+    });
+
+    await tx.activityLog.create({
+      data: {
+        companyId: ctx.companyId,
+        projectId,
+        actorId: ctx.userId,
+        action: "approval.requested",
+        entityType: "Approval",
+        entityId: approval.id,
+        metadata: { title: approval.title, amountCents },
+      },
+    });
+
+    return approval;
+  });
 }
