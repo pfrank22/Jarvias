@@ -51,7 +51,7 @@ window.PRICING = {
   ],
 
   addons: [
-    { id: "outlet",   label: "New outdoor outlet",          flat: 375, matCost: 300, laborHrs: 0, desc: "Installed by our licensed electrician partner" },
+    { id: "outlet",   label: "New outdoor outlet",          flat: 375, matCost: 300, laborHrs: 0, desc: "Only if needed. Installed by a licensed electrician" },
     { id: "warranty", label: "10-year labor warranty",      flat: 395, matCost: 60,  laborHrs: 0, desc: "Extends the standard 2-year labor coverage" },
     { id: "voice",    label: "Voice assistant setup",       flat: 0,   matCost: 0,   laborHrs: 0.3, desc: "Free: Alexa / Google Home scenes" },
   ],

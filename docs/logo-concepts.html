@@ -1,0 +1,224 @@
+<title>North Star Logo Concepts</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Outfit:wght@300;500;700&family=Sora:wght@400;600;800&family=Unbounded:wght@500;800&family=Cinzel:wght@600;800&display=swap">
+<style>
+/* Layout: a contact sheet of logo concepts. Each card: hero lockup on night, then light version and small-size tests. */
+:root {
+  --night: #0a1424; --night-2: #121f36; --gold: #ffc94a; --snow: #f2f5f7; --ice: #9aaabb;
+  --bg: #eef1f5; --fg: #0a1424; --muted: #4f5d70; --card: #ffffff; --line: #d9e0e8;
+  --f: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0b1220; --fg: #eef2f6; --muted: #9aaabb; --card: #131e33; --line: #22324d; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #0b1220; --fg: #eef2f6; --muted: #9aaabb; --card: #131e33; --line: #22324d; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 16px/1.55 var(--f); }
+.wrap { max-width: 1160px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 2.5rem 3rem; }
+h1, h2 { margin: 0; text-wrap: balance; }
+header.top { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: end; margin-bottom: 2rem; }
+header.top h1 { font: 900 clamp(1.9rem, 4.4vw, 2.8rem)/1.05 var(--f); font-stretch: 120%; }
+header.top p { color: var(--muted); max-width: 62ch; margin: .7rem 0 0; }
+.label { font: 700 .72rem var(--f); font-stretch: 115%; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin: 0 0 .6rem; }
+.current { display: flex; align-items: center; gap: .7rem; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: .7rem 1rem; font-size: .85rem; color: var(--muted); }
+.current svg { width: 40px; height: 40px; background: var(--night); border-radius: 8px; padding: 3px; }
+@media (max-width: 700px) { header.top { grid-template-columns: 1fr; } }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; align-items: start; }
+@media (max-width: 880px) { .grid { grid-template-columns: 1fr; } }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.hero { background: radial-gradient(120% 90% at 50% 0%, #15294a 0%, var(--night) 65%); display: grid; place-items: center; padding: 2.2rem 1.2rem; min-height: 290px; position: relative; }
+.hero .num { position: absolute; top: .9rem; left: 1rem; font: 800 .8rem var(--f); font-stretch: 120%; color: var(--gold); letter-spacing: .1em; }
+.hero svg { width: min(100%, 440px); height: auto; display: block; }
+.tests { display: grid; grid-template-columns: 1.6fr 1fr; border-top: 1px solid var(--line); }
+.light { background: #f4f6f8; display: grid; place-items: center; padding: 1.1rem; min-height: 130px; }
+.light svg { width: min(100%, 260px); height: auto; }
+.small { display: flex; align-items: center; justify-content: center; gap: .9rem; padding: 1rem; background: var(--night-2); }
+.small svg { display: block; }
+.small .chip { background: var(--night); border-radius: 22%; display: grid; place-items: center; }
+.small .fav { background: #fff; border-radius: 4px; display: grid; place-items: center; padding: 2px; }
+.small span { font-size: .65rem; color: var(--ice); display: block; text-align: center; margin-top: .25rem; }
+.info { padding: 1.1rem 1.3rem 1.3rem; display: grid; gap: .45rem; }
+.info h2 { font: 800 1.15rem var(--f); font-stretch: 115%; }
+.info p { margin: 0; color: var(--muted); font-size: .93rem; }
+.info .tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .3rem; }
+.info .tags span { font-size: .72rem; font-weight: 600; padding: .2rem .55rem; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.next { margin-top: 1.6rem; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1.2rem 1.4rem; }
+.next h2 { font: 800 1.1rem var(--f); font-stretch: 115%; margin-bottom: .4rem; }
+.next p { margin: 0; color: var(--muted); }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <p class="label">North Star Holiday Lighting · round 2</p>
+      <h1>Six new logo directions</h1>
+      <p>Same name, six different ideas. Each one is shown large on night blue, on white, and at app-icon and browser-tab size, because most logos fail when they're small. Pick one or two favorites, or mix parts ("the badge from 1 with the font from 4").</p>
+    </div>
+    <div class="current"><svg id="curMark" viewBox="0 0 100 100" aria-hidden="true"></svg><span>Round 1 for comparison:<br>star over roof peak</span></div>
+  </header>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="next">
+    <h2>How to choose</h2>
+    <p>Picture it in three places: on the side of the van at 40 mph, as a yard sign from across the street, and as a tiny icon in Google search results. The one that still reads in all three wins. My picks are <b>2 (Star Window)</b> for warmth and story, and <b>4 (Big Dipper)</b> as the most distinctive and ownable.</p>
+  </div>
+</div>
+
+<script>
+(() => {
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (t, a, p) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); if (p) p.appendChild(n); return n; };
+  let uid = 0;
+  const C = { night: "#0a1424", gold: "#ffc94a", goldDeep: "#e8a400", snow: "#f2f5f7", ice: "#9aaabb", a1: "#3ce6a2", a2: "#2bb8e0", a3: "#8b6bff" };
+  const AUR = [C.a1, "#33cfc1", C.a2, "#5a92f0", C.a3];
+  const aur = (t) => AUR[Math.min(AUR.length - 1, Math.round(t * (AUR.length - 1)))];
+
+  // Star with n points, alternating outer radii (long/short) for compass looks
+  function starPath(cx, cy, pts, rLong, rShort, rInner, rot = -90) {
+    const total = pts * 2; let d = "";
+    for (let i = 0; i < total; i++) {
+      const ang = (rot + i * 180 / pts) * Math.PI / 180;
+      const r = i % 2 === 1 ? rInner : (i / 2) % 2 === 0 ? rLong : rShort;
+      d += (i ? "L" : "M") + (cx + r * Math.cos(ang)).toFixed(2) + " " + (cy + r * Math.sin(ang)).toFixed(2);
+    }
+    return d + "Z";
+  }
+  const text = (p, x, y, s, a) => { const t = el("text", { x, y, "text-anchor": "middle", ...a }, p); if (a.stretch) t.style.fontStretch = a.stretch; t.textContent = s; return t; };
+  const grad = (p, stops, x1, x2) => { const id = "g" + (++uid); const g = el("linearGradient", { id, gradientUnits: "userSpaceOnUse", x1, x2, y1: 0, y2: 0 }, el("defs", {}, p)); stops.forEach((c, i) => el("stop", { offset: i / (stops.length - 1), "stop-color": c }, g)); return `url(#${id})`; };
+  const glow = (p, cx, cy, r, color = C.gold, o = .4) => { const id = "r" + (++uid); const g = el("radialGradient", { id }, el("defs", {}, p)); el("stop", { offset: 0, "stop-color": color, "stop-opacity": o }, g); el("stop", { offset: 1, "stop-color": color, "stop-opacity": 0 }, g); el("circle", { cx, cy, r, fill: `url(#${id})` }, p); };
+
+  // ── Marks: each draws into a 100×100 box. mode: dark | light | mono ──
+  const MARKS = {
+    // 1 · Compass badge
+    compass(g, mode) {
+      const ring = mode === "dark" ? C.gold : C.night, star = mode === "light" ? C.goldDeep : mode === "mono" ? C.night : C.gold;
+      el("circle", { cx: 50, cy: 50, r: 47, fill: mode === "dark" ? C.night : "none", stroke: ring, "stroke-width": 3 }, g);
+      el("circle", { cx: 50, cy: 50, r: 40, fill: "none", stroke: ring, "stroke-width": 1, opacity: .5 }, g);
+      el("path", { d: starPath(50, 44, 8, 30, 14, 4.2), fill: star }, g);
+      el("path", { d: starPath(50, 44, 4, 30, 30, 4.2), fill: mode === "dark" ? "#ffe3a1" : star }, g);
+      el("path", { d: "M28 78 L50 64 L72 78", fill: "none", stroke: ring, "stroke-width": 3.2, "stroke-linecap": "round", "stroke-linejoin": "round" }, g);
+      [[32, 82], [41, 76.3], [50, 70.5], [59, 76.3], [68, 82]].forEach(([x, y], i) => el("circle", { cx: x, cy: y, r: 2.2, fill: mode === "mono" ? C.night : aur(i / 4) }, g));
+    },
+    // 2 · Star window: house silhouette with a glowing star-shaped window
+    window(g, mode) {
+      const house = mode === "dark" ? C.snow : C.night;
+      if (mode === "dark") glow(g, 50, 44, 26, C.gold, .35);
+      el("path", { d: "M12 52 L50 16 L88 52 L80 52 L80 90 L20 90 L20 52 Z", fill: house }, g);
+      el("path", { d: starPath(50, 54, 4, 19, 19, 4.4), fill: C.gold }, g);
+      if (mode !== "mono") [[16, 58], [25, 49.5], [34, 41], [43, 32.5], [57, 32.5], [66, 41], [75, 49.5], [84, 58]].forEach(([x, y], i) => el("circle", { cx: x, cy: y + 0, r: 2.3, fill: aur(i / 7) }, g));
+    },
+    // 3 · N monogram: two stems, a diagonal made of lights, the star on top
+    monogram(g, mode) {
+      const ink = mode === "dark" ? C.snow : C.night, star = mode === "light" ? C.goldDeep : mode === "mono" ? C.night : C.gold;
+      el("rect", { x: 18, y: 28, width: 13, height: 62, rx: 2, fill: ink }, g);
+      el("rect", { x: 69, y: 40, width: 13, height: 50, rx: 2, fill: ink }, g);
+      for (let i = 0; i < 7; i++) { const t = i / 6; el("circle", { cx: 26 + t * 48, cy: 34 + t * 52, r: 4.4, fill: mode === "mono" ? C.night : aur(t) }, g); }
+      if (mode === "dark") glow(g, 75.5, 20, 18, C.gold, .45);
+      el("path", { d: starPath(75.5, 20, 4, 18, 18, 3.8), fill: star }, g);
+    },
+    // 4 · Big Dipper: the dipper drawn as a string of lights pointing to Polaris
+    dipper(g, mode) {
+      const wire = mode === "dark" ? "rgba(242,245,247,.35)" : "rgba(10,20,36,.35)", star = mode === "light" ? C.goldDeep : mode === "mono" ? C.night : C.gold;
+      const S = { alkaid: [8, 86], mizar: [24, 80], alioth: [38, 73], megrez: [51, 68], phecda: [55, 88], merak: [80, 90], dubhe: [78, 66] };
+      const path = [S.alkaid, S.mizar, S.alioth, S.megrez, S.phecda, S.merak, S.dubhe, S.megrez];
+      el("path", { d: "M" + path.map((p) => p.join(" ")).join("L"), fill: "none", stroke: wire, "stroke-width": 1.4 }, g);
+      el("path", { d: `M${S.dubhe[0]} ${S.dubhe[1] - 6}L74.5 25`, stroke: mode === "dark" ? C.gold : C.night, "stroke-width": 1.4, "stroke-dasharray": "2 3", opacity: .7, fill: "none" }, g);
+      Object.values(S).forEach((p, i) => el("circle", { cx: p[0], cy: p[1], r: 3.6, fill: mode === "mono" ? C.night : aur(i / 6) }, g));
+      if (mode === "dark") glow(g, 74, 16, 18, C.gold, .45);
+      el("path", { d: starPath(74, 16, 4, 15, 15, 3.2), fill: star }, g);
+      el("path", { d: starPath(74, 16, 4, 7, 7, 1.6, -45), fill: mode === "dark" ? "#ffe3a1" : star }, g);
+    },
+    // 5 · Aurora star: rays filled with the aurora gradient, gold core
+    aurora(g, mode) {
+      const fill = mode === "mono" ? C.night : grad(g, [C.a1, C.a2, C.a3], 8, 92);
+      if (mode === "dark") glow(g, 50, 50, 46, C.a2, .3);
+      el("path", { d: starPath(50, 50, 4, 46, 46, 9), fill }, g);
+      el("path", { d: starPath(50, 50, 4, 22, 22, 5, -45), fill: mode === "mono" ? C.night : fill, opacity: .75 }, g);
+      el("circle", { cx: 50, cy: 50, r: 7.5, fill: C.gold }, g);
+    },
+    // 6 · House badge: a house-shaped badge holding the star, lights along its roof
+    badge(g, mode) {
+      const bg = mode === "dark" ? C.night : mode === "light" ? C.night : "none", rim = mode === "mono" ? C.night : C.gold;
+      el("path", { d: "M50 6 L92 40 L92 92 L8 92 L8 40 Z", fill: bg, stroke: rim, "stroke-width": 4, "stroke-linejoin": "round" }, g);
+      [[18, 41], [26, 34.5], [34, 28], [42, 21.5], [50, 15], [58, 21.5], [66, 28], [74, 34.5], [82, 41]].forEach(([x, y], i) => el("circle", { cx: x, cy: y + 4, r: 2.2, fill: mode === "mono" ? C.night : aur(i / 8) }, g));
+      el("path", { d: starPath(50, 62, 4, 20, 20, 4.2), fill: mode === "mono" ? C.night : C.gold }, g);
+      el("path", { d: starPath(50, 62, 4, 9, 9, 2, -45), fill: mode === "mono" ? C.night : "#ffe3a1" }, g);
+    },
+  };
+
+  // ── Lockups: mark + wordmark, per concept typography ──
+  const CONCEPTS = [
+    { key: "compass", name: "Compass Badge", font: "Cinzel, serif", weight: 800, stretch: null, ls: 5, sub: "HOLIDAY LIGHTING", layout: "stack",
+      idea: "A compass star in a round badge, like a trail marker or a state park sign. Heritage, trustworthy, Minnesota outdoors.",
+      tags: ["Classic", "Great on hats and van doors", "Feels established"] },
+    { key: "window", name: "Star Window", font: "Archivo, sans-serif", weight: 900, stretch: "125%", ls: 2, sub: "HOLIDAY LIGHTING", layout: "row",
+      idea: "A home with a star-shaped window glowing gold, and lights along the roof. Says \"Light the way home\" without words. Warm and family-friendly.",
+      tags: ["Warmest", "Tells the story", "Reads well small"] },
+    { key: "monogram", name: "N★ Monogram", font: "Archivo, sans-serif", weight: 800, stretch: "112%", ls: 6, sub: "HOLIDAY LIGHTING", layout: "row",
+      idea: "A bold N whose diagonal is a strand of lights, topped by the North Star. Modern lettermark that works alone on an app icon or van door.",
+      tags: ["Modern", "Strongest app icon", "Bold"] },
+    { key: "dipper", name: "Big Dipper", font: "Sora, sans-serif", weight: 800, stretch: null, ls: 3, sub: "HOLIDAY LIGHTING", layout: "row",
+      idea: "The Big Dipper drawn as a string of lights, pointing to the North Star, the way people actually find it in the sky. Smart, ownable, and nobody else has it.",
+      tags: ["Most distinctive", "Great story", "Clever"] },
+    { key: "aurora", name: "Aurora Star", font: "Unbounded, sans-serif", weight: 800, stretch: null, ls: 2, sub: "HOLIDAY LIGHTING", layout: "row",
+      idea: "The star itself made of aurora color, with a gold core. Says \"every color\" instantly. Tech-forward and premium.",
+      tags: ["Most colorful", "Premium tech", "Simplest shape"] },
+    { key: "badge", name: "House Badge", font: "Archivo, sans-serif", weight: 900, stretch: "100%", ls: 4, sub: "HOLIDAY LIGHTING", layout: "row",
+      idea: "A house-shaped badge with the star inside and lights along its roof. Works like a seal of quality, easy on stickers, invoices and yard signs.",
+      tags: ["Sturdy", "Sticker-ready", "Simple"] },
+  ];
+
+  function lockup(svg, c, mode) {
+    const ink = mode === "dark" ? C.snow : C.night, subc = mode === "dark" ? C.gold : "#a87400";
+    if (c.layout === "stack") {
+      svg.setAttribute("viewBox", "0 0 300 230");
+      const g = el("g", { transform: "translate(95 0) scale(1.1)" }, svg); MARKS[c.key](g, mode);
+      text(svg, 150, 158, "NORTH STAR", { "font-family": c.font, "font-weight": c.weight, "font-size": 34, "letter-spacing": c.ls, fill: ink, stretch: c.stretch });
+      text(svg, 150, 184, c.sub, { "font-family": c.font, "font-weight": 600, "font-size": 12.5, "letter-spacing": 6.5, fill: subc });
+      el("path", { d: "M70 200 H230", stroke: subc, "stroke-width": 1, opacity: .5 }, svg);
+      text(svg, 150, 220, "MINNESOTA", { "font-family": c.font, "font-weight": 600, "font-size": 9, "letter-spacing": 6, fill: ink, opacity: .6 });
+    } else {
+      svg.setAttribute("viewBox", "0 0 420 130");
+      const g = el("g", { transform: "translate(8 10) scale(1.1)" }, svg); MARKS[c.key](g, mode);
+      const t = text(svg, 138, 72, "NORTH STAR", { "font-family": c.font, "font-weight": c.weight, "font-size": 40, "letter-spacing": c.ls, fill: ink, "text-anchor": "start", stretch: c.stretch });
+      text(svg, 140, 98, c.sub, { "font-family": c.font, "font-weight": 600, "font-size": 12, "letter-spacing": 7, fill: subc, "text-anchor": "start", stretch: c.stretch });
+      // shrink wordmark if it overflows
+      requestAnimationFrame(() => { try { const w = t.getComputedTextLength(); if (w > 272) t.setAttribute("textLength", 272), t.setAttribute("lengthAdjust", "spacingAndGlyphs"); } catch (e) {} });
+    }
+  }
+  const markOnly = (svg, key, mode) => { svg.setAttribute("viewBox", "0 0 100 100"); MARKS[key](el("g", {}, svg), mode); };
+
+  const grid = document.getElementById("grid");
+  CONCEPTS.forEach((c, i) => {
+    const card = document.createElement("article");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="hero"><span class="num">${i + 1}</span><svg role="img" aria-label="${c.name} logo on night blue"></svg></div>
+      <div class="tests">
+        <div class="light"><svg role="img" aria-label="${c.name} logo on white"></svg></div>
+        <div class="small">
+          <div><div class="chip" style="width:60px;height:60px"><svg width="46" height="46" aria-hidden="true"></svg></div><span>App icon</span></div>
+          <div><div class="fav" style="width:24px;height:24px;margin:0 auto"><svg width="20" height="20" aria-hidden="true"></svg></div><span>Tab 20px</span></div>
+          <div><div class="fav" style="width:40px;height:40px;margin:0 auto;background:transparent;padding:0"><svg width="40" height="40" aria-hidden="true"></svg></div><span>1-color</span></div>
+        </div>
+      </div>
+      <div class="info"><h2>${i + 1} · ${c.name}</h2><p>${c.idea}</p><div class="tags">${c.tags.map((t) => `<span>${t}</span>`).join("")}</div></div>`;
+    grid.appendChild(card);
+    const svgs = card.querySelectorAll("svg");
+    lockup(svgs[0], c, "dark");
+    lockup(svgs[1], c, "light");
+    markOnly(svgs[2], c.key, "dark");
+    markOnly(svgs[3], c.key, "light");
+    const mono = svgs[4]; markOnly(mono, c.key, "mono"); mono.parentElement.style.background = "#ffc94a"; mono.parentElement.style.borderRadius = "8px";
+  });
+
+  // Round 1 mark for comparison
+  const cur = document.getElementById("curMark");
+  el("path", { d: starPath(50, 29, 4, 26, 26, 4.2), fill: C.gold }, cur);
+  el("path", { d: "M12 80 L50 57 L88 80", fill: "none", stroke: C.gold, "stroke-width": 6.5, "stroke-linecap": "round", "stroke-linejoin": "round" }, cur);
+  [[20, 88], [29.5, 82.3], [39, 76.6], [50, 70], [61, 76.6], [70.5, 82.3], [80, 88]].forEach(([x, y], i) => el("circle", { cx: x, cy: y, r: 3.2, fill: aur(i / 6) }, cur));
+})();
+</script>

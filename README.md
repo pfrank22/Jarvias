@@ -7,6 +7,8 @@ Legal entity: **North Star Lighting LLC**. Public name (Minnesota assumed name):
 |---|---|
 | [`docs/business-plan.md`](docs/business-plan.md) | Market, competitors, sourcing, pricing, unit economics, startup costs, MN licensing, operations, marketing, financials |
 | [`docs/launch-kit.md`](docs/launch-kit.md) | LLC + DBA setup checklist, brand basics, ready-to-use copy, customer agreement template, crew checklists |
+| [`docs/pricing-questions-lincoln.md`](docs/pricing-questions-lincoln.md) | Pricing questions to settle with Lincoln (answers go into `site/pricing.js`) |
+| [`docs/logo-concepts.html`](docs/logo-concepts.html) | Round 2 logo concepts (six directions) |
 | [`docs/brand-guide.html`](docs/brand-guide.html) | Visual brand guide: logo, colors, type, voice, mockups (open in a browser) |
 | [`docs/brand-directions.html`](docs/brand-directions.html) | Earlier name explorations (Borealis, Eaveline, Ten Thousand Lights), kept for reference |
 | [`site/`](site/) | Website with holiday scene switcher and **instant price calculator** |
