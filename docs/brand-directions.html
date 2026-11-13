@@ -1,0 +1,485 @@
+<title>Permanent Lighting Brand Directions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Syne:wght@600;700;800&family=Work+Sans:wght@400;600&display=swap">
+<style>
+/* Layout: a quiet presentation board. Neutral chrome; each direction is a full-bleed band in its own world. */
+:root {
+  --bg: #f3f4f6; --surface: #ffffff; --fg: #15181d; --muted: #5d6573; --line: #dfe2e8; --chip: #e9ecf1;
+  --f-ui: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  /* brand-local tokens (fixed: each brand is a single deliberate look) */
+  --b-night: #08111f; --b-ink: #e9f3f5; --b-green: #3cf2a6; --b-teal: #18c3d6; --b-violet: #8c6cff; --b-muted: #9fb3c3;
+  --e-paper: #f6f5f1; --e-char: #1d1d1b; --e-champ: #c8a96a; --e-stone: #8a877e; --e-warm: #ffd9a0;
+  --t-pine: #17352a; --t-lake: #2b5f80; --t-birch: #f1efe8; --t-amber: #ffb547; --t-moss: #7aa37a; --t-ink: #10221b;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0e1116; --surface: #161a21; --fg: #e8ebf0; --muted: #9aa3b2; --line: #272d38; --chip: #20262f; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #0e1116; --surface: #161a21; --fg: #e8ebf0; --muted: #9aa3b2; --line: #272d38; --chip: #20262f; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 16px/1.55 var(--f-ui); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+.eyebrow { text-transform: uppercase; letter-spacing: .14em; font-size: .74rem; font-weight: 600; color: var(--muted); margin: 0 0 .5rem; }
+a { color: inherit; }
+
+/* Intro */
+.intro { padding-block: 3rem 2rem; display: grid; gap: 2rem; grid-template-columns: 1.1fr 1fr; align-items: center; }
+.intro h1 { font: 600 clamp(2rem, 4.6vw, 3.1rem)/1.08 var(--f-ui); letter-spacing: -.02em; }
+.intro p { color: var(--muted); max-width: 58ch; }
+.brief { display: grid; grid-template-columns: auto 1fr; gap: .35rem 1rem; font-size: .92rem; margin-top: 1.2rem; }
+.brief dt { color: var(--muted); }
+.brief dd { margin: 0; }
+@media (max-width: 860px) { .intro { grid-template-columns: 1fr; } }
+
+/* Holiday demo */
+.demo { background: #070c16; border-radius: 18px; overflow: hidden; color: #e9f0f6; }
+.demo svg { display: block; width: 100%; height: auto; }
+.demo-bar { display: flex; flex-wrap: wrap; gap: .35rem; padding: .8rem 1rem 1rem; }
+.demo-bar button { font: 500 .78rem var(--f-ui); color: #cfd8e3; background: #121b2b; border: 1px solid #22304a; border-radius: 999px; padding: .3rem .7rem; cursor: pointer; }
+.demo-bar button[aria-pressed="true"] { background: #e9f0f6; color: #070c16; border-color: #e9f0f6; }
+.demo-bar button:focus-visible { outline: 2px solid #8fd3ff; outline-offset: 2px; }
+.demo-caption { padding: 0 1rem; font-size: .8rem; color: #8ea0b6; margin: .6rem 0 0; }
+
+/* Warning */
+.note { margin-block: 1rem 2.5rem; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid #d9822b; border-radius: 10px; padding: 1rem 1.2rem; }
+.note h3 { font-size: 1rem; margin-bottom: .3rem; }
+.note p { margin: 0; color: var(--muted); font-size: .95rem; }
+.note strong { color: var(--fg); }
+
+/* Direction bands */
+.dir { padding-block: 3.5rem; }
+.dir-head { display: grid; grid-template-columns: auto 1fr; gap: .4rem 1.2rem; align-items: baseline; margin-bottom: 2rem; }
+.dir-num { font: 600 .78rem var(--f-ui); letter-spacing: .14em; text-transform: uppercase; opacity: .7; grid-column: 1 / -1; }
+.dir-name { font-size: clamp(2.4rem, 7vw, 4.6rem); line-height: 1; }
+.dir-line { font-size: 1.1rem; max-width: 46ch; }
+@media (max-width: 700px) { .dir-head { grid-template-columns: 1fr; } }
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
+.cell { border-radius: 14px; padding: 1.3rem; min-width: 0; }
+.c-logo { grid-column: span 7; display: grid; place-items: center; min-height: 260px; }
+.c-logo svg { width: min(100%, 420px); height: auto; }
+.c-why { grid-column: span 5; }
+.c-why h3, .c-type h3, .c-voice h3, .c-app h3 { font: 600 .74rem var(--f-ui); letter-spacing: .14em; text-transform: uppercase; opacity: .7; margin-bottom: .8rem; }
+.c-why ul { margin: 0; padding-left: 1.1rem; display: grid; gap: .45rem; }
+.c-pal { grid-column: span 12; display: grid; grid-template-columns: repeat(5, 1fr); gap: .5rem; padding: 0; }
+.sw { border-radius: 12px; padding: 4.2rem .8rem .7rem; font: 500 .78rem var(--f-ui); display: flex; flex-direction: column; gap: .1rem; }
+.sw b { font-weight: 600; font-size: .85rem; }
+.c-type { grid-column: span 5; }
+.c-voice { grid-column: span 7; }
+.c-voice blockquote { margin: 0 0 .9rem; font-size: 1.05rem; }
+.c-voice p { margin: .35rem 0 0; font-size: .92rem; opacity: .8; }
+.c-app { grid-column: span 4; display: flex; flex-direction: column; }
+.c-app svg { width: 100%; height: auto; display: block; border-radius: 8px; }
+.c-app .cap { font-size: .8rem; opacity: .7; margin-top: .6rem; }
+@media (max-width: 900px) {
+  .c-logo, .c-why, .c-type, .c-voice { grid-column: span 12; }
+  .c-app { grid-column: span 6; }
+  .c-pal { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 560px) { .c-app { grid-column: span 12; } .c-pal { grid-template-columns: repeat(2, 1fr); } .c-logo { min-height: 200px; } }
+
+/* Borealis */
+.borealis { background: var(--b-night); color: var(--b-ink); }
+.borealis .dir-name { font-family: Syne, var(--f-ui); font-weight: 800; letter-spacing: .04em;
+  background: linear-gradient(95deg, var(--b-green), var(--b-teal) 45%, var(--b-violet)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.borealis .cell { background: #0f1b2e; }
+.borealis .c-logo { background: radial-gradient(120% 90% at 50% 0%, #133049 0%, #0b1526 70%); }
+.borealis .t-display { font: 800 2.2rem/1 Syne, sans-serif; letter-spacing: .03em; }
+.borealis .t-body { font: 400 1rem/1.5 "Instrument Sans", sans-serif; color: var(--b-muted); }
+
+/* Eaveline */
+.eaveline { background: var(--e-paper); color: var(--e-char); }
+.eaveline .dir-name { font: italic 400 clamp(2.8rem, 8vw, 5.4rem)/1 "Instrument Serif", serif; letter-spacing: -.01em; }
+.eaveline .cell { background: #ecebe5; }
+.eaveline .c-logo { background: var(--e-char); }
+.eaveline .t-display { font: 400 2.6rem/1 "Instrument Serif", serif; }
+.eaveline .t-body { font: 400 1rem/1.5 "Instrument Sans", sans-serif; color: #55534c; }
+
+/* Ten Thousand Lights */
+.tenk { background: var(--t-pine); color: var(--t-birch); }
+.tenk .dir-name { font: 900 clamp(2.6rem, 8vw, 5.2rem)/.92 "Big Shoulders Display", sans-serif; text-transform: uppercase; letter-spacing: .01em; color: var(--t-birch); }
+.tenk .dir-name span { color: var(--t-amber); }
+.tenk .cell { background: #1f4234; }
+.tenk .c-logo { background: var(--t-birch); }
+.tenk .t-display { font: 900 2.5rem/1 "Big Shoulders Display", sans-serif; text-transform: uppercase; }
+.tenk .t-body { font: 400 1rem/1.5 "Work Sans", sans-serif; color: #cfd8cf; }
+
+.t-row { display: grid; gap: .6rem; }
+.t-meta { font: 500 .78rem var(--f-ui); opacity: .65; }
+
+/* Compare + recommendation */
+.compare { padding-block: 3.5rem 1rem; }
+.compare h2 { font: 600 clamp(1.6rem, 3.6vw, 2.2rem)/1.15 var(--f-ui); letter-spacing: -.01em; margin-bottom: 1.2rem; }
+.tbl { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: .92rem; }
+th, td { text-align: left; padding: .75rem 1rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; }
+thead th { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+tbody tr:last-child td, tbody tr:last-child th { border-bottom: 0; }
+.dots { letter-spacing: .15em; color: var(--muted); white-space: nowrap; }
+.dots b { color: var(--fg); font-weight: 400; }
+.rec { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+.rec > div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem 1.3rem; min-width: 0; }
+.rec h3 { font-size: 1.05rem; margin-bottom: .4rem; }
+.rec p, .rec li { color: var(--muted); font-size: .94rem; }
+.rec ol { padding-left: 1.2rem; margin: .4rem 0 0; display: grid; gap: .35rem; }
+@media (max-width: 760px) { .rec { grid-template-columns: 1fr; } }
+footer { padding-block: 2rem 3rem; color: var(--muted); font-size: .85rem; }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <section class="intro">
+    <div>
+      <p class="eyebrow">Brand directions · permanent lighting · Minneapolis + 70 miles</p>
+      <h1>Three ways to brand a permanent-lighting company for Minnesota</h1>
+      <p>Each direction is a complete starting point: name, mark, palette, type, voice and how it looks on a yard sign and a van. Pick one to build out, or mix the name of one with the look of another.</p>
+      <dl class="brief">
+        <dt>Product</dt><dd>Permanent RGB roofline lighting, app-controlled, for every holiday and every night</dd>
+        <dt>Market</dt><dd>Homeowners within about 70 miles of Minneapolis–St. Paul</dd>
+        <dt>Competitors</dt><dd>National franchises and dealers: Trimlight, JellyFish, Gemstone, Outdoor Lighting Perspectives, Blingle</dd>
+        <dt>Our edge</dt><dd>Local and independent, built for −30°F winters, craftsmanship over franchise scripts</dd>
+      </dl>
+    </div>
+    <figure class="demo" style="margin:0">
+      <svg id="demoHouse" viewBox="0 0 520 300" role="img" aria-label="A house with permanent lights along the roofline, changing colors for each holiday"></svg>
+      <p class="demo-caption" id="demoCaption">The product in one picture: one install, every occasion. Tap a holiday.</p>
+      <div class="demo-bar" id="demoBar"></div>
+    </figure>
+  </section>
+
+  <aside class="note">
+    <h3>Why not North Star</h3>
+    <p><strong>Northstar Trimlight</strong> in Rochester sells exactly this product (permanent, programmable roofline lighting) and has since 2019. Rochester sits at the edge of a 70-mile radius from Minneapolis, and Trimlight also has dealers in Minneapolis, St. Paul and Mankato. A "North Star" permanent-lighting brand would be confused with them on Google and on yard signs. Choosing a new name now, before anything is printed, costs nothing.</p>
+  </aside>
+</div>
+
+<!-- ───────── DIRECTION 1: BOREALIS ───────── -->
+<section class="dir borealis" aria-labelledby="d1">
+  <div class="wrap">
+    <div class="dir-head">
+      <p class="dir-num">Direction 1 · Premium tech</p>
+      <h2 class="dir-name" id="d1">Borealis</h2>
+      <p class="dir-line">Northern lights for your home. Every color, every season, from the app on your phone.</p>
+    </div>
+    <div class="grid">
+      <div class="cell c-logo">
+        <svg viewBox="0 0 420 220" role="img" aria-label="Borealis Lighting Co. logo">
+          <defs>
+            <linearGradient id="bAur" x1="0" x2="1"><stop offset="0" stop-color="#3cf2a6"/><stop offset=".5" stop-color="#18c3d6"/><stop offset="1" stop-color="#8c6cff"/></linearGradient>
+          </defs>
+          <g fill="none" stroke="url(#bAur)" stroke-linecap="round">
+            <path d="M150 62 C175 30, 200 78, 225 46 S 265 40, 272 30" stroke-width="7" opacity=".95"/>
+            <path d="M146 80 C172 52, 198 96, 226 66 S 266 58, 276 48" stroke-width="5" opacity=".6"/>
+            <path d="M144 96 C170 72, 198 110, 228 84 S 268 76, 280 66" stroke-width="3" opacity=".35"/>
+          </g>
+          <path d="M162 132 L210 104 L258 132" fill="none" stroke="#e9f3f5" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="url(#bAur)"><circle cx="170" cy="127" r="2.6"/><circle cx="182" cy="120" r="2.6"/><circle cx="194" cy="113" r="2.6"/><circle cx="206" cy="106.5" r="2.6"/><circle cx="214" cy="106.5" r="2.6"/><circle cx="226" cy="113" r="2.6"/><circle cx="238" cy="120" r="2.6"/><circle cx="250" cy="127" r="2.6"/></g>
+          <text x="210" y="178" text-anchor="middle" font-family="Syne, sans-serif" font-weight="800" font-size="40" letter-spacing="7" fill="#e9f3f5">BOREALIS</text>
+          <text x="210" y="202" text-anchor="middle" font-family="Instrument Sans, sans-serif" font-weight="600" font-size="11" letter-spacing="5" fill="#9fb3c3">PERMANENT LIGHTING CO.</text>
+        </svg>
+      </div>
+      <div class="cell c-why">
+        <h3>Why it works</h3>
+        <ul>
+          <li>Says color-changing light without saying "Christmas." Fits Halloween, the 4th and game day just as well.</li>
+          <li>Minnesota sees the aurora, so the name feels local without saying "MN."</li>
+          <li>Sounds premium and modern, which supports $25–35 per foot pricing.</li>
+          <li>Easy to say and spell. Grows into commercial, HOA and landscape lighting.</li>
+          <li><em>Risk:</em> "Borealis" is a common word in other industries, so a trademark check matters. "Borealis Lighting Co." is the safer full name.</li>
+        </ul>
+      </div>
+      <div class="c-pal">
+        <div class="sw" style="background:#08111f;color:#e9f3f5;box-shadow:inset 0 0 0 1px #22324a"><b>Polar Night</b>#08111F</div>
+        <div class="sw" style="background:#3cf2a6;color:#06261a"><b>Aurora Green</b>#3CF2A6</div>
+        <div class="sw" style="background:#18c3d6;color:#03252b"><b>Glacier Teal</b>#18C3D6</div>
+        <div class="sw" style="background:#8c6cff;color:#140b33"><b>Solar Violet</b>#8C6CFF</div>
+        <div class="sw" style="background:#e9f3f5;color:#08111f"><b>Snowfield</b>#E9F3F5</div>
+      </div>
+      <div class="cell c-type">
+        <h3>Type</h3>
+        <div class="t-row">
+          <span class="t-display">Light every night</span>
+          <span class="t-meta">Syne ExtraBold, headlines and wordmark</span>
+          <span class="t-body">Set your roofline to any color from your phone. Warm white for everyday, full color for every holiday.</span>
+          <span class="t-meta">Instrument Sans, body copy</span>
+        </div>
+      </div>
+      <div class="cell c-voice">
+        <h3>Voice: confident, modern, calm</h3>
+        <blockquote>"Install once. Glow forever."</blockquote>
+        <p>Website headline: <b>Your home's northern lights.</b></p>
+        <p>Ad: <b>Purple and gold on game day. Orange on Halloween. Warm white every other night. One install.</b></p>
+        <p>Door hanger: <b>No more ladders in January. Permanent lights, hidden by day.</b></p>
+      </div>
+      <div class="cell c-app"><h3>Yard sign</h3><svg data-app="sign" data-brand="borealis" viewBox="0 0 240 170"></svg><p class="cap">24×18 in, H-stake</p></div>
+      <div class="cell c-app"><h3>Van wrap</h3><svg data-app="van" data-brand="borealis" viewBox="0 0 240 170"></svg><p class="cap">Aurora ribbon runs along the roofline of the van</p></div>
+      <div class="cell c-app"><h3>Social post</h3><svg data-app="post" data-brand="borealis" viewBox="0 0 240 170"></svg><p class="cap">Every post shows a real install at night</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── DIRECTION 2: EAVELINE ───────── -->
+<section class="dir eaveline" aria-labelledby="d2">
+  <div class="wrap">
+    <div class="dir-head">
+      <p class="dir-num">Direction 2 · Architectural luxury</p>
+      <h2 class="dir-name" id="d2">Eaveline</h2>
+      <p class="dir-line">Invisible by day. Unforgettable by night. Lighting that looks like it came with the house.</p>
+    </div>
+    <div class="grid">
+      <div class="cell c-logo">
+        <svg viewBox="0 0 420 220" role="img" aria-label="Eaveline logo">
+          <path d="M120 96 L210 44 L300 96" fill="none" stroke="#f6f5f1" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <g fill="#ffd9a0">
+            <circle cx="132" cy="96" r="2.1"/><circle cx="147" cy="87.4" r="2.1"/><circle cx="162" cy="78.8" r="2.1"/><circle cx="177" cy="70.2" r="2.1"/><circle cx="192" cy="61.6" r="2.1"/>
+            <circle cx="228" cy="61.6" r="2.1"/><circle cx="243" cy="70.2" r="2.1"/><circle cx="258" cy="78.8" r="2.1"/><circle cx="273" cy="87.4" r="2.1"/><circle cx="288" cy="96" r="2.1"/>
+          </g>
+          <text x="210" y="160" text-anchor="middle" font-family="Instrument Serif, serif" font-style="italic" font-size="62" fill="#f6f5f1">Eaveline</text>
+          <text x="210" y="190" text-anchor="middle" font-family="Instrument Sans, sans-serif" font-weight="500" font-size="10.5" letter-spacing="5.5" fill="#c8a96a">PERMANENT ARCHITECTURAL LIGHTING</text>
+        </svg>
+      </div>
+      <div class="cell c-why">
+        <h3>Why it works</h3>
+        <ul>
+          <li>Names where the product lives: the eave line. The name explains itself once someone sees an install.</li>
+          <li>A coined word, so it's the most ownable of the three. The domain and trademark are the likeliest to be free.</li>
+          <li>Positions you above the franchises: a design company, not a "Christmas light guy."</li>
+          <li>Suits high-end homes in Edina, Wayzata, Minnetonka and North Oaks, and partnerships with builders and architects.</li>
+          <li><em>Risk:</em> less festive. Holiday excitement has to come from photos and campaigns, not the name.</li>
+        </ul>
+      </div>
+      <div class="c-pal">
+        <div class="sw" style="background:#1d1d1b;color:#f6f5f1"><b>Charcoal</b>#1D1D1B</div>
+        <div class="sw" style="background:#f6f5f1;color:#1d1d1b;box-shadow:inset 0 0 0 1px #d8d6cf"><b>Limestone</b>#F6F5F1</div>
+        <div class="sw" style="background:#c8a96a;color:#2a210f"><b>Champagne</b>#C8A96A</div>
+        <div class="sw" style="background:#ffd9a0;color:#3a2a0e"><b>2700K Glow</b>#FFD9A0</div>
+        <div class="sw" style="background:#8a877e;color:#f6f5f1"><b>Fieldstone</b>#8A877E</div>
+      </div>
+      <div class="cell c-type">
+        <h3>Type</h3>
+        <div class="t-row">
+          <span class="t-display">Quietly brilliant.</span>
+          <span class="t-meta">Instrument Serif, headlines and wordmark</span>
+          <span class="t-body">A slim channel tucked under your soffit, color-matched to your trim. You won't see it until the sun goes down.</span>
+          <span class="t-meta">Instrument Sans, body copy</span>
+        </div>
+      </div>
+      <div class="cell c-voice">
+        <h3>Voice: refined, precise, understated</h3>
+        <blockquote>"Invisible by day. Unforgettable by night."</blockquote>
+        <p>Website headline: <b>Lighting that looks like it came with the house.</b></p>
+        <p>Ad: <b>Color-matched track. Concealed wiring. Twenty-year LEDs. Installed in a day.</b></p>
+        <p>Door hanger: <b>Your neighbors asked who did their lights. Now you know.</b></p>
+      </div>
+      <div class="cell c-app"><h3>Yard sign</h3><svg data-app="sign" data-brand="eaveline" viewBox="0 0 240 170"></svg><p class="cap">Small, minimal, and it stands out because of that</p></div>
+      <div class="cell c-app"><h3>Van wrap</h3><svg data-app="van" data-brand="eaveline" viewBox="0 0 240 170"></svg><p class="cap">Charcoal van, one champagne line</p></div>
+      <div class="cell c-app"><h3>Social post</h3><svg data-app="post" data-brand="eaveline" viewBox="0 0 240 170"></svg><p class="cap">Day and night side-by-side photos</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── DIRECTION 3: TEN THOUSAND LIGHTS ───────── -->
+<section class="dir tenk" aria-labelledby="d3">
+  <div class="wrap">
+    <div class="dir-head">
+      <p class="dir-num">Direction 3 · Minnesota proud</p>
+      <h2 class="dir-name" id="d3">Ten Thousand <span>Lights</span></h2>
+      <p class="dir-line">Light up the Land of 10,000 Lakes. A local crew, built for real Minnesota winters.</p>
+    </div>
+    <div class="grid">
+      <div class="cell c-logo">
+        <svg viewBox="0 0 420 220" role="img" aria-label="Ten Thousand Lights badge logo">
+          <defs><path id="tArc" d="M130 110 a80 80 0 1 1 160 0"/></defs>
+          <circle cx="210" cy="110" r="96" fill="#17352a"/>
+          <circle cx="210" cy="110" r="86" fill="none" stroke="#f1efe8" stroke-width="1.5" opacity=".5"/>
+          <text font-family="Big Shoulders Display, sans-serif" font-weight="900" font-size="16" letter-spacing="2" fill="#f1efe8"><textPath href="#tArc" startOffset="50%" text-anchor="middle">TEN THOUSAND LIGHTS</textPath></text>
+          <path d="M168 128 L210 98 L252 128" fill="none" stroke="#f1efe8" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+          <g fill="#ffb547"><circle cx="176" cy="122" r="3"/><circle cx="188" cy="113.5" r="3"/><circle cx="200" cy="105" r="3"/><circle cx="210" cy="98" r="3.4"/><circle cx="220" cy="105" r="3"/><circle cx="232" cy="113.5" r="3"/><circle cx="244" cy="122" r="3"/></g>
+          <g fill="none" stroke="#7aa37a" stroke-width="3" stroke-linecap="round"><path d="M160 146 q12 -6 24 0 t24 0 t24 0 t24 0"/><path d="M172 158 q12 -6 24 0 t24 0 t24 0"/></g>
+          <text x="210" y="190" text-anchor="middle" font-family="Big Shoulders Display, sans-serif" font-weight="700" font-size="15" letter-spacing="4" fill="#ffb547">EST. MN</text>
+        </svg>
+      </div>
+      <div class="cell c-why">
+        <h3>Why it works</h3>
+        <ul>
+          <li>A clear nod to "Land of 10,000 Lakes." Minnesotans get it instantly and it makes people smile.</li>
+          <li>Stands out against national franchises: <b>we're from here</b>.</li>
+          <li>The badge looks great on hats, stickers and van doors, so people wear the brand.</li>
+          <li>Room for local campaigns: "10,000 homes lit," Winter Carnival, State Fair.</li>
+          <li><em>Risk:</em> long name. Use "10K Lights" as a short form on social media and in the domain.</li>
+        </ul>
+      </div>
+      <div class="c-pal">
+        <div class="sw" style="background:#17352a;color:#f1efe8;box-shadow:inset 0 0 0 1px #2c5444"><b>Boundary Pine</b>#17352A</div>
+        <div class="sw" style="background:#2b5f80;color:#f1efe8"><b>Lake Blue</b>#2B5F80</div>
+        <div class="sw" style="background:#ffb547;color:#3a2504"><b>Lantern Amber</b>#FFB547</div>
+        <div class="sw" style="background:#7aa37a;color:#0f2414"><b>Moss</b>#7AA37A</div>
+        <div class="sw" style="background:#f1efe8;color:#17352a"><b>Birch</b>#F1EFE8</div>
+      </div>
+      <div class="cell c-type">
+        <h3>Type</h3>
+        <div class="t-row">
+          <span class="t-display">Built for −30°</span>
+          <span class="t-meta">Big Shoulders Display Black, headlines and badge</span>
+          <span class="t-body">Our crew is from here. Our lights are rated for the coldest night of the year, and we answer the phone in January.</span>
+          <span class="t-meta">Work Sans, body copy</span>
+        </div>
+      </div>
+      <div class="cell c-voice">
+        <h3>Voice: friendly, local, a little cheeky</h3>
+        <blockquote>"Put the ladder away. For good."</blockquote>
+        <p>Website headline: <b>Permanent lights, made for Minnesota winters.</b></p>
+        <p>Ad: <b>Purple on game day. Green for St. Paddy's. Warm white when the snow's falling. Your call, from the couch.</b></p>
+        <p>Door hanger: <b>Hey neighbor! We just lit up your street. Want in?</b></p>
+      </div>
+      <div class="cell c-app"><h3>Yard sign</h3><svg data-app="sign" data-brand="tenk" viewBox="0 0 240 170"></svg><p class="cap">Bold and readable from a passing car</p></div>
+      <div class="cell c-app"><h3>Van wrap</h3><svg data-app="van" data-brand="tenk" viewBox="0 0 240 170"></svg><p class="cap">Pine van with a big badge on the door</p></div>
+      <div class="cell c-app"><h3>Social post</h3><svg data-app="post" data-brand="tenk" viewBox="0 0 240 170"></svg><p class="cap">Street-by-street "lit this week" posts</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="compare" aria-labelledby="cmp">
+    <p class="eyebrow">Side by side</p>
+    <h2 id="cmp">How they compare</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col">Borealis</th><th scope="col">Eaveline</th><th scope="col">Ten Thousand Lights</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Says "every holiday"</th><td class="dots"><b>●●●●●</b></td><td class="dots"><b>●●●</b>○○</td><td class="dots"><b>●●●●</b>○</td></tr>
+          <tr><th scope="row">Feels premium</th><td class="dots"><b>●●●●</b>○</td><td class="dots"><b>●●●●●</b></td><td class="dots"><b>●●●</b>○○</td></tr>
+          <tr><th scope="row">Minnesota identity</th><td class="dots"><b>●●●●</b>○</td><td class="dots"><b>●●</b>○○○</td><td class="dots"><b>●●●●●</b></td></tr>
+          <tr><th scope="row">Ownable name</th><td class="dots"><b>●●●</b>○○</td><td class="dots"><b>●●●●●</b></td><td class="dots"><b>●●●●</b>○</td></tr>
+          <tr><th scope="row">Memorable on a yard sign</th><td class="dots"><b>●●●●</b>○</td><td class="dots"><b>●●●</b>○○</td><td class="dots"><b>●●●●●</b></td></tr>
+          <tr><th scope="row">Best customer fit</th><td>Tech-friendly families, upscale suburbs</td><td>High-end homes, builders, architects</td><td>Broad suburbs and exurbs, community word of mouth</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="rec">
+      <div>
+        <h3>Recommendation: Borealis</h3>
+        <p>It is the only name that sells the product's main benefit, every color for every occasion, while sounding local and premium. Against "Trimlight" and "JellyFish," a Minnesota-born name with a strong visual (the aurora ribbon) stands out. If you want the safest trademark position, Eaveline is the runner-up. If you want the warmest local word of mouth, choose Ten Thousand Lights.</p>
+      </div>
+      <div>
+        <h3>Before you commit</h3>
+        <ol>
+          <li>Search the Minnesota Secretary of State registry for the name.</li>
+          <li>Search the USPTO trademark database, classes 11 (lighting) and 37 (installation).</li>
+          <li>Check the .com and the Instagram and Facebook handles.</li>
+          <li>Show the three logos to five customers in your target area. Ask which company they'd call.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+  <footer>Concept board for discussion. Logos are first-round sketches to refine once a direction is chosen. Name searches were web-only, not legal clearance.</footer>
+</div>
+
+<script>
+(() => {
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; };
+
+  // Holiday palettes for the demo
+  const HOLIDAYS = [
+    { name: "Christmas", colors: ["#ff3b3b", "#2bd46a", "#ffd27a"] },
+    { name: "Everyday warm white", colors: ["#ffd9a0"] },
+    { name: "Valentine's", colors: ["#ff4f8b", "#ffffff", "#ff2a55"] },
+    { name: "St. Patrick's", colors: ["#2bd46a", "#9dff8a"] },
+    { name: "4th of July", colors: ["#ff3b3b", "#ffffff", "#3b6bff"] },
+    { name: "Game day", colors: ["#7b3fe4", "#ffc62f"] },
+    { name: "Halloween", colors: ["#ff7a00", "#8c3cff"] },
+    { name: "Winter blue", colors: ["#9fd8ff", "#ffffff"] },
+  ];
+
+  // Draws a house; returns the bulb list so colors can change.
+  function house(svg, opts) {
+    const { w, h, sky, body, ground, win, roof = 1 } = opts;
+    svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+    el("rect", { x: 0, y: 0, width: w, height: h, fill: sky }, svg);
+    const gy = h * .86, cx = w * .42, hw = w * .27 * roof, peak = h * .30, eave = h * .52;
+    el("rect", { x: 0, y: gy, width: w, height: h - gy, fill: ground }, svg);
+    el("path", { d: `M${cx - hw} ${gy}V${eave}L${cx} ${peak}L${cx + hw} ${eave}V${gy}Z`, fill: body }, svg);
+    const gx = cx + hw, gw = w * .2;
+    el("path", { d: `M${gx} ${gy}V${eave + h * .06}L${gx + gw / 2} ${eave - h * .04}L${gx + gw} ${eave + h * .06}V${gy}Z`, fill: body, opacity: .85 }, svg);
+    if (win) [[cx - hw * .6, eave + h * .08], [cx + hw * .25, eave + h * .08]].forEach(([x, y]) => el("rect", { x, y, width: hw * .35, height: h * .12, fill: win, opacity: .8 }, svg));
+    const bulbs = [];
+    const run = (a, b, n) => { for (let i = 0; i <= n; i++) { const x = a[0] + (b[0] - a[0]) * i / n, y = a[1] + (b[1] - a[1]) * i / n + 3; bulbs.push(el("circle", { cx: x, cy: y, r: Math.max(1.6, w / 190) }, svg)); } };
+    const n = Math.round(w / 26);
+    run([cx - hw, eave], [cx, peak], n); run([cx, peak], [cx + hw, eave], n);
+    run([gx, eave + h * .06], [gx + gw / 2, eave - h * .04], Math.round(n / 2)); run([gx + gw / 2, eave - h * .04], [gx + gw, eave + h * .06], Math.round(n / 2));
+    return bulbs;
+  }
+  const paint = (bulbs, colors, glow = true) => bulbs.forEach((b, i) => {
+    const c = colors[i % colors.length];
+    b.setAttribute("fill", c);
+    b.style.filter = glow ? `drop-shadow(0 0 3px ${c})` : "";
+    b.style.transition = "fill .5s";
+  });
+
+  // Demo
+  const demo = document.getElementById("demoHouse");
+  const demoBulbs = house(demo, { w: 520, h: 300, sky: "#070c16", body: "#13233a", ground: "#0c1626", win: "#f4c56a" });
+  el("path", { d: "M470 258l-22-44h10l-18-36h9l-15-32-15 32h9l-18 36h10l-22 44z", fill: "#0f2a22" }, demo);
+  const bar = document.getElementById("demoBar"), cap = document.getElementById("demoCaption");
+  let idx = 0, timer;
+  const show = (i, user) => {
+    idx = i; paint(demoBulbs, HOLIDAYS[i].colors);
+    [...bar.children].forEach((b, j) => b.setAttribute("aria-pressed", j === i));
+    cap.textContent = `${HOLIDAYS[i].name}: same lights, new scene from the app.`;
+    if (user) clearInterval(timer);
+  };
+  HOLIDAYS.forEach((hd, i) => { const b = document.createElement("button"); b.type = "button"; b.textContent = hd.name; b.onclick = () => show(i, true); bar.appendChild(b); });
+  show(0);
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) timer = setInterval(() => show((idx + 1) % HOLIDAYS.length), 2400);
+
+  // Brand applications
+  const BR = {
+    borealis: { name: "BOREALIS", sub: "PERMANENT LIGHTING CO.", font: "Syne, sans-serif", weight: 800, ls: 3, bg: "#08111f", fg: "#e9f3f5", acc: "#3cf2a6", acc2: "#8c6cff", line: "Every color. Every night.", lights: ["#3cf2a6", "#18c3d6", "#8c6cff"], van: "#0b1526" },
+    eaveline: { name: "Eaveline", sub: "PERMANENT ARCHITECTURAL LIGHTING", font: "Instrument Serif, serif", italic: true, weight: 400, ls: 0, bg: "#1d1d1b", fg: "#f6f5f1", acc: "#c8a96a", acc2: "#ffd9a0", line: "Invisible by day.", lights: ["#ffd9a0"], van: "#1d1d1b" },
+    tenk: { name: "TEN THOUSAND LIGHTS", sub: "PERMANENT LIGHTING · MN", font: "Big Shoulders Display, sans-serif", weight: 900, ls: 1, bg: "#17352a", fg: "#f1efe8", acc: "#ffb547", acc2: "#7aa37a", line: "Put the ladder away. For good.", lights: ["#ffb547", "#f1efe8"], van: "#17352a" },
+  };
+  const txt = (svg, x, y, s, size, b, extra = {}) => { const t = el("text", { x, y, "text-anchor": "middle", "font-family": b.font, "font-weight": b.weight, "font-size": size, "letter-spacing": b.ls, fill: b.fg, ...extra }, svg); if (b.italic && !extra["font-family"]) t.setAttribute("font-style", "italic"); t.textContent = s; return t; };
+
+  document.querySelectorAll("[data-app]").forEach((svg) => {
+    const b = BR[svg.dataset.brand], kind = svg.dataset.app;
+    if (kind === "sign") {
+      el("rect", { x: 0, y: 0, width: 240, height: 170, fill: svg.dataset.brand === "eaveline" ? "#ecebe5" : (svg.dataset.brand === "tenk" ? "#1f4234" : "#0f1b2e") }, svg);
+      el("rect", { x: 118, y: 120, width: 4, height: 50, fill: "#8a8f98" }, svg);
+      el("rect", { x: 40, y: 22, width: 160, height: 104, rx: 4, fill: b.bg }, svg);
+      const big = svg.dataset.brand === "tenk" ? 15 : (svg.dataset.brand === "eaveline" ? 30 : 16);
+      txt(svg, 120, 62, b.name, big, b);
+      txt(svg, 120, 80, b.line, 9, b, { "font-family": "Instrument Sans, sans-serif", "font-weight": 500, "letter-spacing": .3, fill: b.acc });
+      txt(svg, 120, 108, "(612) 555-0142", 12, b, { "font-family": "Instrument Sans, sans-serif", "font-weight": 600, "letter-spacing": .5 });
+      for (let i = 0; i < 9; i++) el("circle", { cx: 72 + i * 12, cy: 32, r: 2, fill: b.lights[i % b.lights.length] }, svg);
+    } else if (kind === "van") {
+      el("rect", { x: 0, y: 0, width: 240, height: 170, fill: svg.dataset.brand === "eaveline" ? "#ecebe5" : (svg.dataset.brand === "tenk" ? "#1f4234" : "#0f1b2e") }, svg);
+      el("path", { d: "M18 120V58q0-12 12-12h128l40 28h18q8 0 8 8v38z", fill: b.van, stroke: svg.dataset.brand === "eaveline" ? "#1d1d1b" : "none" }, svg);
+      el("path", { d: "M162 50l30 22h-30z", fill: "#9fb3c3", opacity: .55 }, svg);
+      el("circle", { cx: 55, cy: 122, r: 13, fill: "#111" }, svg); el("circle", { cx: 55, cy: 122, r: 5, fill: "#777" }, svg);
+      el("circle", { cx: 180, cy: 122, r: 13, fill: "#111" }, svg); el("circle", { cx: 180, cy: 122, r: 5, fill: "#777" }, svg);
+      if (svg.dataset.brand === "borealis") {
+        const g = el("linearGradient", { id: "vanG", x1: 0, x2: 1 }, svg); el("stop", { offset: 0, "stop-color": "#3cf2a6" }, g); el("stop", { offset: .5, "stop-color": "#18c3d6" }, g); el("stop", { offset: 1, "stop-color": "#8c6cff" }, g);
+        el("path", { d: "M26 64 C60 48, 90 78, 120 60 S 160 52, 196 76", fill: "none", stroke: "url(#vanG)", "stroke-width": 5, "stroke-linecap": "round" }, svg);
+      } else if (svg.dataset.brand === "eaveline") {
+        el("line", { x1: 26, y1: 60, x2: 196, y2: 60, stroke: "#c8a96a", "stroke-width": 1.5 }, svg);
+      } else {
+        el("circle", { cx: 150, cy: 86, r: 20, fill: "none", stroke: "#ffb547", "stroke-width": 2 }, svg);
+        txt(svg, 150, 92, "10K", 15, b, { fill: "#ffb547" });
+      }
+      const nm = svg.dataset.brand === "tenk" ? "" : b.name;
+      if (nm) txt(svg, 98, 100, nm, svg.dataset.brand === "eaveline" ? 22 : 13, b);
+      else { txt(svg, 72, 84, "TEN THOUSAND", 11, b); txt(svg, 72, 98, "LIGHTS", 11, b, { fill: "#ffb547" }); }
+    } else {
+      const bulbs = house(svg, { w: 240, h: 170, sky: b.bg, body: svg.dataset.brand === "eaveline" ? "#2b2b28" : (svg.dataset.brand === "tenk" ? "#0f2219" : "#13233a"), ground: svg.dataset.brand === "tenk" ? "#e9eef0" : "#0b0f17", win: "#f4c56a" });
+      paint(bulbs, b.lights);
+      const size = { eaveline: 17, borealis: 9, tenk: 12 }[svg.dataset.brand];
+      txt(svg, 120, 24, b.line, size, b);
+    }
+  });
+})();
+</script>
