@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Door Hanger: North Star Holiday Lighting</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="print.css">
+<!-- Standard door hanger: 4.25" x 11", with a 1.5" hole. Print both pages double-sided, or send this PDF to a print shop. -->
+<style>
+  @page { size: 4.25in 11in; margin: 0; }
+  .sheet { width: 4.25in; height: 11in; display: flex; flex-direction: column; }
+  .front, .back { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; padding-bottom: .4in !important; }
+  .hole { flex-shrink: 0; width: 1.5in; height: 1.5in; border-radius: 50%; margin: .45in auto .1in; border: 2px dashed rgba(255,255,255,.35); position: relative; }
+  .hole::after { content: ""; position: absolute; left: 50%; top: 100%; width: 0; height: .35in; border-left: 2px dashed rgba(255,255,255,.35); }
+  .front { text-align: center; padding: 0 .35in; }
+  .front .logo { width: 1.6in; margin: 0 auto; display: block; }
+  .front h1 { font-size: 32pt; margin: .1in 0; line-height: 1.05; }
+  .front h1 em { color: var(--gold-2); }
+  .front .lede { margin: 0; font-size: 11.5pt; color: var(--muted); }
+  .offer { margin: 0; padding: .18in; border: 2px solid var(--gold); border-radius: 12px; }
+  .offer strong { display: block; font-family: Fraunces, serif; font-size: 22pt; color: var(--gold-2); }
+  .back { padding: 0 .35in; }
+  .back h2 { font-size: 19pt; margin: 0; }
+  .back ul { padding-left: 0; margin: 0; list-style: none; font-size: 12pt; }
+  .back li { padding: .06in 0 .06in .28in; position: relative; }
+  .back li::before { content: "✦"; position: absolute; left: 0; color: var(--gold); }
+  .qrbox { display: flex; gap: .2in; align-items: center; }
+  .qr { flex-shrink: 0; background: #fff; padding: .08in; border-radius: 8px; width: 1.45in; height: 1.45in; }
+  .qr svg { width: 100%; height: 100%; display: block; }
+  .contact { font-size: 11pt; }
+  .contact b { font-size: 13pt; word-break: break-all; color: var(--gold-2); display: block; }
+  .fine { font-size: 8.5pt; color: var(--muted); margin: 0; }
+  .signoff { display: flex; align-items: center; gap: .12in; border-top: 1px solid rgba(255,255,255,.15); padding-top: .2in; }
+  .signoff img { width: .6in; }
+  .signoff strong { font-family: Fraunces, serif; font-size: 13pt; display: block; }
+</style>
+</head>
+<body>
+  <p class="screen-only">Door hanger, 4.25″ × 11″. Use <b>Print → Save as PDF</b> (margins: none, background graphics: on) and send the PDF to a print shop. Text in <i>[brackets]</i> comes from <code>pricing.js</code> or can be edited here.</p>
+
+  <!-- FRONT -->
+  <section class="sheet">
+    <div class="hole"></div>
+    <div class="front">
+      <img class="logo" src="../logo.svg" alt="">
+      <p class="eyebrow" data-biz="name"></p>
+      <h1>Your neighbors' lights look amazing.<br><em>Want yours to match?</em></h1>
+      <p class="lede">We're installing on your street this week. We hang it, fix it, take it down, and store it. You never touch a ladder.</p>
+      <div class="offer">
+        Neighbor special
+        <strong>5% OFF</strong>
+        when you book by <span contenteditable>[DATE]</span>
+      </div>
+      <p class="lede">Limited install dates before Thanksgiving</p>
+    </div>
+  </section>
+
+  <!-- BACK -->
+  <section class="sheet">
+    <div class="hole"></div>
+    <div class="back">
+      <h2>Professional Christmas lights, done for you</h2>
+      <ul>
+        <li>Commercial-grade LEDs, custom-cut to your roofline</li>
+        <li>Installed in one visit, usually 2–4 hours</li>
+        <li>Free repairs all season, usually within 48 hours</li>
+        <li>Takedown in January &amp; storage included</li>
+        <li>No nails or staples, ever. Fully insured</li>
+        <li>Most homes <b>$600–$1,800</b></li>
+      </ul>
+      <div class="qrbox">
+        <div class="qr" data-qr></div>
+        <div class="contact">
+          Scan for an instant quote
+          <b data-biz="website"></b>
+          or call / text <b data-biz="phone"></b>
+        </div>
+      </div>
+      <div class="signoff"><img src="../logo.svg" alt=""><div><strong data-biz="name"></strong><p class="fine">Serving <span data-biz="serviceArea"></span> · Fully insured</p></div></div>
+    </div>
+  </section>
+
+  <script src="qrcode.js"></script>
+  <script src="../pricing.js"></script>
+  <script src="print.js"></script>
+</body>
+</html>

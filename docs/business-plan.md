@@ -1,6 +1,6 @@
 # Business Plan: Residential Christmas Light Installation
 
-*Working name: **Evergleam Holiday Lighting** (placeholder: see the launch kit for alternatives and a name-check checklist).*
+*Business name: **North Star Holiday Lighting** (legal entity: North Star Lighting Co., pending a Minnesota registry check). Market: Minnesota.*
 *Assumptions: a mid-size US suburban market, a 2–3 person crew, and an owner with a truck. All figures are typical US ranges as of 2026. Check local prices before you commit money.*
 
 ---
@@ -82,7 +82,7 @@ All of these prices are in `site/pricing.js`. Changing them there updates the we
 | Mar–Jul | Off-season: buy inventory on sale, hire, train, and optionally sell permanent track lighting (a year-round upsell) |
 | Aug | Renewal outreach to past customers, early-bird campaign |
 | Sep | Quoting season. Measure homes, book install dates, finish prep cutting |
-| Oct 15 – Dec 15 | **Install season**: 2–4 homes per crew per day |
+| Oct 15 – Dec 10 | **Install season** (MN: most installs before Thanksgiving): 2–4 homes per crew per day |
 | Dec | Service calls (respond within 48 h), wrap up final installs |
 | Jan 2–15 | Takedown, back to customer bins, storage |
 
@@ -100,11 +100,21 @@ All of these prices are in `site/pricing.js`. Changing them there updates the we
 
 **Licensing:** plug-in decorative lighting usually needs only a general business license. **Check your city and state** for contractor registration rules, and for any electrical licensing triggered by adding circuits.
 
+## 5b. Minnesota-specific notes
+
+- **Season starts earlier.** Snow and ice can arrive in late October. Aim to do most installs **October 15 – November 25**, and do roof work before the first major snow. Offer an "install before Thanksgiving" guarantee as a selling point.
+- **Cold-weather work.** Cold makes C9 wire stiff and clips brittle, so pre-cut runs indoors and keep spare clips. Below about 15°F, slow down and limit roof time. Never go on an icy or snow-covered roof: reschedule, or use ground-level work only.
+- **Frozen ground.** Pathway stakes and ground-mounted displays have to go in **before the ground freezes** (usually mid-November). After that, quote only roofline, trees, and bushes.
+- **Takedown in January** is the hardest part: lights may be frozen into ice dams or under snow. Build in weather days, and allow takedown to run into February if roofs are iced. Say so in the contract.
+- **Ice dams and gutters.** Clip lights to shingles rather than gutters on homes prone to ice dams. This is also a natural tie-in to restoration and roofing work.
+- **Licensing.** Minnesota doesn't require a contractor license for plug-in decorative lighting. Any new outlet or circuit must be done by a licensed electrician under the Minnesota Department of Labor & Industry (DLI). Check your city's business license rules too.
+- **Permanent lighting is especially strong here.** Homeowners hate being on roofs in Minnesota winters. Plan to sell permanent systems starting year 2.
+
 ## 6. Marketing plan
 
 Ranked by return for a new residential installer:
 
-1. **Your installs are your ads.** Put a yard sign at every job ("Lights by Evergleam · scan for a quote"). Neighbors ask the homeowner who did it.
+1. **Your installs are your ads.** Put a yard sign at every job ("Lights by North Star · scan for a quote"). Neighbors ask the homeowner who did it.
 2. **Street clustering.** After each install, leave door hangers at the 10 houses on either side and offer a neighbor discount. This also reduces drive time.
 3. **Google Business Profile.** Add photos of every install and ask every customer for a review the night of the install, while they're excited.
 4. **Nextdoor and local Facebook groups.** Post before-and-after photos with an offer.

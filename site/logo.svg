@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="North Star Holiday Lighting">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffdf9a" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#ffdf9a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="60" cy="34" r="30" fill="url(#g)"/>
+  <!-- four-point North Star -->
+  <path d="M60 6 L66 28 L88 34 L66 40 L60 62 L54 40 L32 34 L54 28 Z" fill="#f5c25b"/>
+  <path d="M60 18 L63 31 L76 34 L63 37 L60 50 L57 37 L44 34 L57 31 Z" fill="#fff4d6"/>
+  <!-- roofline -->
+  <path d="M14 104 L60 70 L106 104" fill="none" stroke="#f5c25b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- bulbs along roofline -->
+  <g>
+    <circle cx="22" cy="104" r="3.4" fill="#d8434e"/>
+    <circle cx="31" cy="97.4" r="3.4" fill="#f5c25b"/>
+    <circle cx="40" cy="90.8" r="3.4" fill="#2f8f63"/>
+    <circle cx="49" cy="84.2" r="3.4" fill="#f5c25b"/>
+    <circle cx="60" cy="76" r="3.4" fill="#d8434e"/>
+    <circle cx="71" cy="84.2" r="3.4" fill="#f5c25b"/>
+    <circle cx="80" cy="90.8" r="3.4" fill="#2f8f63"/>
+    <circle cx="89" cy="97.4" r="3.4" fill="#f5c25b"/>
+    <circle cx="98" cy="104" r="3.4" fill="#d8434e"/>
+  </g>
+</svg>

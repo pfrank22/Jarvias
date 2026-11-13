@@ -44,6 +44,8 @@ a { color: var(--gold-2); }
 }
 .brand { font-family: Fraunces, serif; font-weight: 800; color: var(--ink); text-decoration: none; font-size: 1.1rem; white-space: nowrap; }
 .star { color: var(--gold); }
+.brand { display: inline-flex; align-items: center; gap: .5rem; }
+.brand img { flex-shrink: 0; }
 .nav nav { display: flex; gap: 1.2rem; align-items: center; }
 .nav nav a:not(.btn) { color: var(--muted); text-decoration: none; font-size: .95rem; }
 .nav nav a:not(.btn):hover { color: var(--ink); }

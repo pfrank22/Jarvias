@@ -11,10 +11,11 @@
 // ─────────────────────────────────────────────────────────────
 window.PRICING = {
   business: {
-    name: "Evergleam Holiday Lighting",   // placeholder; rename freely
+    name: "North Star Holiday Lighting",
     phone: "(555) 555-0142",
     email: "hello@example.com",
-    serviceArea: "Your City & surrounding suburbs",
+    website: "northstarholidaylighting.com",  // used on print materials + QR codes
+    serviceArea: "Your City, Minnesota & surrounding suburbs",
   },
 
   minimumJob: 599,        // smallest job you'll take
@@ -50,7 +51,7 @@ window.PRICING = {
     { id: "bushes",   label: "Bushes / shrubs (net lights)",   unit: "bush",   price: 60,  matCost: 9,  laborHrs: 0.3 },
     { id: "wreaths",  label: "Lit wreaths (36\")",             unit: "wreath", price: 145, matCost: 35, laborHrs: 0.4 },
     { id: "garland",  label: "Lit garland (door/railing)",     unit: "ft",     price: 16,  matCost: 3,  laborHrs: 0.08 },
-    { id: "pathway",  label: "Pathway / walkway stakes",       unit: "ft",     price: 10,  matCost: 1.6,laborHrs: 0.05 },
+    { id: "pathway",  label: "Pathway stakes (before ground freezes)", unit: "ft",     price: 10,  matCost: 1.6,laborHrs: 0.05 },
   ],
 
   addons: [
