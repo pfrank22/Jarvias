@@ -2,116 +2,113 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>North Star Holiday Lighting | Professional Christmas Light Installation</title>
-  <meta name="description" content="Professional residential Christmas light installation. We design, install, maintain, take down, and store your lights. Get an instant estimate.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>North Star Holiday Lighting | Permanent Roofline Lights, Twin Cities</title>
+  <meta name="description" content="Permanent, app-controlled roofline lighting for every holiday. Hidden by day, installed in a day, built for Minnesota winters. Serving Minneapolis–St. Paul and 70 miles around.">
+  <meta name="theme-color" content="#0a1424">
+  <link rel="icon" href="brand/mark.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="nav">
-    <a class="brand" href="#top"><img src="logo.svg" alt="" width="34" height="34"> <span data-biz="name">North Star Holiday Lighting</span></a>
-    <nav>
+    <a class="brand" href="#top" aria-label="North Star Holiday Lighting, home">
+      <img src="brand/mark.svg" alt="" width="40" height="40">
+      <span class="wordmark"><b>NORTH STAR</b><span>HOLIDAY LIGHTING</span></span>
+    </a>
+    <nav aria-label="Main">
+      <a href="#holidays">Every holiday</a>
       <a href="#how">How it works</a>
-      <a href="#packages">Packages</a>
-      <a href="#quote">Instant quote</a>
+      <a href="#quote">Pricing</a>
       <a href="#faq">FAQ</a>
-      <a class="btn btn-small" href="#contact">Book now</a>
+      <a class="btn btn-small" href="#contact">Free design visit</a>
     </nav>
   </header>
 
   <main id="top">
     <!-- HERO -->
-    <section class="hero">
-      <div class="strand" aria-hidden="true"></div>
-      <div class="hero-inner">
-        <p class="eyebrow">Now booking for the holiday season</p>
-        <h1>Your house, glowing.<br><em>Without the ladder.</em></h1>
-        <p class="lede">We design, install, maintain, take down, and store professional-grade LED lights. You just flip the switch, or let the timer do it.</p>
+    <section class="hero" id="holidays">
+      <div class="hero-copy">
+        <p class="eyebrow">Permanent lighting · Twin Cities + 70 miles</p>
+        <h1>Light the way <em>home.</em></h1>
+        <p class="lede">Permanent roofline lights that hide in your trim by day and turn any color at night. Christmas, game day, Halloween, or warm white on a Tuesday, all from your phone. Installed once, no ladders ever again.</p>
         <div class="cta-row">
-          <a class="btn" href="#quote">Get an instant estimate</a>
-          <a class="btn btn-ghost" href="#packages">See packages</a>
+          <a class="btn" href="#quote">See your price</a>
+          <a class="btn btn-ghost" href="#contact">Book a free design visit</a>
         </div>
         <ul class="trust">
-          <li>✓ Fully insured</li><li>✓ Commercial-grade LEDs</li><li>✓ Free service calls all season</li><li>✓ Takedown &amp; storage included</li>
+          <li><b>−30°F</b> rated</li><li><b>1 day</b> install</li><li><b>Local</b> crew, no subcontractors</li><li><b data-warranty></b></li>
         </ul>
       </div>
-      <svg class="house" viewBox="0 0 600 300" aria-hidden="true">
-        <defs>
-          <radialGradient id="glow"><stop offset="0" stop-color="#ffd27a" stop-opacity=".9"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient>
-        </defs>
-        <rect x="0" y="270" width="600" height="30" fill="#0b1a2e"/>
-        <path d="M120 270V150L240 70l120 80v120z" fill="#132842"/>
-        <path d="M360 270V170h150v100z" fill="#10233a"/>
-        <path d="M350 175l85-55 85 55" fill="none" stroke="#10233a" stroke-width="10"/>
-        <rect x="170" y="190" width="40" height="40" fill="#f4c56a" opacity=".85"/>
-        <rect x="270" y="190" width="40" height="40" fill="#f4c56a" opacity=".85"/>
-        <rect x="222" y="210" width="36" height="60" fill="#0b1a2e"/>
-        <rect x="400" y="200" width="70" height="40" fill="#f4c56a" opacity=".7"/>
-        <g class="bulbs" id="bulbs"></g>
-        <path d="M545 270l-25-50h12l-20-40h10l-17-35-17 35h10l-20 40h12l-25 50z" fill="#0f2f24"/>
-      </svg>
+      <figure class="stage">
+        <svg id="heroHouse" role="img" aria-label="A house with permanent lights along the roofline, changing color for each holiday"></svg>
+        <figcaption>
+          <span id="sceneName">Christmas</span> scene. Tap a holiday:
+        </figcaption>
+        <div class="switch" id="sceneSwitch"></div>
+      </figure>
+    </section>
+
+    <!-- HIDDEN BY DAY -->
+    <section class="section daynight">
+      <div class="dn-copy">
+        <p class="eyebrow">Hidden by day</p>
+        <h2>You won't see it until you want to.</h2>
+        <p>A slim aluminum channel mounts under your soffit or on your fascia, color-matched to your trim. The LEDs sit inside it, out of the snow and sun. In daylight it looks like part of the house. After dark it's the best-looking house on the street.</p>
+      </div>
+      <div class="dn-pics">
+        <figure><svg id="dayHouse" role="img" aria-label="The same house in daylight, where the light channel is almost invisible"></svg><figcaption>Daytime</figcaption></figure>
+        <figure><svg id="nightHouse" role="img" aria-label="The same house at night with warm white permanent lights"></svg><figcaption>Every night</figcaption></figure>
+      </div>
     </section>
 
     <!-- HOW IT WORKS -->
     <section id="how" class="section">
-      <h2>How it works</h2>
+      <p class="eyebrow">How it works</p>
+      <h2>From first call to first glow in about two weeks</h2>
       <ol class="steps">
-        <li><span>1</span><h3>Free estimate</h3><p>Use the instant quote below or we'll measure on-site. Most quotes take under 15 minutes.</p></li>
-        <li><span>2</span><h3>Custom design</h3><p>We plan the look with you: warm white, classic multicolor, or a mix. Lights are cut to fit your roofline.</p></li>
-        <li><span>3</span><h3>Pro install</h3><p>Our insured crew installs in one visit, usually 2–4 hours. Lights go on a timer and you're done.</p></li>
-        <li><span>4</span><h3>We handle the rest</h3><p>Bulb out? Free service call within 48 hours. After the holidays we take everything down and store it.</p></li>
+        <li><h3>Free design visit</h3><p>We measure your roofline, check power and trim color, and show you a night mockup of your house. About 30 minutes.</p></li>
+        <li><h3>Install day</h3><p>A two-person crew installs most homes in one day. Clean runs, hidden wiring, no nails in your shingles.</p></li>
+        <li><h3>App walkthrough</h3><p>Before we leave, we set your schedule and favorite scenes and show you how to change them in under a minute.</p></li>
+        <li><h3>Enjoy it for years</h3><p>Local service when you need it, backed by a <span data-warranty></span> warranty.</p></li>
       </ol>
     </section>
 
-    <!-- PACKAGES -->
-    <section id="packages" class="section alt">
-      <h2>Popular packages</h2>
-      <p class="sub">Starting prices for a typical home. Every quote is custom to your house.</p>
-      <div class="cards">
-        <article class="card">
-          <h3>Classic</h3>
-          <p class="price">from <strong>$599</strong></p>
-          <ul><li>Front roofline (up to ~110 ft)</li><li>C9 LED bulbs, your color choice</li><li>Timer included</li><li>Takedown &amp; storage</li></ul>
-          <a class="btn btn-ghost" href="#quote" data-preset="classic">Customize</a>
-        </article>
-        <article class="card featured">
-          <p class="badge">Most popular</p>
-          <h3>Signature</h3>
-          <p class="price">from <strong>$1,295</strong></p>
-          <ul><li>Full front roofline + 2 peaks</li><li>A medium tree wrap</li><li>Bushes &amp; front-door garland</li><li>Free mid-season service calls</li></ul>
-          <a class="btn" href="#quote" data-preset="signature">Customize</a>
-        </article>
-        <article class="card">
-          <h3>Showstopper</h3>
-          <p class="price">from <strong>$2,495</strong></p>
-          <ul><li>Whole-home roofline &amp; windows</li><li>Large &amp; medium tree wraps</li><li>Wreaths, garland &amp; pathway</li><li>Smart app-controlled timer</li></ul>
-          <a class="btn btn-ghost" href="#quote" data-preset="showstopper">Customize</a>
-        </article>
+    <!-- BUILT FOR HERE -->
+    <section class="section alt">
+      <p class="eyebrow">Built for here</p>
+      <h2>Made for a Minnesota winter</h2>
+      <div class="features">
+        <div><h3>Rated for −30°F</h3><p>Commercial-grade, IP67-sealed LEDs and connections. Ice and snow stay outside the channel.</p></div>
+        <div><h3>Ice-dam aware</h3><p>We mount where melt water won't pool or freeze the lights in, and keep runs clear of heat cables.</p></div>
+        <div><h3>No more January ladders</h3><p>Nothing to take down. Switch to warm white for winter, or turn it off until the next holiday.</p></div>
+        <div><h3>Pennies a night</h3><p>A typical home uses about as much power as one old 60-watt bulb when the lights are on.</p></div>
+        <div><h3>Every occasion</h3><p>Hundreds of preset scenes, plus your own. Birthdays, graduations, game days, Pride, St. Paddy's, the 4th.</p></div>
+        <div><h3>Local and accountable</h3><p>Our own crew, our own number. If something isn't right, we come back.</p></div>
       </div>
     </section>
 
     <!-- QUOTE CALCULATOR -->
     <section id="quote" class="section">
-      <h2>Instant estimate</h2>
-      <p class="sub">Build your display and see a price range right away. Final price is confirmed after a quick on-site look.</p>
+      <p class="eyebrow">Pricing</p>
+      <h2>See your price in a minute</h2>
+      <p class="sub">Installed, one-time price. Includes color-matched channel, LEDs, power supply, one app-controlled zone, and install. We confirm the exact number at your free design visit.</p>
       <div class="quote">
         <form id="quoteForm" class="quote-form" autocomplete="off">
           <fieldset>
-            <legend>Roofline</legend>
-            <label class="row">
-              <span>Linear feet of roofline / gutters</span>
-              <input type="number" id="roofFeet" min="0" step="5" value="150" inputmode="numeric">
+            <legend>Your roofline</legend>
+            <label class="row" for="roofFeet">
+              <span>Linear feet of lights<small>Count the eaves and peaks you want lit</small></span>
+              <input type="number" id="roofFeet" min="0" step="5" value="115" inputmode="numeric">
             </label>
             <div class="presets" id="roofPresets"><span>Not sure?</span></div>
-            <label class="check"><input type="checkbox" id="steep"> Steep roof (needs harness)</label>
-            <label class="check"><input type="checkbox" id="secondStory"> Significant second-story runs</label>
+            <label class="check" for="twoStory"><input type="checkbox" id="twoStory"> <span>Two-story runs<small>Taller ladders or a lift</small></span></label>
+            <label class="check" for="steep"><input type="checkbox" id="steep"> <span>Steep roof or lots of peaks<small>Pitch over 8/12, dormers</small></span></label>
           </fieldset>
           <fieldset>
-            <legend>Trees, bushes &amp; extras</legend>
+            <legend>More lighting</legend>
             <div id="itemRows"></div>
           </fieldset>
           <fieldset>
@@ -119,7 +116,7 @@
             <div id="addonRows"></div>
           </fieldset>
           <fieldset>
-            <legend>Discounts</legend>
+            <legend>Savings</legend>
             <div id="discountRows"></div>
           </fieldset>
         </form>
@@ -127,58 +124,73 @@
           <p class="eyebrow">Your estimate</p>
           <p class="total" id="total">$0</p>
           <p class="range" id="range"></p>
+          <p class="monthly" id="monthly"></p>
           <table id="breakdown"></table>
           <div id="ownerPanel" class="owner" hidden></div>
           <div class="summary-actions">
-            <a class="btn" href="#contact" id="bookBtn">Book this design</a>
-            <button class="btn btn-ghost" type="button" id="printBtn">Print / save quote</button>
+            <a class="btn" href="#contact">Book a free design visit</a>
+            <button class="btn btn-ghost" type="button" id="printBtn">Print / save</button>
           </div>
-          <p class="fine">Lease pricing: we supply the lights, install, maintain, take down, and store them. Tax not included.</p>
+          <p class="fine">Estimate only, before tax. Financing example: <span id="finTerms"></span>, subject to credit approval.</p>
         </aside>
       </div>
     </section>
 
     <!-- FAQ -->
     <section id="faq" class="section alt">
-      <h2>Questions, answered</h2>
+      <p class="eyebrow">Questions</p>
+      <h2>Good questions, straight answers</h2>
       <div class="faq">
-        <details><summary>When do you install and take down?</summary><p>Installs run from mid-October through early December. Most are done before Thanksgiving, ahead of the snow. Takedown starts the first week of January. You choose your dates when you book.</p></details>
-        <details><summary>Do I have to buy the lights?</summary><p>No. Most customers lease: we own the lights, maintain them, and store them each year. You can also buy them for about 35% more and they're yours after takedown.</p></details>
-        <details><summary>Will you damage my roof or gutters?</summary><p>Never. We use plastic clips that grip shingles and gutters. No nails, staples, or screws. We're fully insured.</p></details>
-        <details><summary>What if a bulb goes out?</summary><p>Call or text us. Service calls are free all season, and we usually fix it within 48 hours.</p></details>
-        <details><summary>Can I use my own lights?</summary><p>Yes. We can hang customer-owned lights at our labor rate. We can't guarantee their performance, so we recommend ours.</p></details>
-        <details><summary>Do you need power or outlets?</summary><p>We use your existing outdoor outlets on GFCI-protected circuits. If you need a new outlet, we'll arrange a licensed electrician.</p></details>
-        <details><summary>Do you work with HOAs?</summary><p>Yes. We'll give you a design mockup to submit for approval, and we can do matching displays for a whole street.</p></details>
+        <details><summary>Can you see the lights during the day?</summary><p>Barely. The channel is about an inch wide and color-matched to your trim, so from the street it reads as part of the house.</p></details>
+        <details><summary>Do they really work at −30°F?</summary><p>Yes. The LEDs and connectors are sealed and rated for extreme cold. Snow on top doesn't matter because the lights sit underneath, inside the channel.</p></details>
+        <details><summary>How long do they last?</summary><p>The LEDs are rated for about 50,000 hours, more than 15 years at 8 hours a night. You're covered by a <span data-warranty></span> warranty, with a 10-year labor option.</p></details>
+        <details><summary>Will it damage my roof, soffit or gutters?</summary><p>No. We fasten the channel to the fascia or soffit with stainless screws, never through your shingles, and seal every penetration.</p></details>
+        <details><summary>Do I need a new outlet?</summary><p>Usually not. The system plugs into an existing outdoor or garage outlet through a low-voltage power supply. If you need a new outlet, our licensed electrician partner installs it.</p></details>
+        <details><summary>How do I control them?</summary><p>With a free phone app. Set schedules (on at sunset, off at 11), pick scenes, or make your own. Alexa and Google Home work too.</p></details>
+        <details><summary>Can you install in winter?</summary><p>Yes, on dry days. We avoid icy or snow-covered roofs. Off-season installs (January–August) get 7% off and faster scheduling.</p></details>
+        <details><summary>What if we sell the house?</summary><p>Permanent lighting stays with the home and is a selling feature. We'll transfer the warranty to the new owners.</p></details>
+        <details><summary>Do you offer financing?</summary><p>Yes, with approved credit. Most customers choose a monthly payment that's less than a streaming bundle.</p></details>
       </div>
     </section>
 
     <!-- CONTACT -->
     <section id="contact" class="section">
-      <h2>Book your install</h2>
-      <p class="sub">Install slots fill up fast. Send this and we'll confirm a date within one business day.</p>
-      <form id="contactForm" class="contact">
-        <label>Name<input name="name" required></label>
-        <label>Phone<input name="phone" type="tel" required></label>
-        <label>Email<input name="email" type="email" required></label>
-        <label>Address<input name="address" required></label>
-        <label class="full">Preferred install window
-          <select name="window"><option>As soon as possible</option><option>Before Thanksgiving</option><option>Early December</option><option>Mid December</option></select>
-        </label>
-        <label class="full">Notes<textarea name="notes" rows="3" placeholder="Colors, HOA rules, gate codes, anything we should know"></textarea></label>
-        <input type="hidden" name="estimate" id="estimateField">
-        <button class="btn full" type="submit">Request my install date</button>
-        <p class="fine full" id="contactMsg"></p>
-      </form>
+      <div class="contact-wrap">
+        <div>
+          <p class="eyebrow">Free design visit</p>
+          <h2>See your house at night before you decide</h2>
+          <p class="sub">We'll measure, check power, and show you a mockup with your colors. No pressure, no obligation.</p>
+          <ul class="contact-facts">
+            <li><span>Call or text</span><b><a data-biz-href="phone" data-biz="phone"></a></b></li>
+            <li><span>Email</span><b><a data-biz-href="email" data-biz="email"></a></b></li>
+            <li><span>Serving</span><b data-biz="serviceArea"></b></li>
+          </ul>
+        </div>
+        <form id="contactForm" class="contact">
+          <label for="cName">Name<input id="cName" name="name" required autocomplete="name"></label>
+          <label for="cPhone">Phone<input id="cPhone" name="phone" type="tel" required autocomplete="tel"></label>
+          <label class="full" for="cEmail">Email<input id="cEmail" name="email" type="email" required autocomplete="email"></label>
+          <label class="full" for="cAddr">Address or city<input id="cAddr" name="address" required autocomplete="street-address"></label>
+          <label class="full" for="cWhen">When would you like lights?
+            <select id="cWhen" name="timing"><option>As soon as possible</option><option>Before the next holiday</option><option>This spring or summer (save 7%)</option><option>Just getting prices</option></select>
+          </label>
+          <label class="full" for="cNotes">Anything we should know?<textarea id="cNotes" name="notes" rows="3" placeholder="Two-story? HOA? Favorite team?"></textarea></label>
+          <input type="hidden" name="estimate" id="estimateField">
+          <button class="btn full" type="submit">Request my design visit</button>
+          <p class="fine full" id="contactMsg" role="status"></p>
+        </form>
+      </div>
     </section>
   </main>
 
   <footer class="footer">
-    <p><strong data-biz="name">North Star Holiday Lighting</strong> · Serving <span data-biz="serviceArea"></span></p>
-    <p><a data-biz-href="phone" data-biz="phone"></a> · <a data-biz-href="email" data-biz="email"></a></p>
-    <p class="fine">Fully insured · © <span id="year"></span></p>
+    <img src="brand/mark.svg" alt="" width="44" height="44">
+    <p class="foot-name"><b data-biz="name"></b><br><span data-biz="tagline"></span></p>
+    <p class="fine"><span data-biz="legal"></span> · Fully insured · © <span id="year"></span></p>
   </footer>
 
   <script src="pricing.js"></script>
+  <script src="scene.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

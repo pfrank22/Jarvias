@@ -1,68 +1,70 @@
 // ─────────────────────────────────────────────────────────────
-//  PRICING CONFIG — the single source of truth for the quote
-//  calculator. Edit numbers here; the site updates automatically.
+//  PRICING & BUSINESS CONFIG: the single source of truth for the
+//  website, the quote calculator, and the print materials.
+//  Edit numbers here; everything else updates automatically.
 //
-//  price      = what the customer pays (lease model: install,
-//               maintenance, takedown, and storage included)
-//  matCost    = your amortized material cost per unit per season
-//               (lights reused ~3 seasons, so ~1/3 of purchase cost
-//               plus clips, cords, timers, and spoilage)
-//  laborHrs   = crew-hours per unit (install + takedown combined)
+//  price     = what the customer pays (installed, one-time)
+//  matCost   = your material cost per unit (track/channel, pixel
+//              LEDs, wire, power supply share, fasteners, waste)
+//  laborHrs  = crew-hours per unit (2-person crew = 2 crew-hours/hour)
+//
+//  Starting assumptions for the Twin Cities market (2026). Replace
+//  them with your supplier quotes and your own install times.
 // ─────────────────────────────────────────────────────────────
 window.PRICING = {
   business: {
-    name: "North Star Holiday Lighting",
-    phone: "(555) 555-0142",
-    email: "hello@example.com",
-    website: "northstarholidaylighting.com",  // used on print materials + QR codes
-    serviceArea: "Your City, Minnesota & surrounding suburbs",
+    name: "North Star Holiday Lighting",          // public name (MN assumed name / DBA)
+    legal: "North Star Lighting LLC",             // legal entity
+    tagline: "Light the way home.",
+    phone: "(612) 555-0142",                      // ← replace with your real number
+    email: "hello@northstarholidaylighting.com",  // ← replace once the domain is set up
+    website: "northstarholidaylighting.com",      // used on print materials + QR codes
+    serviceArea: "Minneapolis–St. Paul and communities within about 70 miles",
   },
 
-  minimumJob: 599,        // smallest job you'll take
-  rangeSpread: 0.10,      // estimate shown as ±10%
-  laborCostPerHr: 28,     // loaded wage (pay + payroll tax + workers' comp)
+  minimumJob: 2495,        // smallest job you'll take (covers controller + setup + travel)
+  rangeSpread: 0.08,       // estimate shown as ±8%
+  laborCostPerHr: 32,      // loaded wage (pay + payroll tax + workers' comp)
 
   roofline: {
-    perFoot: 4.75,        // C9 LED on roofline/gutters, includes clips
-    matCostPerFoot: 0.85,
-    laborHrsPerFoot: 0.035,
-    presets: [            // "Not sure?" helper
-      { label: "Small ranch / townhome", feet: 110 },
-      { label: "Average one-story", feet: 150 },
-      { label: "Average two-story", feet: 190 },
-      { label: "Large / complex roof", feet: 260 },
+    perFoot: 29,           // installed: color-matched channel, RGBW pixels, 1 controller
+    matCostPerFoot: 7.5,
+    laborHrsPerFoot: 0.09,
+    presets: [
+      { label: "Front of house", feet: 80 },
+      { label: "Front + garage", feet: 115 },
+      { label: "Front + sides", feet: 170 },
+      { label: "Whole home", feet: 240 },
     ],
   },
 
-  // Multipliers applied to roofline only
+  // Multipliers applied to the roofline price
   roofFactors: {
-    steep: 1.20,          // pitch over 8/12 or needs roof harness
-    secondStory: 1.10,    // significant second-story runs
+    twoStory: 1.12,        // second-story runs: taller ladders, lift, more time
+    steep: 1.08,           // pitch over 8/12 or many dormers and peaks
   },
 
   items: [
-    // id, label, unit, price, matCost, laborHrs
-    { id: "peaks",    label: "Roof peaks & ridgelines",        unit: "peak",   price: 85,  matCost: 12, laborHrs: 0.6 },
-    { id: "windows",  label: "Window / door outlines",         unit: "window", price: 65,  matCost: 8,  laborHrs: 0.4 },
-    { id: "treeSm",   label: "Tree wrap, small (under 10 ft)", unit: "tree",   price: 135, matCost: 22, laborHrs: 1.0 },
-    { id: "treeMd",   label: "Tree wrap, medium (10–20 ft)",   unit: "tree",   price: 275, matCost: 45, laborHrs: 2.0 },
-    { id: "treeLg",   label: "Tree wrap, large (20 ft+)",      unit: "tree",   price: 475, matCost: 80, laborHrs: 3.5 },
-    { id: "trunk",    label: "Trunk-only wrap",                unit: "tree",   price: 85,  matCost: 12, laborHrs: 0.6 },
-    { id: "bushes",   label: "Bushes / shrubs (net lights)",   unit: "bush",   price: 60,  matCost: 9,  laborHrs: 0.3 },
-    { id: "wreaths",  label: "Lit wreaths (36\")",             unit: "wreath", price: 145, matCost: 35, laborHrs: 0.4 },
-    { id: "garland",  label: "Lit garland (door/railing)",     unit: "ft",     price: 16,  matCost: 3,  laborHrs: 0.08 },
-    { id: "pathway",  label: "Pathway stakes (before ground freezes)", unit: "ft",     price: 10,  matCost: 1.6,laborHrs: 0.05 },
+    { id: "zones",   label: "Extra control zone",           note: "e.g. garage or back of house on its own schedule", unit: "zone", price: 295, matCost: 120, laborHrs: 1.0 },
+    { id: "accent",  label: "Patio, deck or soffit accent", note: "Same system, under a porch, deck rail or overhang",  unit: "ft",   price: 24,  matCost: 6,   laborHrs: 0.07, step: 5 },
+    { id: "garage",  label: "Detached garage or shed",      note: "Separate run with its own power supply",            unit: "building", price: 650, matCost: 210, laborHrs: 3.0 },
   ],
 
   addons: [
-    { id: "own",      label: "Keep the lights (purchase instead of lease)", pct: 0.35, desc: "+35%: the lights are yours after takedown" },
-    { id: "smart",    label: "Smart timer / app control",   flat: 95,  matCost: 30, laborHrs: 0.3, desc: "Wi-Fi plug with schedule & app" },
-    { id: "power",    label: "Extra outdoor outlet needed", flat: 0,   desc: "We'll assess on-site (licensed electrician if required)" },
+    { id: "outlet",   label: "New outdoor outlet",          flat: 375, matCost: 300, laborHrs: 0, desc: "Installed by our licensed electrician partner" },
+    { id: "warranty", label: "10-year labor warranty",      flat: 395, matCost: 60,  laborHrs: 0, desc: "Extends the standard 2-year labor coverage" },
+    { id: "voice",    label: "Voice assistant setup",       flat: 0,   matCost: 0,   laborHrs: 0.3, desc: "Free: Alexa / Google Home scenes" },
   ],
 
   discounts: [
-    { id: "early",    label: "Early-bird (booked before Oct 1)", pct: 0.10 },
-    { id: "returning",label: "Returning customer / 3-year agreement", pct: 0.10 },
-    { id: "neighbor", label: "Neighbor referral (2+ homes on same street)", pct: 0.05 },
+    { id: "neighbor", label: "Neighbor referral",               flat: 250,  desc: "$250 off when a neighbor on your street has North Star" },
+    { id: "offseason",label: "Off-season install (Jan–Aug)",    pct: 0.07,  desc: "Save 7% when you install outside the fall rush" },
+    { id: "service",  label: "Veteran or first responder",      pct: 0.05,  desc: "Save 5%, our thanks" },
   ],
+  maxDiscountPct: 0.15,
+
+  // Example financing shown in the estimate. Use your lender's real terms.
+  financing: { apr: 0.0999, months: 60, label: "with approved financing" },
+
+  warranty: "5-year product · 2-year labor",
 };

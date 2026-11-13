@@ -4,85 +4,90 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Door Hanger: North Star Holiday Lighting</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="print.css">
-<!-- Standard door hanger: 4.25" x 11", with a 1.5" hole. Print both pages double-sided, or send this PDF to a print shop. -->
+<!-- Standard door hanger: 4.25" x 11" with a 1.5" hole. Print double-sided. -->
 <style>
   @page { size: 4.25in 11in; margin: 0; }
   .sheet { width: 4.25in; height: 11in; display: flex; flex-direction: column; }
-  .front, .back { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; padding-bottom: .4in !important; }
-  .hole { flex-shrink: 0; width: 1.5in; height: 1.5in; border-radius: 50%; margin: .45in auto .1in; border: 2px dashed rgba(255,255,255,.35); position: relative; }
-  .hole::after { content: ""; position: absolute; left: 50%; top: 100%; width: 0; height: .35in; border-left: 2px dashed rgba(255,255,255,.35); }
-  .front { text-align: center; padding: 0 .35in; }
-  .front .logo { width: 1.6in; margin: 0 auto; display: block; }
-  .front h1 { font-size: 32pt; margin: .1in 0; line-height: 1.05; }
-  .front h1 em { color: var(--gold-2); }
-  .front .lede { margin: 0; font-size: 11.5pt; color: var(--muted); }
-  .offer { margin: 0; padding: .18in; border: 2px solid var(--gold); border-radius: 12px; }
-  .offer strong { display: block; font-family: Fraunces, serif; font-size: 22pt; color: var(--gold-2); }
-  .back { padding: 0 .35in; }
-  .back h2 { font-size: 19pt; margin: 0; }
-  .back ul { padding-left: 0; margin: 0; list-style: none; font-size: 12pt; }
-  .back li { padding: .06in 0 .06in .28in; position: relative; }
+  .hole { flex-shrink: 0; width: 1.4in; height: 1.4in; border-radius: 50%; margin: .4in auto .15in; border: 2px dashed rgba(242,245,247,.3); position: relative; }
+  .hole::after { content: ""; position: absolute; left: 50%; top: 100%; height: .3in; border-left: 2px dashed rgba(242,245,247,.3); }
+  .body { flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: .15in .35in .4in; }
+  .front .body { text-align: center; }
+  .front .mark { width: 1.1in; margin: 0 auto; display: block; }
+  .front h1 { font-size: 30pt; margin-top: .05in; }
+  .front h1 em { font-style: normal; color: var(--gold); }
+  .front p.copy { font-size: 11pt; color: var(--ice); margin: 0; }
+  .scene { width: 100%; border-radius: 10px; display: block; }
+  .offer { border: 2px solid var(--gold); border-radius: 12px; padding: .14in; }
+  .offer b { display: block; font-size: 24pt; font-weight: 900; font-stretch: 125%; color: var(--gold); line-height: 1.1; }
+  .offer span { font-size: 9.5pt; color: var(--ice); }
+  .back h2 { font-size: 18pt; line-height: 1.1; }
+  .back ul { list-style: none; padding: 0; margin: 0; font-size: 11pt; display: grid; gap: .09in; }
+  .back li { padding-left: .26in; position: relative; }
   .back li::before { content: "✦"; position: absolute; left: 0; color: var(--gold); }
-  .qrbox { display: flex; gap: .2in; align-items: center; }
-  .qr { flex-shrink: 0; background: #fff; padding: .08in; border-radius: 8px; width: 1.45in; height: 1.45in; }
-  .qr svg { width: 100%; height: 100%; display: block; }
-  .contact { font-size: 11pt; }
-  .contact b { font-size: 13pt; word-break: break-all; color: var(--gold-2); display: block; }
-  .fine { font-size: 8.5pt; color: var(--muted); margin: 0; }
-  .signoff { display: flex; align-items: center; gap: .12in; border-top: 1px solid rgba(255,255,255,.15); padding-top: .2in; }
-  .signoff img { width: .6in; }
-  .signoff strong { font-family: Fraunces, serif; font-size: 13pt; display: block; }
+  .price { background: var(--night-2); border-radius: 10px; padding: .12in .16in; font-size: 10pt; color: var(--ice); }
+  .price b { color: var(--snow); font-size: 15pt; font-stretch: 115%; }
+  .qrbox { display: flex; gap: .18in; align-items: center; }
+  .qrbox .qr { width: 1.35in; height: 1.35in; }
+  .contact { font-size: 10pt; color: var(--ice); }
+  .contact b { display: block; font-size: 15pt; color: var(--snow); font-stretch: 112%; }
+  .contact i { display: block; font-style: normal; color: var(--gold); font-size: 9pt; font-weight: 600; word-break: break-all; }
+  .signoff { display: flex; align-items: center; gap: .12in; border-top: 1px solid rgba(242,245,247,.15); padding-top: .16in; }
+  .signoff img { width: .55in; }
+  .signoff .wordmark b { font-size: 12pt; }
+  .signoff .wordmark span { font-size: 6pt; margin-top: .04in; }
+  .fine { font-size: 7.5pt; color: var(--ice); margin: .05in 0 0; }
 </style>
 </head>
 <body>
-  <p class="screen-only">Door hanger, 4.25″ × 11″. Use <b>Print → Save as PDF</b> (margins: none, background graphics: on) and send the PDF to a print shop. Text in <i>[brackets]</i> comes from <code>pricing.js</code> or can be edited here.</p>
+  <p class="screen-only">Door hanger, 4.25″ × 11″. In Chrome: <b>Print → Save as PDF</b> (margins: none, background graphics: on) and send the PDF to a print shop. The phone, website, warranty and QR code come from <code>pricing.js</code>.</p>
 
   <!-- FRONT -->
-  <section class="sheet">
+  <section class="sheet front">
     <div class="hole"></div>
-    <div class="front">
-      <img class="logo" src="../logo.svg" alt="">
-      <p class="eyebrow" data-biz="name"></p>
-      <h1>Your neighbors' lights look amazing.<br><em>Want yours to match?</em></h1>
-      <p class="lede">We're installing on your street this week. We hang it, fix it, take it down, and store it. You never touch a ladder.</p>
-      <div class="offer">
-        Neighbor special
-        <strong>5% OFF</strong>
-        when you book by <span contenteditable>[DATE]</span>
+    <div class="body">
+      <img class="mark" src="../brand/mark.svg" alt="">
+      <div>
+        <p class="label">Hey neighbor</p>
+        <h1>We just lit up your <em>street.</em></h1>
       </div>
-      <p class="lede">Limited install dates before Thanksgiving</p>
+      <svg class="scene" data-house="400x250" data-scene="Game day" aria-hidden="true"></svg>
+      <p class="copy">Permanent lights that hide in your trim by day and glow any color at night. Every holiday. No ladder. Ever.</p>
+      <div class="offer"><span>Neighbor offer</span><b>$250 OFF</b><span>your install. Mention your neighbor's address.</span></div>
     </div>
   </section>
 
   <!-- BACK -->
-  <section class="sheet">
+  <section class="sheet back">
     <div class="hole"></div>
-    <div class="back">
-      <h2>Professional Christmas lights, done for you</h2>
+    <div class="body">
+      <h2>Install once.<br>Glow for years.</h2>
       <ul>
-        <li>Commercial-grade LEDs, custom-cut to your roofline</li>
-        <li>Installed in one visit, usually 2–4 hours</li>
-        <li>Free repairs all season, usually within 48 hours</li>
-        <li>Takedown in January &amp; storage included</li>
-        <li>No nails or staples, ever. Fully insured</li>
-        <li>Most homes <b>$600–$1,800</b></li>
+        <li>Hidden by day in a channel color-matched to your trim</li>
+        <li>Any color, any holiday, from a free phone app</li>
+        <li>Rated for −30°F. Nothing to take down in January</li>
+        <li>Installed in one day by our own local crew</li>
+        <li><span data-warranty></span> warranty</li>
       </ul>
+      <div class="price">Most homes <b>$2,500–$6,000</b><br>Financing available with approved credit</div>
       <div class="qrbox">
         <div class="qr" data-qr></div>
-        <div class="contact">
-          Scan for an instant quote
-          <b data-biz="website"></b>
-          or call / text <b data-biz="phone"></b>
+        <div class="contact">Scan for your price in a minute, or call/text
+          <b data-biz="phone"></b>
+          <i data-biz="website"></i>
         </div>
       </div>
-      <div class="signoff"><img src="../logo.svg" alt=""><div><strong data-biz="name"></strong><p class="fine">Serving <span data-biz="serviceArea"></span> · Fully insured</p></div></div>
+      <div>
+        <div class="signoff"><img src="../brand/mark.svg" alt=""><div class="wordmark"><b>NORTH STAR</b><span>HOLIDAY LIGHTING</span></div></div>
+        <p class="fine">Serving <span data-biz="serviceArea"></span>. Fully insured.</p>
+      </div>
     </div>
   </section>
 
   <script src="qrcode.js"></script>
   <script src="../pricing.js"></script>
+  <script src="../scene.js"></script>
   <script src="print.js"></script>
 </body>
 </html>

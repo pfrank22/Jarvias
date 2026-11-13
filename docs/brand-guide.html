@@ -1,0 +1,405 @@
+<title>North Star Brand Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap">
+<style>
+/* Layout: brand guide as a night-sky book. Each chapter is a band; the hero is the product itself (a house cycling holidays). */
+:root {
+  --night: #0a1424; --night-2: #111f36; --night-3: #18294a;
+  --gold: #ffc94a; --gold-deep: #e8a400; --snow: #f2f5f7; --ice: #9aaabb;
+  --a1: #3ce6a2; --a2: #2bb8e0; --a3: #8b6bff;
+  --bg: var(--snow); --fg: #0a1424; --muted: #4d5b6d; --panel: #ffffff; --line: #dbe2ea;
+  --f: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0d1626; --fg: #eef2f6; --muted: #9aaabb; --panel: #142238; --line: #22324d; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #0d1626; --fg: #eef2f6; --muted: #9aaabb; --panel: #142238; --line: #22324d; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 400 16px/1.6 var(--f); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+.wide { font-stretch: 125%; }
+.label { font: 700 .72rem/1 var(--f); font-stretch: 112%; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin: 0 0 .9rem; }
+.band { padding-block: 4rem; }
+.band + .band { border-top: 1px solid var(--line); }
+.chapter { display: grid; grid-template-columns: 220px 1fr; gap: 2rem; }
+.chapter > header h2 { font: 800 1.6rem/1.1 var(--f); font-stretch: 118%; letter-spacing: -.01em; }
+.chapter > header p { color: var(--muted); font-size: .95rem; margin: .6rem 0 0; }
+.chapter > div { min-width: 0; }
+@media (max-width: 820px) { .chapter { grid-template-columns: 1fr; gap: 1.2rem; } }
+
+/* Hero */
+.hero { background: var(--night); color: var(--snow); overflow: hidden; position: relative; }
+.hero .wrap { padding-block: 3.2rem 0; display: grid; grid-template-columns: 1fr 1.05fr; gap: 2.5rem; align-items: end; }
+.hero-copy { padding-bottom: 3.2rem; }
+.hero .lockup { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.2rem; }
+.hero .lockup svg { width: 64px; height: 64px; }
+.wordmark { line-height: .95; }
+.wordmark b { display: block; font: 900 1.7rem/1 var(--f); font-stretch: 125%; letter-spacing: .04em; }
+.wordmark span { display: block; font: 600 .7rem/1 var(--f); font-stretch: 125%; letter-spacing: .32em; color: var(--gold); margin-top: .4rem; }
+.hero h1 { font: 900 clamp(2.4rem, 6vw, 4.2rem)/.98 var(--f); font-stretch: 125%; letter-spacing: -.01em; }
+.hero h1 em { font-style: normal; color: var(--gold); }
+.hero p.lede { color: var(--ice); font-size: 1.1rem; max-width: 44ch; margin: 1.2rem 0 0; }
+.motto { margin-top: 1.6rem; font-size: .85rem; color: var(--ice); display: flex; gap: .6rem; align-items: center; }
+.motto i { font-style: italic; color: var(--snow); }
+.stage svg { display: block; width: 100%; height: auto; }
+.switch { display: flex; flex-wrap: wrap; gap: .35rem; padding: .9rem 0 1.4rem; }
+.switch button { font: 600 .76rem var(--f); color: var(--ice); background: var(--night-2); border: 1px solid var(--night-3); border-radius: 999px; padding: .35rem .75rem; cursor: pointer; }
+.switch button[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: var(--night); }
+.switch button:focus-visible { outline: 2px solid var(--a2); outline-offset: 2px; }
+@media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } .hero-copy { padding-bottom: 0; } }
+
+/* Story */
+.story p { font-size: 1.15rem; max-width: 60ch; margin: 0 0 1rem; }
+.story .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.6rem; }
+.pillar { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 1.2rem; }
+.pillar h3 { font: 800 1rem/1.2 var(--f); font-stretch: 115%; margin-bottom: .4rem; }
+.pillar p { font-size: .93rem; color: var(--muted); margin: 0; }
+@media (max-width: 760px) { .story .pillars { grid-template-columns: 1fr; } }
+
+/* Logo */
+.logos { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 1rem; }
+.logo-tile { border-radius: 14px; display: grid; place-items: center; min-height: 220px; padding: 1.4rem; position: relative; }
+.logo-tile .cap { position: absolute; left: 1rem; bottom: .8rem; font-size: .75rem; opacity: .7; }
+.t-dark { background: var(--night); color: var(--snow); }
+.t-light { background: #f2f5f7; color: var(--night); border: 1px solid #dbe2ea; }
+.t-gold { background: var(--gold); color: var(--night); }
+.h-lock { display: flex; align-items: center; gap: .9rem; }
+.h-lock svg { width: 76px; height: 76px; flex-shrink: 0; }
+.h-lock .wordmark b { font-size: 1.55rem; }
+.t-light .wordmark span { color: #b07c00; }
+.t-gold .wordmark span { color: var(--night); }
+.stack { text-align: center; }
+.stack svg { width: 92px; height: 92px; display: block; margin: 0 auto .5rem; }
+.rules { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1rem; }
+.rule { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 1rem; font-size: .88rem; }
+.rule b { display: block; margin-bottom: .25rem; font-stretch: 112%; }
+.rule.no b { color: #c43d3d; }
+.rule p { margin: 0; color: var(--muted); }
+@media (max-width: 900px) { .logos { grid-template-columns: 1fr 1fr; } .logos .logo-tile:first-child { grid-column: 1 / -1; } .rules { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .logos, .rules { grid-template-columns: 1fr; } }
+
+/* Color */
+.palette { display: grid; grid-template-columns: 2fr 1.4fr 1fr 1fr; gap: .6rem; }
+.chip { border-radius: 14px; padding: 5.5rem 1rem 1rem; font-size: .82rem; display: flex; flex-direction: column; gap: .15rem; font-variant-numeric: tabular-nums; }
+.chip b { font-size: .95rem; font-stretch: 115%; }
+.aurora { margin-top: .6rem; border-radius: 14px; padding: 1.4rem 1rem 1rem; color: #061423; background: linear-gradient(90deg, var(--a1), var(--a2) 50%, var(--a3)); display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; font-size: .82rem; }
+.aurora b { font-stretch: 115%; display: block; font-size: .95rem; }
+.ratio { margin-top: 1rem; display: flex; height: 14px; border-radius: 999px; overflow: hidden; }
+.ratio i { display: block; }
+.ratio-cap { font-size: .82rem; color: var(--muted); margin-top: .5rem; }
+@media (max-width: 760px) { .palette { grid-template-columns: 1fr 1fr; } }
+
+/* Type */
+.type-spec { display: grid; gap: 1.2rem; }
+.spec { display: grid; grid-template-columns: 170px 1fr; gap: 1rem; align-items: baseline; border-bottom: 1px solid var(--line); padding-bottom: 1.1rem; }
+.spec .meta { font-size: .78rem; color: var(--muted); }
+.spec .s-display { font: 900 clamp(2rem, 5vw, 3.2rem)/1 var(--f); font-stretch: 125%; }
+.spec .s-h2 { font: 800 1.6rem/1.15 var(--f); font-stretch: 112%; }
+.spec .s-label { font: 700 .8rem var(--f); font-stretch: 125%; letter-spacing: .3em; text-transform: uppercase; }
+.spec .s-body { font: 400 1.05rem/1.6 var(--f); font-stretch: 100%; max-width: 60ch; }
+@media (max-width: 600px) { .spec { grid-template-columns: 1fr; gap: .3rem; } }
+
+/* Voice */
+.taglines { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1rem; }
+.tag-main { background: var(--night); color: var(--snow); border-radius: 14px; padding: 1.8rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.4rem; }
+.tag-main q { font: 900 clamp(1.8rem, 4vw, 2.6rem)/1.02 var(--f); font-stretch: 125%; quotes: none; }
+.tag-main small { color: var(--ice); font-size: .85rem; }
+.tag-list { display: grid; gap: .6rem; }
+.tag-list div { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: .8rem 1rem; }
+.tag-list b { display: block; font-stretch: 112%; }
+.tag-list span { font-size: .82rem; color: var(--muted); }
+.voice { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; }
+.voice div { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.1rem; font-size: .92rem; }
+.voice h3 { font: 800 .95rem var(--f); font-stretch: 115%; margin-bottom: .35rem; }
+.voice p { margin: .25rem 0; color: var(--muted); }
+.voice .say { color: var(--fg); }
+.voice .say::before { content: "Say  "; color: #2a9d6a; font-weight: 700; font-size: .75rem; letter-spacing: .08em; }
+.voice .avoid::before { content: "Avoid  "; color: #c43d3d; font-weight: 700; font-size: .75rem; letter-spacing: .08em; }
+@media (max-width: 820px) { .taglines, .voice { grid-template-columns: 1fr; } }
+
+/* Applications */
+.apps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; }
+.app { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 1rem; min-width: 0; }
+.app svg { width: 100%; height: auto; display: block; border-radius: 8px; }
+.app h3 { font: 700 .72rem var(--f); font-stretch: 112%; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: .7rem; }
+.app p { font-size: .8rem; color: var(--muted); margin: .6rem 0 0; }
+.a-van { grid-column: span 4; } .a-sign { grid-column: span 2; } .a-hang { grid-column: span 2; } .a-post { grid-column: span 2; } .a-icon { grid-column: span 2; }
+@media (max-width: 900px) { .a-van { grid-column: span 6; } .a-sign, .a-hang, .a-post, .a-icon { grid-column: span 3; } }
+@media (max-width: 520px) { .a-sign, .a-hang, .a-post, .a-icon { grid-column: span 6; } }
+
+/* Names */
+.names { overflow-x: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+.names table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: .92rem; }
+.names th, .names td { text-align: left; padding: .75rem 1rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+.names tr:last-child td { border-bottom: 0; }
+.names thead th { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.names td:first-child { font-weight: 700; font-stretch: 112%; white-space: nowrap; }
+.pill { display: inline-block; font-size: .72rem; font-weight: 700; padding: .15rem .55rem; border-radius: 999px; background: color-mix(in srgb, var(--gold) 28%, transparent); }
+footer { padding-block: 2rem 3rem; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--line); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<section class="hero" aria-labelledby="hero-h">
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="lockup"><svg data-mark="dark" viewBox="0 0 100 100" aria-hidden="true"></svg><div class="wordmark"><b>NORTH STAR</b><span>HOLIDAY LIGHTING</span></div></div>
+      <p class="label" style="color:var(--ice)">Brand guide · v1</p>
+      <h1 id="hero-h">Light the way <em>home.</em></h1>
+      <p class="lede">Permanent roofline lighting for the Twin Cities and 70 miles out. Hidden by day. Any color, any holiday, every night, from your phone.</p>
+      <p class="motto"><span style="color:var(--gold)">✦</span><span>Inspired by Minnesota's state motto, <i>L'Étoile du Nord</i>, Star of the North</span></p>
+    </div>
+    <div class="stage">
+      <svg id="heroHouse" viewBox="0 0 560 330" role="img" aria-label="A house with permanent lights along the roofline, changing color for each holiday"></svg>
+      <div class="switch" id="switch" aria-label="Choose a holiday scene"></div>
+    </div>
+  </div>
+</section>
+
+<section class="band story">
+  <div class="wrap chapter">
+    <header><p class="label">01 · Story</p><h2>What the star stands for</h2><p>Use this when you write an About page, a pitch or a radio spot.</p></header>
+    <div>
+      <p>For centuries, people found their way home by the North Star. Minnesota put it on the state seal and called itself <em>L'Étoile du Nord</em>. We put a little of that light on your house.</p>
+      <p>North Star installs permanent lighting that disappears into your trim by day and does whatever you want at night: warm white on a Tuesday, purple and gold on game day, red and green from Thanksgiving to New Year's. One install. No ladders, ever again.</p>
+      <div class="pillars">
+        <div class="pillar"><h3>Guiding</h3><p>We design the layout with you, show you a night mockup, and teach you the app before we leave.</p></div>
+        <div class="pillar"><h3>Built for here</h3><p>Rated for −30°F nights and ice dams. Local crew, local phone number, January service calls.</p></div>
+        <div class="pillar"><h3>Constant</h3><p>A permanent fixture of the house and of the neighborhood. The light your street looks for.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap chapter">
+    <header><p class="label">02 · Logo</p><h2>The star over the home</h2><p>The North Star sits above a roof peak. Under the eave, a line of lights runs through the aurora colors. That line is the product.</p></header>
+    <div>
+      <div class="logos">
+        <div class="logo-tile t-dark"><div class="h-lock"><svg data-mark="dark" viewBox="0 0 100 100" aria-hidden="true"></svg><div class="wordmark"><b>NORTH STAR</b><span>HOLIDAY LIGHTING</span></div></div><span class="cap">Primary · on Northern Night</span></div>
+        <div class="logo-tile t-light"><div class="stack"><svg data-mark="light" viewBox="0 0 100 100" aria-hidden="true"></svg><div class="wordmark"><b>NORTH STAR</b><span>HOLIDAY LIGHTING</span></div></div><span class="cap">Stacked · on Snow</span></div>
+        <div class="logo-tile t-gold"><div class="stack"><svg data-mark="mono" viewBox="0 0 100 100" aria-hidden="true"></svg></div><span class="cap">One-color mark · hats, stickers, vinyl</span></div>
+      </div>
+      <div class="rules">
+        <div class="rule"><b>Clear space</b><p>Keep space equal to the star's width on all sides.</p></div>
+        <div class="rule"><b>Minimum size</b><p>Mark 24 px on screen, 0.5 in in print. Below that, use the mark without the wordmark.</p></div>
+        <div class="rule no"><b>Don't</b><p>Stretch, outline, recolor the star, or put the full-color mark on busy photos.</p></div>
+        <div class="rule no"><b>Don't</b><p>Shorten to "North Star Lighting" in public. Always include "Holiday."</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap chapter">
+    <header><p class="label">03 · Color</p><h2>Night, star and aurora</h2><p>Mostly night. Gold is the star: use it once per layout. The aurora is reserved for the lights themselves.</p></header>
+    <div>
+      <div class="palette">
+        <div class="chip" style="background:#0a1424;color:#f2f5f7"><b>Northern Night</b>#0A1424 · primary background</div>
+        <div class="chip" style="background:#ffc94a;color:#0a1424"><b>Polaris Gold</b>#FFC94A · the star, one CTA</div>
+        <div class="chip" style="background:#f2f5f7;color:#0a1424;box-shadow:inset 0 0 0 1px #dbe2ea"><b>Snow</b>#F2F5F7</div>
+        <div class="chip" style="background:#9aaabb;color:#0a1424"><b>Ice</b>#9AAABB</div>
+      </div>
+      <div class="aurora"><div><b>Aurora Green</b>#3CE6A2</div><div><b>Glacier Blue</b>#2BB8E0</div><div><b>Night Violet</b>#8B6BFF</div></div>
+      <div class="ratio" aria-hidden="true"><i style="flex:62;background:#0a1424"></i><i style="flex:20;background:#f2f5f7"></i><i style="flex:8;background:#9aaabb"></i><i style="flex:6;background:#ffc94a"></i><i style="flex:4;background:linear-gradient(90deg,#3ce6a2,#2bb8e0,#8b6bff)"></i></div>
+      <p class="ratio-cap">Typical page balance: 62% night, 20% snow, 8% ice, 6% gold, 4% aurora.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap chapter">
+    <header><p class="label">04 · Type</p><h2>One family, two widths</h2><p>Archivo (free on Google Fonts). Expanded width for headlines makes it sturdy and distinctive. Normal width for reading.</p></header>
+    <div class="type-spec">
+      <div class="spec"><span class="meta">Display · Black 900 · 125% width</span><span class="s-display">Every holiday. No ladder.</span></div>
+      <div class="spec"><span class="meta">Heading · ExtraBold 800 · 112%</span><span class="s-h2">Hidden by day, brilliant by night</span></div>
+      <div class="spec"><span class="meta">Label · Bold 700 · 125% · tracked</span><span class="s-label">Holiday lighting</span></div>
+      <div class="spec"><span class="meta">Body · Regular 400 · 100%</span><span class="s-body">A slim aluminum channel mounts under your soffit and is color-matched to your trim. You won't notice it during the day. At night, pick any color or scene from the app, or set a schedule and forget about it.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap chapter">
+    <header><p class="label">05 · Voice</p><h2>Warm, steady, Minnesotan</h2><p>Like a good neighbor who happens to be an expert. Plain words, short sentences, a little dry humor about winter.</p></header>
+    <div>
+      <div class="taglines">
+        <div class="tag-main"><q>Light the way home.</q><small>Primary tagline: website, van, sign-offs</small></div>
+        <div class="tag-list">
+          <div><b>Every holiday. No ladder.</b><span>Ads, door hangers</span></div>
+          <div><b>Hidden by day. Brilliant by night.</b><span>Product explanation</span></div>
+          <div><b>Star of the North.</b><span>Brand moments, merch</span></div>
+          <div><b>Put the ladder away. For good.</b><span>Fall campaign</span></div>
+        </div>
+      </div>
+      <div class="voice">
+        <div><h3>Confident</h3><p class="say">"Installed in a day. Warrantied for years."</p><p class="avoid">"We're the #1 best lighting experts!!"</p></div>
+        <div><h3>Local</h3><p class="say">"Rated for −30°. We'd know."</p><p class="avoid">Generic stock phrases that could be any city.</p></div>
+        <div><h3>Every occasion</h3><p class="say">"Game day, Halloween, Christmas, Tuesday."</p><p class="avoid">Talking only about Christmas.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap chapter">
+    <header><p class="label">06 · In the world</p><h2>Applications</h2><p>First-round mockups. The van and yard signs do most of the marketing in this business.</p></header>
+    <div class="apps">
+      <div class="app a-van"><h3>Van wrap</h3><svg id="appVan" viewBox="0 0 480 220" role="img" aria-label="Van wrap mockup"></svg><p>Night-blue van. The light line runs along the roof edge like an eave.</p></div>
+      <div class="app a-sign"><h3>Yard sign 24×18</h3><svg id="appSign" viewBox="0 0 240 220" role="img" aria-label="Yard sign mockup"></svg><p>Every install gets one for two weeks.</p></div>
+      <div class="app a-hang"><h3>Door hanger</h3><svg id="appHang" viewBox="0 0 240 300" role="img" aria-label="Door hanger mockup"></svg><p>Ten neighbors on each side of every install.</p></div>
+      <div class="app a-post"><h3>Social post</h3><svg id="appPost" viewBox="0 0 240 300" role="img" aria-label="Social post mockup"></svg><p>One real install per week, same angle, day and night.</p></div>
+      <div class="app a-icon"><h3>Profile and app icon</h3><svg id="appIcon" viewBox="0 0 240 300" role="img" aria-label="Profile icon mockup"></svg><p>Mark only, on Northern Night.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap chapter">
+    <header><p class="label">07 · Names</p><h2>How the names fit together</h2><p>One company, several public names over time.</p></header>
+    <div class="names">
+      <table>
+        <thead><tr><th>Name</th><th>Use</th><th>When</th></tr></thead>
+        <tbody>
+          <tr><td>North Star Lighting LLC</td><td>Legal entity: contracts, bank, taxes, insurance</td><td><span class="pill">Now</span></td></tr>
+          <tr><td>North Star Holiday Lighting</td><td>Minnesota assumed name (DBA). Everything customers see.</td><td><span class="pill">Now</span></td></tr>
+          <tr><td>northstarholidaylighting.com</td><td>Website, email (hello@…), QR codes</td><td><span class="pill">Now</span></td></tr>
+          <tr><td>North Star Landscape Lighting</td><td>Second DBA for path, uplighting and patio work</td><td>Year 2+</td></tr>
+          <tr><td>North Star Commercial</td><td>Storefronts, HOAs, churches, municipal</td><td>Year 2+</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><footer>North Star Holiday Lighting · brand guide v1. Logo and mockups are first-round and will be refined. Name and trademark searches so far were web-only, not legal clearance.</footer></div>
+
+<script>
+(() => {
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (t, a, p) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); if (p) p.appendChild(n); return n; };
+  let gid = 0;
+
+  // The mark. variant: dark | light | mono. Drawn into any <g> or <svg> at (x, y) with size s.
+  function mark(parent, variant = "dark", x = 0, y = 0, s = 100) {
+    const g = el("g", { transform: `translate(${x} ${y}) scale(${s / 100})` }, parent);
+    const id = "au" + (++gid), hid = "ha" + gid;
+    const defs = el("defs", {}, g);
+    const lg = el("linearGradient", { id, gradientUnits: "userSpaceOnUse", x1: 18, x2: 82, y1: 0, y2: 0 }, defs);
+    [["0", "#3ce6a2"], [".5", "#2bb8e0"], ["1", "#8b6bff"]].forEach(([o, c]) => el("stop", { offset: o, "stop-color": c }, lg));
+    const rg = el("radialGradient", { id: hid }, defs);
+    el("stop", { offset: 0, "stop-color": "#ffc94a", "stop-opacity": .45 }, rg); el("stop", { offset: 1, "stop-color": "#ffc94a", "stop-opacity": 0 }, rg);
+    const star = variant === "light" ? "#e8a400" : variant === "mono" ? "#0a1424" : "#ffc94a";
+    const roof = variant === "light" || variant === "mono" ? "#0a1424" : "#ffc94a";
+    const dots = variant === "mono" ? "#0a1424" : `url(#${id})`;
+    if (variant === "dark") el("circle", { cx: 50, cy: 29, r: 24, fill: `url(#${hid})` }, g);
+    if (variant !== "mono") el("path", { d: "M59 20 L52 29 L59 38 L50 31 L41 38 L48 29 L41 20 L50 27 Z", fill: variant === "light" ? "#f6c453" : "#ffe3a1" }, g);
+    el("path", { d: "M50 3 L54.2 24.8 L71 29 L54.2 33.2 L50 52 L45.8 33.2 L29 29 L45.8 24.8 Z", fill: star }, g);
+    el("path", { d: "M12 80 L50 57 L88 80", fill: "none", stroke: roof, "stroke-width": 6.5, "stroke-linecap": "round", "stroke-linejoin": "round" }, g);
+    [[20, 88], [29.5, 82.3], [39, 76.6], [50, 70], [61, 76.6], [70.5, 82.3], [80, 88]].forEach(([cx, cy]) => el("circle", { cx, cy, r: 3.2, fill: dots }, g));
+    return g;
+  }
+  document.querySelectorAll("[data-mark]").forEach((s) => mark(s, s.dataset.mark));
+
+  const text = (p, x, y, s, size, a = {}) => { const t = el("text", { x, y, "font-family": "Archivo, Arial, sans-serif", "font-size": size, fill: "#f2f5f7", "text-anchor": "middle", ...a }, p); t.style.fontStretch = a.stretch || "125%"; t.textContent = s; return t; };
+
+  // House scene
+  const SCENES = [
+    { name: "Christmas", c: ["#ff3b3b", "#2bd46a", "#ffd27a"] },
+    { name: "Everyday warm white", c: ["#ffd9a0"] },
+    { name: "Game day", c: ["#7b3fe4", "#ffc62f"] },
+    { name: "Halloween", c: ["#ff7a00", "#8c3cff"] },
+    { name: "4th of July", c: ["#ff3b3b", "#ffffff", "#3b6bff"] },
+    { name: "Valentine's", c: ["#ff4f8b", "#ffffff"] },
+    { name: "St. Patrick's", c: ["#2bd46a", "#9dff8a"] },
+    { name: "Aurora", c: ["#3ce6a2", "#2bb8e0", "#8b6bff"] },
+  ];
+  function house(svg, w, h, opts = {}) {
+    svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+    const sky = el("linearGradient", { id: "sky" + (++gid), x1: 0, x2: 0, y1: 0, y2: 1 }, el("defs", {}, svg));
+    el("stop", { offset: 0, "stop-color": "#050b16" }, sky); el("stop", { offset: 1, "stop-color": "#12284a" }, sky);
+    el("rect", { width: w, height: h, fill: `url(#sky${gid})` }, svg);
+    if (opts.stars !== false) for (let i = 0; i < 40; i++) el("circle", { cx: (i * 137.5) % w, cy: (i * 53.3) % (h * .45), r: i % 7 === 0 ? 1.2 : .6, fill: "#cfe3ff", opacity: .55 }, svg);
+    if (opts.polaris !== false) mark(svg, "dark", w * .78, h * .04, w * .08).querySelectorAll("path:nth-of-type(n+3), circle:not(:first-child)").forEach((n) => n.remove());
+    const gy = h * .86, cx = w * .4, hw = w * .25, peak = h * .32, eave = h * .55;
+    el("rect", { y: gy, width: w, height: h - gy, fill: "#dfe8ef" }, svg);
+    el("path", { d: `M${cx - hw} ${gy}V${eave}L${cx} ${peak}L${cx + hw} ${eave}V${gy}Z`, fill: "#16263f" }, svg);
+    const gx = cx + hw, gw = w * .22;
+    el("path", { d: `M${gx} ${gy}V${eave + h * .05}L${gx + gw / 2} ${eave - h * .05}L${gx + gw} ${eave + h * .05}V${gy}Z`, fill: "#132239" }, svg);
+    [[cx - hw * .62, eave + h * .07], [cx + hw * .22, eave + h * .07], [gx + gw * .3, eave + h * .12]].forEach(([x, y]) => el("rect", { x, y, width: hw * .36, height: h * .12, rx: 2, fill: "#f4c56a", opacity: .85 }, svg));
+    el("path", { d: `M${cx - hw - 8} ${gy}q${hw * .6} -14 ${hw * 2.4} 0z`, fill: "#f2f5f7", opacity: .9 }, svg);
+    const bulbs = [], run = (a, b, n) => { for (let i = 0; i <= n; i++) bulbs.push(el("circle", { cx: a[0] + (b[0] - a[0]) * i / n, cy: a[1] + (b[1] - a[1]) * i / n + 3, r: Math.max(1.6, w / 200) }, svg)); };
+    const n = Math.round(w / 24);
+    run([cx - hw, eave], [cx, peak], n); run([cx, peak], [cx + hw, eave], n);
+    run([gx, eave + h * .05], [gx + gw / 2, eave - h * .05], n / 2 | 0); run([gx + gw / 2, eave - h * .05], [gx + gw, eave + h * .05], n / 2 | 0);
+    return bulbs;
+  }
+  const paint = (b, c) => b.forEach((x, i) => { const col = c[i % c.length]; x.setAttribute("fill", col); x.style.filter = `drop-shadow(0 0 3px ${col})`; x.style.transition = "fill .5s"; });
+
+  const heroB = house(document.getElementById("heroHouse"), 560, 330);
+  const sw = document.getElementById("switch"); let cur = 0, timer;
+  const show = (i, user) => { cur = i; paint(heroB, SCENES[i].c); [...sw.children].forEach((b, j) => b.setAttribute("aria-pressed", i === j)); if (user) clearInterval(timer); };
+  SCENES.forEach((s, i) => { const b = document.createElement("button"); b.type = "button"; b.textContent = s.name; b.onclick = () => show(i, true); sw.appendChild(b); });
+  show(0);
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) timer = setInterval(() => show((cur + 1) % SCENES.length), 2400);
+
+  // Van
+  const van = document.getElementById("appVan");
+  el("rect", { width: 480, height: 220, fill: "#dfe6ee" }, van);
+  el("path", { d: "M30 168V64q0-18 18-18h266l70 50h44q14 0 14 14v58z", fill: "#0a1424" }, van);
+  el("path", { d: "M322 54l56 40h-56z", fill: "#7d93ad" }, van);
+  el("rect", { x: 30, y: 160, width: 412, height: 8, fill: "#06101e" }, van);
+  [[96, 170], [370, 170]].forEach(([x, y]) => { el("circle", { cx: x, cy: y, r: 24, fill: "#111" }, van); el("circle", { cx: x, cy: y, r: 9, fill: "#888" }, van); });
+  const vg = el("linearGradient", { id: "vanA", gradientUnits: "userSpaceOnUse", x1: 48, x2: 314 }, el("defs", {}, van));
+  [["0", "#3ce6a2"], [".5", "#2bb8e0"], ["1", "#8b6bff"]].forEach(([o, c]) => el("stop", { offset: o, "stop-color": c }, vg));
+  for (let i = 0; i < 24; i++) el("circle", { cx: 50 + i * 11.4, cy: 56, r: 3, fill: "url(#vanA)" }, van);
+  mark(van, "dark", 52, 70, 64);
+  text(van, 196, 104, "NORTH STAR", 26, { "font-weight": 900, "text-anchor": "start", x: 124 });
+  text(van, 196, 122, "HOLIDAY LIGHTING", 9.5, { "font-weight": 600, fill: "#ffc94a", "letter-spacing": 3.2, "text-anchor": "start", x: 125 });
+  text(van, 124, 146, "Light the way home.  northstarholidaylighting.com", 9.5, { "text-anchor": "start", fill: "#9aaabb", stretch: "100%" });
+
+  // Yard sign
+  const sign = document.getElementById("appSign");
+  el("rect", { width: 240, height: 220, fill: "#e4ebe4" }, sign);
+  el("rect", { x: 70, y: 150, width: 4, height: 70, fill: "#8a8f98" }, sign); el("rect", { x: 166, y: 150, width: 4, height: 70, fill: "#8a8f98" }, sign);
+  el("rect", { x: 22, y: 26, width: 196, height: 134, rx: 4, fill: "#0a1424" }, sign);
+  mark(sign, "dark", 92, 32, 56);
+  text(sign, 120, 106, "NORTH STAR", 20, { "font-weight": 900 });
+  text(sign, 120, 119, "HOLIDAY LIGHTING", 7.5, { "font-weight": 600, fill: "#ffc94a", "letter-spacing": 2.6 });
+  el("rect", { x: 22, y: 130, width: 196, height: 30, fill: "#ffc94a" }, sign);
+  text(sign, 120, 149, "EVERY HOLIDAY. NO LADDER.", 8.6, { "font-weight": 800, fill: "#0a1424" });
+
+  // Door hanger
+  const hang = document.getElementById("appHang");
+  el("rect", { width: 240, height: 300, fill: "#e8edf2" }, hang);
+  el("rect", { x: 70, y: 10, width: 100, height: 280, rx: 6, fill: "#0a1424" }, hang);
+  el("circle", { cx: 120, cy: 40, r: 17, fill: "#e8edf2" }, hang);
+  mark(hang, "dark", 96, 66, 48);
+  text(hang, 120, 140, "HEY", 13, { "font-weight": 900 }); text(hang, 120, 156, "NEIGHBOR.", 13, { "font-weight": 900 });
+  text(hang, 120, 178, "We just lit up", 7.5, { stretch: "100%", fill: "#9aaabb" }); text(hang, 120, 189, "your street.", 7.5, { stretch: "100%", fill: "#9aaabb" });
+  el("rect", { x: 82, y: 204, width: 76, height: 34, rx: 4, fill: "none", stroke: "#ffc94a" }, hang);
+  text(hang, 120, 219, "NEIGHBOR", 7, { "font-weight": 700, fill: "#ffc94a", "letter-spacing": 1.5 }); text(hang, 120, 231, "$250 OFF", 9.5, { "font-weight": 900, fill: "#ffc94a" });
+  el("rect", { x: 98, y: 248, width: 30, height: 30, fill: "#f2f5f7" }, hang);
+  for (let i = 0; i < 25; i++) if ((i * 7) % 3) el("rect", { x: 100 + (i % 5) * 5.2, y: 250 + Math.floor(i / 5) * 5.2, width: 4.6, height: 4.6, fill: "#0a1424" }, hang);
+  text(hang, 146, 266, "SCAN", 6.5, { "font-weight": 700, "text-anchor": "start", x: 133 });
+
+  // Social post
+  const post = document.getElementById("appPost");
+  el("rect", { width: 240, height: 300, fill: "#e8edf2" }, post);
+  const inner = el("svg", { x: 20, y: 20, width: 200, height: 200 }, post);
+  const pb = house(inner, 200, 200, { polaris: false }); paint(pb, ["#7b3fe4", "#ffc62f"]);
+  text(post, 120, 244, "Purple and gold.", 12, { "font-weight": 800, fill: "#0a1424", stretch: "112%" });
+  text(post, 120, 260, "Plymouth, MN · game day scene", 8, { fill: "#4d5b6d", stretch: "100%" });
+  text(post, 120, 284, "@northstarholidaylights", 8, { fill: "#4d5b6d", stretch: "100%" });
+
+  // Icon
+  const icon = document.getElementById("appIcon");
+  el("rect", { width: 240, height: 300, fill: "#e8edf2" }, icon);
+  el("rect", { x: 60, y: 40, width: 120, height: 120, rx: 28, fill: "#0a1424" }, icon);
+  mark(icon, "dark", 72, 50, 96);
+  el("circle", { cx: 120, cy: 228, r: 44, fill: "#0a1424" }, icon);
+  mark(icon, "dark", 88, 194, 64);
+})();
+</script>

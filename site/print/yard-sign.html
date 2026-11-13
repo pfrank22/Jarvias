@@ -4,42 +4,53 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Yard Sign: North Star Holiday Lighting</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="print.css">
-<!-- Standard corrugated yard sign: 24" x 18" landscape. Save as PDF and upload to a sign printer. -->
+<!-- Standard corrugated yard sign: 24" x 18" landscape. -->
 <style>
   @page { size: 24in 18in; margin: 0; }
-  .sheet { width: 24in; height: 18in; display: grid; grid-template-columns: 1fr 6.5in; align-items: center; gap: 1in; padding: 1.2in 1.4in; }
-  .sheet .strand-print { position: absolute; left: 0; right: 0; top: .35in; height: .7in; }
-  .sign-logo { width: 4in; display: block; margin-bottom: .2in; }
-  .kicker { font: 700 64pt Inter, sans-serif; letter-spacing: .08em; color: var(--gold); margin: 0; }
-  .name { font: 800 120pt/0.95 Fraunces, serif; margin: .1in 0 .4in; }
-  .tag { font-size: 44pt; color: var(--ink); margin: 0; }
+  .sheet { width: 24in; height: 18in; display: grid; grid-template-rows: 1fr auto; }
+  .main { display: grid; grid-template-columns: 1fr 6in; gap: 1in; align-items: center; padding: 1.1in 1.3in .6in; }
+  .lock { display: flex; align-items: center; gap: .5in; }
+  .lock img { width: 3.6in; }
+  .lock .wordmark b { font-size: 118pt; }
+  .lock .wordmark span { font-size: 34pt; margin-top: .22in; letter-spacing: .32em; }
+  .line { font-size: 46pt; font-weight: 800; font-stretch: 118%; color: var(--snow); margin: .7in 0 0; }
+  .line em { font-style: normal; color: var(--gold); }
   .right { text-align: center; }
-  .qr { background: #fff; padding: .3in; border-radius: .3in; width: 6.5in; height: 6.5in; }
-  .qr svg { width: 100%; height: 100%; display: block; }
-  .scan { font: 700 34pt Inter, sans-serif; margin: .35in 0 .1in; white-space: nowrap; }
-  .phone { font: 800 64pt Fraunces, serif; color: var(--gold-2); margin: 0; }
+  .right .qr { width: 6in; height: 6in; border-radius: .3in; padding: .15in; }
+  .scan { font-size: 30pt; font-weight: 700; font-stretch: 112%; margin: .3in 0 0; color: var(--ice); }
+  .bar { background: var(--gold); color: var(--night); display: flex; justify-content: space-between; align-items: center; padding: .45in 1.3in; font-weight: 900; font-stretch: 125%; }
+  .bar .phone { font-size: 80pt; }
+  .bar .web { font-size: 34pt; font-weight: 700; font-stretch: 112%; }
+  .lights { position: absolute; left: 1.3in; right: 1.3in; top: .45in; display: flex; justify-content: space-between; }
+  .lights i { width: .26in; height: .26in; border-radius: 50%; }
 </style>
 </head>
 <body>
-  <p class="screen-only">Yard sign, 24″ × 18″. Use <b>Print → Save as PDF</b> (margins: none, background graphics: on) and upload it to a sign printer (Vistaprint, Signs.com, or a local shop). Order 25–50 double-sided signs with H-stakes.</p>
+  <p class="screen-only">Yard sign, 24″ × 18″. In Chrome: <b>Print → Save as PDF</b> (margins: none, background graphics: on) and upload it to a sign printer (Signs.com, Vistaprint or a local shop). Order double-sided corrugated signs with H-stakes.</p>
   <section class="sheet">
-    <div class="strand-print" aria-hidden="true"></div>
-    <div>
-      <img class="sign-logo" src="../logo.svg" alt="">
-      <p class="kicker">LIGHTS BY</p>
-      <p class="name">North Star<br>Holiday Lighting</p>
-      <p class="tag">We hang it. We fix it. We store it.</p>
+    <div class="lights" aria-hidden="true" id="lights"></div>
+    <div class="main">
+      <div>
+        <div class="lock"><img src="../brand/mark.svg" alt=""><div class="wordmark"><b>NORTH STAR</b><span>HOLIDAY LIGHTING</span></div></div>
+        <p class="line">Permanent lights. <em>Every holiday.</em><br>No ladder. Ever.</p>
+      </div>
+      <div class="right"><div class="qr" data-qr></div><p class="scan">Scan for your price</p></div>
     </div>
-    <div class="right">
-      <div class="qr" data-qr></div>
-      <p class="scan">Scan for an instant quote</p>
-      <p class="phone" data-biz="phone"></p>
-    </div>
+    <div class="bar"><span class="phone" data-biz="phone"></span><span class="web" data-biz="website"></span></div>
   </section>
+  <script>
+    // Aurora light line along the top: green → blue → violet
+    (() => {
+      const L = document.getElementById("lights"), stops = [[60, 230, 162], [43, 184, 224], [139, 107, 255]];
+      const mix = (t) => { const s = t < .5 ? 0 : 1, u = t < .5 ? t * 2 : (t - .5) * 2; return `rgb(${stops[s].map((v, k) => Math.round(v + (stops[s + 1][k] - v) * u)).join(",")})`; };
+      for (let i = 0; i < 40; i++) { const b = document.createElement("i"); const c = mix(i / 39); b.style.background = c; b.style.boxShadow = `0 0 .15in ${c}`; L.appendChild(b); }
+    })();
+  </script>
   <script src="qrcode.js"></script>
   <script src="../pricing.js"></script>
+  <script src="../scene.js"></script>
   <script src="print.js"></script>
 </body>
 </html>
