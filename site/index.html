@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evergleam Holiday Lighting | Professional Christmas Light Installation</title>
+  <meta name="description" content="Professional residential Christmas light installation. We design, install, maintain, take down, and store your lights. Get an instant estimate.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="#top"><span class="star">✦</span> <span data-biz="name">Evergleam Holiday Lighting</span></a>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#packages">Packages</a>
+      <a href="#quote">Instant quote</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn-small" href="#contact">Book now</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="strand" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <p class="eyebrow">Now booking for the holiday season</p>
+        <h1>Your house, glowing.<br><em>Without the ladder.</em></h1>
+        <p class="lede">We design, install, maintain, take down, and store professional-grade LED lights. You just flip the switch, or let the timer do it.</p>
+        <div class="cta-row">
+          <a class="btn" href="#quote">Get an instant estimate</a>
+          <a class="btn btn-ghost" href="#packages">See packages</a>
+        </div>
+        <ul class="trust">
+          <li>✓ Fully insured</li><li>✓ Commercial-grade LEDs</li><li>✓ Free service calls all season</li><li>✓ Takedown &amp; storage included</li>
+        </ul>
+      </div>
+      <svg class="house" viewBox="0 0 600 300" aria-hidden="true">
+        <defs>
+          <radialGradient id="glow"><stop offset="0" stop-color="#ffd27a" stop-opacity=".9"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient>
+        </defs>
+        <rect x="0" y="270" width="600" height="30" fill="#0b1a2e"/>
+        <path d="M120 270V150L240 70l120 80v120z" fill="#132842"/>
+        <path d="M360 270V170h150v100z" fill="#10233a"/>
+        <path d="M350 175l85-55 85 55" fill="none" stroke="#10233a" stroke-width="10"/>
+        <rect x="170" y="190" width="40" height="40" fill="#f4c56a" opacity=".85"/>
+        <rect x="270" y="190" width="40" height="40" fill="#f4c56a" opacity=".85"/>
+        <rect x="222" y="210" width="36" height="60" fill="#0b1a2e"/>
+        <rect x="400" y="200" width="70" height="40" fill="#f4c56a" opacity=".7"/>
+        <g class="bulbs" id="bulbs"></g>
+        <path d="M545 270l-25-50h12l-20-40h10l-17-35-17 35h10l-20 40h12l-25 50z" fill="#0f2f24"/>
+      </svg>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="section">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li><span>1</span><h3>Free estimate</h3><p>Use the instant quote below or we'll measure on-site. Most quotes take under 15 minutes.</p></li>
+        <li><span>2</span><h3>Custom design</h3><p>We plan the look with you: warm white, classic multicolor, or a mix. Lights are cut to fit your roofline.</p></li>
+        <li><span>3</span><h3>Pro install</h3><p>Our insured crew installs in one visit, usually 2–4 hours. Lights go on a timer and you're done.</p></li>
+        <li><span>4</span><h3>We handle the rest</h3><p>Bulb out? Free service call within 48 hours. After the holidays we take everything down and store it.</p></li>
+      </ol>
+    </section>
+
+    <!-- PACKAGES -->
+    <section id="packages" class="section alt">
+      <h2>Popular packages</h2>
+      <p class="sub">Starting prices for a typical home. Every quote is custom to your house.</p>
+      <div class="cards">
+        <article class="card">
+          <h3>Classic</h3>
+          <p class="price">from <strong>$599</strong></p>
+          <ul><li>Front roofline (up to ~110 ft)</li><li>C9 LED bulbs, your color choice</li><li>Timer included</li><li>Takedown &amp; storage</li></ul>
+          <a class="btn btn-ghost" href="#quote" data-preset="classic">Customize</a>
+        </article>
+        <article class="card featured">
+          <p class="badge">Most popular</p>
+          <h3>Signature</h3>
+          <p class="price">from <strong>$1,295</strong></p>
+          <ul><li>Full front roofline + 2 peaks</li><li>A medium tree wrap</li><li>Bushes &amp; front-door garland</li><li>Free mid-season service calls</li></ul>
+          <a class="btn" href="#quote" data-preset="signature">Customize</a>
+        </article>
+        <article class="card">
+          <h3>Showstopper</h3>
+          <p class="price">from <strong>$2,495</strong></p>
+          <ul><li>Whole-home roofline &amp; windows</li><li>Large &amp; medium tree wraps</li><li>Wreaths, garland &amp; pathway</li><li>Smart app-controlled timer</li></ul>
+          <a class="btn btn-ghost" href="#quote" data-preset="showstopper">Customize</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- QUOTE CALCULATOR -->
+    <section id="quote" class="section">
+      <h2>Instant estimate</h2>
+      <p class="sub">Build your display and see a price range right away. Final price is confirmed after a quick on-site look.</p>
+      <div class="quote">
+        <form id="quoteForm" class="quote-form" autocomplete="off">
+          <fieldset>
+            <legend>Roofline</legend>
+            <label class="row">
+              <span>Linear feet of roofline / gutters</span>
+              <input type="number" id="roofFeet" min="0" step="5" value="150" inputmode="numeric">
+            </label>
+            <div class="presets" id="roofPresets"><span>Not sure?</span></div>
+            <label class="check"><input type="checkbox" id="steep"> Steep roof (needs harness)</label>
+            <label class="check"><input type="checkbox" id="secondStory"> Significant second-story runs</label>
+          </fieldset>
+          <fieldset>
+            <legend>Trees, bushes &amp; extras</legend>
+            <div id="itemRows"></div>
+          </fieldset>
+          <fieldset>
+            <legend>Options</legend>
+            <div id="addonRows"></div>
+          </fieldset>
+          <fieldset>
+            <legend>Discounts</legend>
+            <div id="discountRows"></div>
+          </fieldset>
+        </form>
+        <aside class="quote-summary" aria-live="polite">
+          <p class="eyebrow">Your estimate</p>
+          <p class="total" id="total">$0</p>
+          <p class="range" id="range"></p>
+          <table id="breakdown"></table>
+          <div id="ownerPanel" class="owner" hidden></div>
+          <div class="summary-actions">
+            <a class="btn" href="#contact" id="bookBtn">Book this design</a>
+            <button class="btn btn-ghost" type="button" id="printBtn">Print / save quote</button>
+          </div>
+          <p class="fine">Lease pricing: we supply the lights, install, maintain, take down, and store them. Tax not included.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section alt">
+      <h2>Questions, answered</h2>
+      <div class="faq">
+        <details><summary>When do you install and take down?</summary><p>Installs run from late October through mid-December. Takedown starts the first week of January. You choose your dates when you book.</p></details>
+        <details><summary>Do I have to buy the lights?</summary><p>No. Most customers lease: we own the lights, maintain them, and store them each year. You can also buy them for about 35% more and they're yours after takedown.</p></details>
+        <details><summary>Will you damage my roof or gutters?</summary><p>Never. We use plastic clips that grip shingles and gutters. No nails, staples, or screws. We're fully insured.</p></details>
+        <details><summary>What if a bulb goes out?</summary><p>Call or text us. Service calls are free all season, and we usually fix it within 48 hours.</p></details>
+        <details><summary>Can I use my own lights?</summary><p>Yes. We can hang customer-owned lights at our labor rate. We can't guarantee their performance, so we recommend ours.</p></details>
+        <details><summary>Do you need power or outlets?</summary><p>We use your existing outdoor outlets on GFCI-protected circuits. If you need a new outlet, we'll arrange a licensed electrician.</p></details>
+        <details><summary>Do you work with HOAs?</summary><p>Yes. We'll give you a design mockup to submit for approval, and we can do matching displays for a whole street.</p></details>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <h2>Book your install</h2>
+      <p class="sub">Install slots fill up fast. Send this and we'll confirm a date within one business day.</p>
+      <form id="contactForm" class="contact">
+        <label>Name<input name="name" required></label>
+        <label>Phone<input name="phone" type="tel" required></label>
+        <label>Email<input name="email" type="email" required></label>
+        <label>Address<input name="address" required></label>
+        <label class="full">Preferred install window
+          <select name="window"><option>As soon as possible</option><option>Before Thanksgiving</option><option>Early December</option><option>Mid December</option></select>
+        </label>
+        <label class="full">Notes<textarea name="notes" rows="3" placeholder="Colors, HOA rules, gate codes, anything we should know"></textarea></label>
+        <input type="hidden" name="estimate" id="estimateField">
+        <button class="btn full" type="submit">Request my install date</button>
+        <p class="fine full" id="contactMsg"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><strong data-biz="name">Evergleam Holiday Lighting</strong> · Serving <span data-biz="serviceArea"></span></p>
+    <p><a data-biz-href="phone" data-biz="phone"></a> · <a data-biz-href="email" data-biz="email"></a></p>
+    <p class="fine">Fully insured · © <span id="year"></span></p>
+  </footer>
+
+  <script src="pricing.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
